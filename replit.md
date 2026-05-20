@@ -1,61 +1,71 @@
-# Meridian
+# EliteLobby
 
-A project management web app for small B2B SaaS startup teams to track tasks, assign owners, set deadlines, and view progress across projects.
+A premium esports tournament platform for competitive mobile gaming (Free Fire, BGMI, Valorant, COD Mobile). Players can browse/join paid tournaments, track rankings, manage their wallet, and admins can manage everything via a dedicated panel.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 8080)
-- `pnpm --filter @workspace/web run dev` — run the web frontend (port 22333)
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- `pnpm --filter @workspace/web run dev` — run the Next.js frontend (port 22333)
+- `pnpm --filter @workspace/api-server run dev` — run the API server (port 8080, legacy Meridian API — not used by EliteLobby yet)
 
 ## Stack
 
-- pnpm workspaces, Node.js 24, TypeScript 5.9
-- Frontend: React + Vite, wouter, TanStack Query, shadcn/ui, framer-motion
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- **Frontend**: Next.js 15.1.8, React 19, Tailwind CSS v4, Framer Motion, Lucide React
+- **Backend**: Supabase (PostgreSQL + Auth + RLS) — optional, falls back to mock data
+- **Fonts**: Orbitron (display), Rajdhani (headings), Inter (body) via Google Fonts
+- **Design**: Cyberpunk/dark gaming aesthetic — glassmorphism, neon glows, animated grid background
 
 ## Where things live
 
-- `lib/api-spec/openapi.yaml` — API contract source of truth
-- `lib/db/src/schema/` — Drizzle table definitions (projects, members, tasks, activity)
-- `artifacts/api-server/src/routes/` — Express route handlers
-- `artifacts/web/src/pages/` — React pages (dashboard, projects, project-detail, tasks, members)
-- `artifacts/web/src/components/layout/app-layout.tsx` — sidebar + header shell
+- `artifacts/web/app/` — Next.js App Router pages
+  - `page.tsx` — Landing page (hero, stats, featured tournaments, leaderboard preview, testimonials)
+  - `auth/login/page.tsx` — Login
+  - `auth/signup/page.tsx` — 2-step registration
+  - `dashboard/page.tsx` — Player dashboard (profile, wallet, notifications, tournaments)
+  - `tournaments/page.tsx` — Tournament listing with filters
+  - `tournaments/[id]/page.tsx` — Tournament detail with registration and room ID reveal
+  - `leaderboard/page.tsx` — Global leaderboard with podium and table
+  - `admin/page.tsx` — Admin panel (overview, tournaments, users, payments, announcements)
+  - `support/page.tsx` — FAQ, support tickets, report player
+- `artifacts/web/components/` — Shared components
+  - `layout/navbar.tsx` — Sticky glass navbar with mobile menu
+  - `layout/footer.tsx` — Footer with Discord CTA
+  - `ui/tournament-card.tsx` — Full-featured tournament card with countdown
+  - `ui/stats-counter.tsx` — Animated stat counter
+- `artifacts/web/lib/` — Utilities
+  - `mock-data.ts` — Rich mock data for all entities (tournaments, leaderboard, users)
+  - `supabase.ts` — Browser client (null-safe when credentials missing)
+  - `utils.ts` — cn(), formatCurrency(), formatTimeLeft(), getRankColor()
+- `artifacts/web/supabase/schema.sql` — Full Supabase schema with RLS policies
 
-## Architecture decisions
+## Supabase Setup
 
-- Contract-first: OpenAPI spec gates codegen which gates the frontend; never hand-write types that codegen produces
-- Activity log is best-effort (never throws); logged server-side on mutations
-- Task enrichment (projectName, assigneeName) is done in route handlers via joined selects, not stored denormalized
-- All date fields use `timestamptz`; serialized to ISO strings in API responses
+To connect to a real database, add these secrets:
+- `NEXT_PUBLIC_SUPABASE_URL` — your Supabase project URL
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` — your Supabase anon/public key
+- `SUPABASE_SERVICE_ROLE_KEY` — your Supabase service role key (for admin operations)
 
-## Product
+Run `artifacts/web/supabase/schema.sql` in the Supabase SQL Editor to create all tables.
 
-- Dashboard: team-wide stats (active projects, task completion, overdue items), activity feed, overdue task list
-- Projects: card grid with progress bars, create/delete, color picker
-- Project Detail: task board grouped by status, inline status editing, add tasks
-- Tasks: global task list with status/project filters, inline status editing
-- Members: team roster with roles and task counts, add/remove members
+Without these, the app runs fully on mock data.
+
+## Design System
+
+- **BG**: `#050508` near-black
+- **Primary**: `#7c3aed` purple with neon glow
+- **Secondary**: `#06b6d4` cyan
+- **Danger/Live**: `#ef4444` red
+- **Gold/Prize**: `#f59e0b` amber
+- **CSS classes**: `.glass`, `.glass-card`, `.btn-primary`, `.btn-secondary`, `.btn-gold`, `.btn-danger`, `.gradient-text`, `.gradient-text-gold`, `.live-badge`, `.live-dot`, `.rgb-border`, `.gaming-table`, `.gaming-input`, `.progress-bar`, `.progress-fill`
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Cyberpunk/dark gaming design (Valorant/BGMI aesthetic)
+- Indian market focus (₹ currency, UPI payments)
+- All pages use `"use client"` since they have interactive elements
 
 ## Gotchas
 
-- Always run codegen after changing `openapi.yaml`
-- `pnpm run typecheck:libs` must pass before the design subagent can use generated hooks
-- The `projects/:id/tasks` route imports `membersTable` and `projectsTable` via dynamic imports — works fine at runtime
-- Express 5: wildcard routes use `/{*splat}` syntax, `req.params.id` is `string | string[]` — always parse with `parseInt`
-
-## Pointers
-
-- See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- Tailwind v4 uses `@import "tailwindcss"` in CSS + `@tailwindcss/postcss` in postcss.config.mjs — NO tailwind.config.ts needed
+- Next.js 15 App Router: all interactive pages need `"use client"` at the top
+- Font loading via `next/font/google` is NOT used — Google Fonts are loaded via CSS `@import` in globals.css (simpler for custom font-family CSS classes)
+- Path alias `@/*` maps to `./` (root of artifacts/web), not `./src/*`
