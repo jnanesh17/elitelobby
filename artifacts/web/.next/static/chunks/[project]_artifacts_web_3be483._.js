@@ -547,6 +547,7 @@ __turbopack_esm__({
     "MOCK_LEADERBOARD": (()=>MOCK_LEADERBOARD),
     "MOCK_NOTIFICATIONS": (()=>MOCK_NOTIFICATIONS),
     "MOCK_RECENT_WINNERS": (()=>MOCK_RECENT_WINNERS),
+    "MOCK_REGISTRATIONS": (()=>MOCK_REGISTRATIONS),
     "MOCK_STATS": (()=>MOCK_STATS),
     "MOCK_TOURNAMENTS": (()=>MOCK_TOURNAMENTS),
     "MOCK_TRANSACTIONS": (()=>MOCK_TRANSACTIONS),
@@ -845,6 +846,238 @@ const MOCK_TRANSACTIONS = [
         amount: -100,
         status: "completed",
         created_at: new Date(Date.now() - 21600000).toISOString()
+    }
+];
+const MOCK_REGISTRATIONS = [
+    {
+        id: "r1",
+        tournament_id: "t1",
+        username: "NightShade_X",
+        game_uid: "FF-88241",
+        email: "night@example.com",
+        fee_paid: 50,
+        registered_at: new Date(Date.now() - 5 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r2",
+        tournament_id: "t1",
+        username: "ShadowKing99",
+        game_uid: "FF-72910",
+        email: "shadow@example.com",
+        fee_paid: 50,
+        registered_at: new Date(Date.now() - 4 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r3",
+        tournament_id: "t1",
+        username: "CyberHawk_V2",
+        game_uid: "FF-10023",
+        email: "cyber@example.com",
+        fee_paid: 50,
+        registered_at: new Date(Date.now() - 3 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r4",
+        tournament_id: "t1",
+        username: "StormRaider_K",
+        game_uid: "FF-33891",
+        email: "storm@example.com",
+        fee_paid: 50,
+        registered_at: new Date(Date.now() - 2 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r5",
+        tournament_id: "t1",
+        username: "DemoPlayer",
+        game_uid: "FF123456789",
+        email: "demo@example.com",
+        fee_paid: 50,
+        registered_at: new Date(Date.now() - 1 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r6",
+        tournament_id: "t2",
+        username: "ProSniper_Z",
+        game_uid: "BG-55001",
+        email: "pro@example.com",
+        fee_paid: 100,
+        registered_at: new Date(Date.now() - 6 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r7",
+        tournament_id: "t2",
+        username: "EliteForce77",
+        game_uid: "BG-20938",
+        email: "elite@example.com",
+        fee_paid: 100,
+        registered_at: new Date(Date.now() - 5 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r8",
+        tournament_id: "t2",
+        username: "GhostRider_M",
+        game_uid: "BG-91004",
+        email: "ghost@example.com",
+        fee_paid: 100,
+        registered_at: new Date(Date.now() - 4 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r9",
+        tournament_id: "t2",
+        username: "ThunderBolt_S",
+        game_uid: "BG-77321",
+        email: "thunder@example.com",
+        fee_paid: 100,
+        registered_at: new Date(Date.now() - 3 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r10",
+        tournament_id: "t2",
+        username: "NeonAssassin",
+        game_uid: "BG-48871",
+        email: "neon@example.com",
+        fee_paid: 100,
+        registered_at: new Date(Date.now() - 2 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r11",
+        tournament_id: "t2",
+        username: "RedViper_99",
+        game_uid: "BG-30012",
+        email: "red@example.com",
+        fee_paid: 100,
+        registered_at: new Date(Date.now() - 90 * 60000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r12",
+        tournament_id: "t3",
+        username: "NightShade_X",
+        game_uid: "VL-44231",
+        email: "night@example.com",
+        fee_paid: 200,
+        registered_at: new Date(Date.now() - 8 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r13",
+        tournament_id: "t3",
+        username: "CyberHawk_V2",
+        game_uid: "VL-88120",
+        email: "cyber@example.com",
+        fee_paid: 200,
+        registered_at: new Date(Date.now() - 7 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r14",
+        tournament_id: "t3",
+        username: "DemoPlayer",
+        game_uid: "FF123456789",
+        email: "demo@example.com",
+        fee_paid: 200,
+        registered_at: new Date(Date.now() - 45 * 60000).toISOString(),
+        payment_status: "pending"
+    },
+    {
+        id: "r15",
+        tournament_id: "t4",
+        username: "ShadowKing99",
+        game_uid: "CM-29981",
+        email: "shadow@example.com",
+        fee_paid: 75,
+        registered_at: new Date(Date.now() - 3 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r16",
+        tournament_id: "t4",
+        username: "GhostRider_M",
+        game_uid: "CM-71400",
+        email: "ghost@example.com",
+        fee_paid: 75,
+        registered_at: new Date(Date.now() - 2 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r17",
+        tournament_id: "t4",
+        username: "StormRaider_K",
+        game_uid: "CM-55039",
+        email: "storm@example.com",
+        fee_paid: 75,
+        registered_at: new Date(Date.now() - 80 * 60000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r18",
+        tournament_id: "t5",
+        username: "EliteForce77",
+        game_uid: "PB-31220",
+        email: "elite@example.com",
+        fee_paid: 150,
+        registered_at: new Date(Date.now() - 2 * 86400000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r19",
+        tournament_id: "t5",
+        username: "ThunderBolt_S",
+        game_uid: "PB-60087",
+        email: "thunder@example.com",
+        fee_paid: 150,
+        registered_at: new Date(Date.now() - 2 * 86400000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r20",
+        tournament_id: "t5",
+        username: "NeonAssassin",
+        game_uid: "PB-19345",
+        email: "neon@example.com",
+        fee_paid: 150,
+        registered_at: new Date(Date.now() - 2 * 86400000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r21",
+        tournament_id: "t6",
+        username: "RedViper_99",
+        game_uid: "FF-66109",
+        email: "red@example.com",
+        fee_paid: 30,
+        registered_at: new Date(Date.now() - 1 * 3600000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r22",
+        tournament_id: "t6",
+        username: "NightShade_X",
+        game_uid: "FF-88241",
+        email: "night@example.com",
+        fee_paid: 30,
+        registered_at: new Date(Date.now() - 40 * 60000).toISOString(),
+        payment_status: "confirmed"
+    },
+    {
+        id: "r23",
+        tournament_id: "t6",
+        username: "DemoPlayer",
+        game_uid: "FF123456789",
+        email: "demo@example.com",
+        fee_paid: 30,
+        registered_at: new Date(Date.now() - 20 * 60000).toISOString(),
+        payment_status: "pending"
     }
 ];
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {

@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MOCK_TOURNAMENTS } from "@/lib/mock-data";
+import { MOCK_TOURNAMENTS, MOCK_REGISTRATIONS } from "@/lib/mock-data";
 import { formatCurrency } from "@/lib/utils";
-import { Shield, Users, Trophy, DollarSign, BarChart3, Bell, Ban, CheckCircle2, XCircle, Clock, Plus, Edit, Trash2, Eye, TrendingUp, ImageIcon, X, ChevronDown, ChevronUp, Gift } from "lucide-react";
+import { Shield, Users, Trophy, DollarSign, BarChart3, Bell, Ban, CheckCircle2, XCircle, Clock, Plus, Edit, Trash2, Eye, TrendingUp, ImageIcon, X, ChevronDown, ChevronUp, Gift, ClipboardList, Search, Download, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type AdminTab = "overview" | "tournaments" | "users" | "payments" | "announcements";
+type AdminTab = "overview" | "tournaments" | "registrations" | "users" | "payments" | "announcements";
 
 const MOCK_PENDING_PAYMENTS = [
   {
@@ -226,6 +226,206 @@ function UsersTab() {
   );
 }
 
+function RegistrationsTab({ onViewTournament }: { onViewTournament?: (id: string) => void }) {
+  const [selectedTournament, setSelectedTournament] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
+
+  const tournament = selectedTournament
+    ? MOCK_TOURNAMENTS.find((t) => t.id === selectedTournament)
+    : null;
+
+  const regs = MOCK_REGISTRATIONS.filter((r) => {
+    if (selectedTournament && r.tournament_id !== selectedTournament) return false;
+    if (search) {
+      const q = search.toLowerCase();
+      return (
+        r.username.toLowerCase().includes(q) ||
+        r.game_uid.toLowerCase().includes(q) ||
+        r.email.toLowerCase().includes(q)
+      );
+    }
+    return true;
+  });
+
+  // Per-tournament summary
+  const tournamentSummary = MOCK_TOURNAMENTS.map((t) => {
+    const tRegs = MOCK_REGISTRATIONS.filter((r) => r.tournament_id === t.id);
+    const revenue = tRegs.filter((r) => r.payment_status === "confirmed").length * t.entry_fee;
+    return { ...t, regCount: tRegs.length, confirmed: tRegs.filter(r => r.payment_status === "confirmed").length, pending: tRegs.filter(r => r.payment_status === "pending").length, revenue };
+  });
+
+  return (
+    <div className="space-y-5">
+      {/* Tournament summary cards */}
+      <div>
+        <h3 className="font-heading font-bold text-white mb-3 flex items-center gap-2">
+          <ClipboardList className="w-4 h-4 text-purple-400" /> Tournament Registrations
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {tournamentSummary.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setSelectedTournament(selectedTournament === t.id ? null : t.id)}
+              className={cn(
+                "glass-card rounded-2xl p-4 text-left border-2 transition-all hover:border-purple/40",
+                selectedTournament === t.id ? "border-purple/60 bg-purple/5" : "border-transparent"
+              )}
+            >
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <p className="font-heading font-bold text-white text-sm leading-tight">{t.title}</p>
+                  <p className="text-xs text-slate-500 font-heading">{t.game} · {t.game_mode}</p>
+                </div>
+                <span className={cn("text-xs font-heading font-bold border rounded-full px-2 py-0.5", `status-${t.status}`)}>
+                  {t.status.toUpperCase()}
+                </span>
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                <div className="bg-black/30 rounded-xl p-2.5 text-center">
+                  <p className="font-display font-black text-xl text-white">{t.regCount}</p>
+                  <p className="text-xs text-slate-500 font-heading">Total</p>
+                </div>
+                <div className="bg-black/30 rounded-xl p-2.5 text-center">
+                  <p className="font-display font-black text-xl text-green-400">{t.confirmed}</p>
+                  <p className="text-xs text-slate-500 font-heading">Paid</p>
+                </div>
+                <div className="bg-black/30 rounded-xl p-2.5 text-center">
+                  <p className="font-display font-black text-xl text-yellow-400">₹{(t.revenue / 1000).toFixed(1)}k</p>
+                  <p className="text-xs text-slate-500 font-heading">Revenue</p>
+                </div>
+              </div>
+              <div className="flex items-center justify-between mt-3">
+                <div className="progress-bar flex-1 mr-3 h-1.5 rounded-full">
+                  <div className="progress-fill h-full rounded-full" style={{ width: `${Math.round((t.filled_slots / t.max_slots) * 100)}%` }} />
+                </div>
+                <span className="text-xs text-slate-400 font-heading">{t.filled_slots}/{t.max_slots}</span>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Player list */}
+      <div className="glass-card rounded-2xl overflow-hidden">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-purple/10">
+          <p className="font-heading font-bold text-white text-sm">
+            {tournament ? `${tournament.title} — ` : "All "}
+            <span className="text-purple-400">{regs.length} registrants</span>
+          </p>
+          <div className="flex items-center gap-2">
+            {selectedTournament && (
+              <button
+                onClick={() => setSelectedTournament(null)}
+                className="text-xs text-slate-400 hover:text-white font-heading transition-colors flex items-center gap-1"
+              >
+                <X className="w-3 h-3" /> Clear filter
+              </button>
+            )}
+            {/* Search */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500" />
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search player..."
+                className="gaming-input pl-8 pr-3 py-1.5 rounded-lg text-xs w-40"
+              />
+            </div>
+          </div>
+        </div>
+
+        {regs.length === 0 ? (
+          <div className="p-12 text-center">
+            <Users className="w-10 h-10 text-slate-700 mx-auto mb-2" />
+            <p className="text-slate-500 font-heading text-sm">No registrations found</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full gaming-table">
+              <thead>
+                <tr>
+                  <th className="text-left">#</th>
+                  <th className="text-left">Player</th>
+                  <th className="text-left hidden sm:table-cell">Game UID</th>
+                  <th className="text-left hidden md:table-cell">Email</th>
+                  {!selectedTournament && <th className="text-left hidden lg:table-cell">Tournament</th>}
+                  <th className="text-right">Entry Fee</th>
+                  <th className="text-center">Payment</th>
+                  <th className="text-right hidden md:table-cell">Registered</th>
+                </tr>
+              </thead>
+              <tbody>
+                {regs.map((r, i) => {
+                  const t = MOCK_TOURNAMENTS.find((t) => t.id === r.tournament_id);
+                  return (
+                    <motion.tr
+                      key={r.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: i * 0.02 }}
+                    >
+                      <td className="text-slate-500 font-heading text-xs">{i + 1}</td>
+                      <td>
+                        <div className="flex items-center gap-2">
+                          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-purple-700 to-cyan-700 flex items-center justify-center font-display font-bold text-xs text-white flex-shrink-0">
+                            {r.username[0]}
+                          </div>
+                          <span className="font-heading font-semibold text-white text-sm">{r.username}</span>
+                        </div>
+                      </td>
+                      <td className="hidden sm:table-cell font-mono text-xs text-cyan-400">{r.game_uid}</td>
+                      <td className="hidden md:table-cell text-slate-400 text-xs font-heading">{r.email}</td>
+                      {!selectedTournament && (
+                        <td className="hidden lg:table-cell">
+                          <button
+                            onClick={() => setSelectedTournament(r.tournament_id)}
+                            className="text-xs text-purple-400 hover:text-purple-300 font-heading font-semibold transition-colors flex items-center gap-1"
+                          >
+                            {t?.title} <ChevronRight className="w-3 h-3" />
+                          </button>
+                        </td>
+                      )}
+                      <td className="text-right font-display font-bold text-yellow-400 text-sm">₹{r.fee_paid}</td>
+                      <td className="text-center">
+                        <span className={cn(
+                          "text-xs font-heading font-bold border rounded-full px-2 py-0.5",
+                          r.payment_status === "confirmed"
+                            ? "text-green-400 border-green-500/30 bg-green-500/10"
+                            : "text-yellow-400 border-yellow-500/30 bg-yellow-500/10"
+                        )}>
+                          {r.payment_status === "confirmed" ? "✓ Paid" : "Pending"}
+                        </span>
+                      </td>
+                      <td className="hidden md:table-cell text-right text-xs text-slate-500 font-heading">
+                        {new Date(r.registered_at).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                      </td>
+                    </motion.tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {/* Footer with totals */}
+        {regs.length > 0 && (
+          <div className="px-5 py-3 border-t border-purple/10 flex items-center justify-between">
+            <p className="text-xs text-slate-500 font-heading">
+              {regs.filter(r => r.payment_status === "confirmed").length} confirmed · {regs.filter(r => r.payment_status === "pending").length} pending
+            </p>
+            <p className="text-xs text-slate-400 font-heading">
+              Total collected: <span className="text-yellow-400 font-bold font-display">
+                ₹{regs.filter(r => r.payment_status === "confirmed").reduce((s, r) => s + r.fee_paid, 0).toLocaleString()}
+              </span>
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function PaymentsTab() {
   const [payments, setPayments] = useState(
     MOCK_PENDING_PAYMENTS.map((p) => ({ ...p, status: "pending" as "pending" | "approved" | "rejected", expanded: false }))
@@ -436,9 +636,11 @@ function PaymentsTab() {
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<AdminTab>("overview");
-  const TABS: { key: AdminTab; label: string; icon: React.ReactNode }[] = [
+  const totalRegs = MOCK_REGISTRATIONS.length;
+  const TABS: { key: AdminTab; label: string; icon: React.ReactNode; badge?: number }[] = [
     { key: "overview", label: "Overview", icon: <BarChart3 className="w-4 h-4" /> },
     { key: "tournaments", label: "Tournaments", icon: <Trophy className="w-4 h-4" /> },
+    { key: "registrations", label: "Registrations", icon: <ClipboardList className="w-4 h-4" />, badge: totalRegs },
     { key: "users", label: "Users", icon: <Users className="w-4 h-4" /> },
     { key: "payments", label: "Payments", icon: <DollarSign className="w-4 h-4" /> },
     { key: "announcements", label: "Announce", icon: <Bell className="w-4 h-4" /> },
@@ -475,6 +677,11 @@ export default function AdminPage() {
               )}
             >
               {tab.icon} {tab.label}
+              {tab.badge != null && (
+                <span className="bg-white/15 text-white text-[10px] font-heading font-bold rounded-full px-1.5 py-0.5 leading-none">
+                  {tab.badge}
+                </span>
+              )}
             </button>
           ))}
         </div>
@@ -488,6 +695,7 @@ export default function AdminPage() {
         >
           {activeTab === "overview" && <OverviewTab />}
           {activeTab === "tournaments" && <TournamentsTab />}
+          {activeTab === "registrations" && <RegistrationsTab />}
           {activeTab === "users" && <UsersTab />}
           {activeTab === "payments" && <PaymentsTab />}
           {activeTab === "announcements" && (
