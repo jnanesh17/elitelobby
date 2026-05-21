@@ -3,15 +3,32 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { MOCK_TOURNAMENTS } from "@/lib/mock-data";
 import { formatCurrency } from "@/lib/utils";
-import { Shield, Users, Trophy, DollarSign, BarChart3, Bell, Ban, CheckCircle2, XCircle, Clock, Settings, Plus, Edit, Trash2, Eye, TrendingUp, AlertTriangle } from "lucide-react";
+import { Shield, Users, Trophy, DollarSign, BarChart3, Bell, Ban, CheckCircle2, XCircle, Clock, Plus, Edit, Trash2, Eye, TrendingUp, ImageIcon, X, ChevronDown, ChevronUp, Gift } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type AdminTab = "overview" | "tournaments" | "users" | "payments" | "announcements";
 
 const MOCK_PENDING_PAYMENTS = [
-  { id: "p1", user: "CyberWarrior99", amount: 500, txId: "UPI123456789", time: "2 min ago" },
-  { id: "p2", user: "NeonSniper88", amount: 1000, txId: "UPI987654321", time: "15 min ago" },
-  { id: "p3", user: "GhostRider_X", amount: 200, txId: "UPI555666777", time: "32 min ago" },
+  {
+    id: "p1", user: "CyberWarrior99", amount: 500, utr: "012345678901",
+    time: "2 min ago", upi: "cyberwarrior@paytm", bonus: 25,
+    screenshot: "https://placehold.co/400x600/0a0a14/7c3aed?text=Payment+Screenshot",
+  },
+  {
+    id: "p2", user: "NeonSniper88", amount: 1000, utr: "098765432100",
+    time: "15 min ago", upi: "neonsniper@okaxis", bonus: 100,
+    screenshot: "https://placehold.co/400x600/0a0a14/06b6d4?text=Payment+Screenshot",
+  },
+  {
+    id: "p3", user: "GhostRider_X", amount: 200, utr: "055566677700",
+    time: "32 min ago", upi: "ghostrider@upi", bonus: 0,
+    screenshot: null,
+  },
+  {
+    id: "p4", user: "StormRaider_K", amount: 2000, utr: "020304050607",
+    time: "1 hr ago", upi: "stormraider@ybl", bonus: 300,
+    screenshot: "https://placehold.co/400x600/0a0a14/f59e0b?text=Payment+Screenshot",
+  },
 ];
 
 const MOCK_USERS_ADMIN = [
@@ -209,6 +226,214 @@ function UsersTab() {
   );
 }
 
+function PaymentsTab() {
+  const [payments, setPayments] = useState(
+    MOCK_PENDING_PAYMENTS.map((p) => ({ ...p, status: "pending" as "pending" | "approved" | "rejected", expanded: false }))
+  );
+  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [filter, setFilter] = useState<"all" | "pending" | "approved" | "rejected">("pending");
+
+  function approve(id: string) {
+    setPayments((ps) => ps.map((p) => p.id === id ? { ...p, status: "approved" } : p));
+  }
+  function reject(id: string) {
+    setPayments((ps) => ps.map((p) => p.id === id ? { ...p, status: "rejected" } : p));
+  }
+  function toggle(id: string) {
+    setPayments((ps) => ps.map((p) => p.id === id ? { ...p, expanded: !p.expanded } : p));
+  }
+
+  const filtered = payments.filter((p) => filter === "all" || p.status === filter);
+  const counts = { all: payments.length, pending: payments.filter(p => p.status === "pending").length, approved: payments.filter(p => p.status === "approved").length, rejected: payments.filter(p => p.status === "rejected").length };
+
+  return (
+    <div className="space-y-5">
+      {/* Summary cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {(["all", "pending", "approved", "rejected"] as const).map((f) => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            className={cn(
+              "glass-card rounded-xl p-4 text-left border-2 transition-all",
+              filter === f
+                ? f === "pending" ? "border-yellow-500/50" : f === "approved" ? "border-green-500/50" : f === "rejected" ? "border-red-500/50" : "border-purple/50"
+                : "border-transparent hover:border-white/10"
+            )}
+          >
+            <p className="text-xs font-heading text-slate-400 mb-1 capitalize">{f}</p>
+            <p className={cn("font-display font-black text-2xl",
+              f === "pending" ? "text-yellow-400" : f === "approved" ? "text-green-400" : f === "rejected" ? "text-red-400" : "text-white"
+            )}>{counts[f]}</p>
+          </button>
+        ))}
+      </div>
+
+      {/* Payment cards */}
+      <div className="space-y-3">
+        {filtered.length === 0 && (
+          <div className="glass-card rounded-2xl p-10 text-center">
+            <p className="text-slate-500 font-heading">No {filter} payments</p>
+          </div>
+        )}
+        {filtered.map((p) => (
+          <motion.div
+            key={p.id}
+            layout
+            className={cn(
+              "glass-card rounded-2xl overflow-hidden border",
+              p.status === "approved" ? "border-green-500/20" : p.status === "rejected" ? "border-red-500/15" : "border-yellow-500/20"
+            )}
+          >
+            {/* Main row */}
+            <div className="flex items-center gap-4 p-4">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-700 to-cyan-700 flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0">
+                {p.user[0]}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <p className="font-heading font-bold text-white text-sm">{p.user}</p>
+                  <span className={cn(
+                    "text-xs font-heading font-bold border rounded-full px-2 py-0.5",
+                    p.status === "approved" ? "border-green-500/30 text-green-400 bg-green-500/10"
+                      : p.status === "rejected" ? "border-red-500/30 text-red-400 bg-red-500/10"
+                      : "border-yellow-500/30 text-yellow-400 bg-yellow-500/10"
+                  )}>
+                    {p.status.toUpperCase()}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 font-heading">
+                  UTR: <span className="font-mono text-cyan-400">{p.utr}</span> · {p.upi} · {p.time}
+                </p>
+              </div>
+              <div className="text-right flex-shrink-0">
+                <p className="font-display font-black text-xl text-yellow-400">₹{p.amount}</p>
+                {p.bonus > 0 && (
+                  <p className="text-xs text-green-400 font-heading flex items-center gap-1 justify-end">
+                    <Gift className="w-3 h-3" />+₹{p.bonus} bonus
+                  </p>
+                )}
+              </div>
+              {/* Expand toggle */}
+              <button
+                onClick={() => toggle(p.id)}
+                className="w-8 h-8 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/25 transition-all flex-shrink-0"
+              >
+                {p.expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </button>
+            </div>
+
+            {/* Expanded detail */}
+            {p.expanded && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="border-t border-white/5 p-4"
+              >
+                <div className="flex flex-col md:flex-row gap-5">
+                  {/* Screenshot preview */}
+                  <div className="md:w-56 flex-shrink-0">
+                    <p className="text-xs text-slate-400 font-heading mb-2 flex items-center gap-1.5">
+                      <ImageIcon className="w-3.5 h-3.5" /> Payment Screenshot
+                    </p>
+                    {p.screenshot ? (
+                      <button
+                        onClick={() => setLightbox(p.screenshot!)}
+                        className="block w-full rounded-xl overflow-hidden border-2 border-purple/20 hover:border-purple/50 transition-all group"
+                      >
+                        <img
+                          src={p.screenshot}
+                          alt="Payment proof"
+                          className="w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="bg-purple/20 py-1.5 text-center">
+                          <span className="text-xs text-purple-300 font-heading">Click to enlarge</span>
+                        </div>
+                      </button>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center gap-2 p-8 rounded-xl border-2 border-dashed border-white/10 text-slate-600">
+                        <ImageIcon className="w-8 h-8" />
+                        <p className="text-xs font-heading">No screenshot</p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Details & actions */}
+                  <div className="flex-1 space-y-3">
+                    <div className="grid grid-cols-2 gap-3">
+                      {[
+                        { label: "Amount", value: `₹${p.amount}`, color: "text-yellow-400" },
+                        { label: "Bonus Credit", value: p.bonus > 0 ? `+₹${p.bonus}` : "None", color: p.bonus > 0 ? "text-green-400" : "text-slate-500" },
+                        { label: "Total Credit", value: `₹${p.amount + p.bonus}`, color: "text-white" },
+                        { label: "UPI ID", value: p.upi, color: "text-cyan-400 font-mono text-xs" },
+                        { label: "UTR Number", value: p.utr, color: "text-purple-300 font-mono text-xs" },
+                        { label: "Submitted", value: p.time, color: "text-slate-400" },
+                      ].map((row) => (
+                        <div key={row.label} className="bg-black/20 rounded-xl p-3 border border-white/5">
+                          <p className="text-xs text-slate-500 font-heading mb-1">{row.label}</p>
+                          <p className={cn("font-heading font-bold text-sm", row.color)}>{row.value}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {p.status === "pending" && (
+                      <div className="flex gap-3 pt-1">
+                        <button
+                          onClick={() => approve(p.id)}
+                          className="btn-gold flex-1 py-2.5 rounded-xl text-sm font-heading font-bold flex items-center justify-center gap-2"
+                        >
+                          <CheckCircle2 className="w-4 h-4" /> Approve & Credit ₹{p.amount + p.bonus}
+                        </button>
+                        <button
+                          onClick={() => reject(p.id)}
+                          className="btn-danger flex-1 py-2.5 rounded-xl text-sm font-heading font-bold flex items-center justify-center gap-2"
+                        >
+                          <XCircle className="w-4 h-4" /> Reject
+                        </button>
+                      </div>
+                    )}
+                    {p.status === "approved" && (
+                      <div className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/20 rounded-xl">
+                        <CheckCircle2 className="w-4 h-4 text-green-400" />
+                        <p className="text-sm text-green-400 font-heading font-semibold">Approved — ₹{p.amount + p.bonus} credited to player wallet</p>
+                      </div>
+                    )}
+                    {p.status === "rejected" && (
+                      <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl">
+                        <XCircle className="w-4 h-4 text-red-400" />
+                        <p className="text-sm text-red-400 font-heading font-semibold">Rejected — player notified</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setLightbox(null)}
+        >
+          <button className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors">
+            <X className="w-5 h-5" />
+          </button>
+          <img
+            src={lightbox}
+            alt="Payment screenshot"
+            className="max-w-md w-full max-h-[85vh] object-contain rounded-2xl border border-purple/30"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<AdminTab>("overview");
   const TABS: { key: AdminTab; label: string; icon: React.ReactNode }[] = [
@@ -264,33 +489,7 @@ export default function AdminPage() {
           {activeTab === "overview" && <OverviewTab />}
           {activeTab === "tournaments" && <TournamentsTab />}
           {activeTab === "users" && <UsersTab />}
-          {activeTab === "payments" && (
-            <div className="glass-card rounded-2xl p-6">
-              <h3 className="font-heading font-bold text-white mb-4">Payment Approvals</h3>
-              <div className="space-y-3">
-                {MOCK_PENDING_PAYMENTS.map((p) => (
-                  <div key={p.id} className="flex items-center gap-4 p-4 bg-black/20 rounded-xl border border-yellow-500/20">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-700 to-cyan-700 flex items-center justify-center font-display font-bold text-sm text-white">
-                      {p.user[0]}
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-heading font-bold text-white">{p.user}</p>
-                      <p className="text-xs text-slate-400 font-heading">TX: <span className="font-mono text-cyan-400">{p.txId}</span> · {p.time}</p>
-                    </div>
-                    <span className="font-display font-black text-lg text-yellow-400">₹{p.amount}</span>
-                    <div className="flex gap-2">
-                      <button className="btn-gold px-4 py-2 rounded-xl text-xs font-heading font-bold flex items-center gap-1.5">
-                        <CheckCircle2 className="w-3.5 h-3.5" /> Approve
-                      </button>
-                      <button className="btn-danger px-4 py-2 rounded-xl text-xs font-heading font-bold flex items-center gap-1.5">
-                        <XCircle className="w-3.5 h-3.5" /> Reject
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          {activeTab === "payments" && <PaymentsTab />}
           {activeTab === "announcements" && (
             <div className="glass-card rounded-2xl p-6">
               <h3 className="font-heading font-bold text-white mb-4">Send Announcement</h3>

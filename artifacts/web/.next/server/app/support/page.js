@@ -1,0 +1,12 @@
+const CHUNK_PUBLIC_PATH = "server/app/support/page.js";
+const runtime = require("../../chunks/ssr/[turbopack]_runtime.js");
+runtime.loadChunk("server/chunks/ssr/7d4b8_next_dist_98a093._.js");
+runtime.loadChunk("server/chunks/ssr/[root of the server]__50a31b._.js");
+runtime.loadChunk("server/chunks/ssr/[project]__9943d0._.js");
+runtime.loadChunk("server/chunks/ssr/app_globals_5a3a0d.css");
+runtime.loadChunk("server/chunks/ssr/08b5e__pnpm_6df112._.js");
+runtime.loadChunk("server/chunks/ssr/7d4b8_next_dist_client_components_forbidden-error_7f8aee.js");
+runtime.loadChunk("server/chunks/ssr/7d4b8_next_dist_client_components_unauthorized-error_81e431.js");
+runtime.loadChunk("server/chunks/ssr/[project]__8b81fc._.js");
+runtime.getOrInstantiateRuntimeModule("[project]/artifacts/web/.next-internal/server/app/support/page/actions.js [app-rsc] (ecmascript)", CHUNK_PUBLIC_PATH);
+module.exports = runtime.getOrInstantiateRuntimeModule("[project]/node_modules/.pnpm/next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/next/dist/esm/build/templates/app-page.js?page=/support/page { MODULE_0 => \"[project]/artifacts/web/app/layout.tsx [app-rsc] (ecmascript, Next.js server component)\", MODULE_1 => \"[project]/node_modules/.pnpm/next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/next/dist/client/components/not-found-error.js [app-rsc] (ecmascript, Next.js server component)\", MODULE_2 => \"[project]/node_modules/.pnpm/next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/next/dist/client/components/forbidden-error.js [app-rsc] (ecmascript, Next.js server component)\", MODULE_3 => \"[project]/node_modules/.pnpm/next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/next/dist/client/components/unauthorized-error.js [app-rsc] (ecmascript, Next.js server component)\", MODULE_4 => \"[project]/artifacts/web/app/support/page.tsx [app-rsc] (ecmascript, Next.js server component)\" } [app-rsc] (ecmascript)", CHUNK_PUBLIC_PATH).exports;

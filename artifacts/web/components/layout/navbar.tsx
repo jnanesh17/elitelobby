@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Trophy, Zap, Bell } from "lucide-react";
+import { Menu, X, Zap, Bell, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { href: "/tournaments", label: "Tournaments" },
   { href: "/leaderboard", label: "Leaderboard" },
   { href: "/dashboard", label: "Dashboard" },
+  { href: "/wallet", label: "Wallet" },
   { href: "/support", label: "Support" },
 ];
 
