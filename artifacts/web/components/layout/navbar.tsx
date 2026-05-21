@@ -2,9 +2,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Zap, Bell, Wallet } from "lucide-react";
+import { Menu, X, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { NotificationBell } from "@/components/ui/notification-bell";
 
 const NAV_LINKS = [
   { href: "/tournaments", label: "Tournaments" },
@@ -65,10 +66,7 @@ export function Navbar() {
 
         {/* Auth */}
         <div className="hidden md:flex items-center gap-3">
-          <button className="relative p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors">
-            <Bell className="w-4 h-4" />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
-          </button>
+          <NotificationBell />
           <Link
             href="/auth/login"
             className="btn-secondary px-4 py-2 rounded-lg text-sm"

@@ -2,5 +2,6 @@
   "/page": "app/page.js",
   "/wallet/deposit/page": "app/wallet/deposit/page.js",
   "/wallet/page": "app/wallet/page.js",
-  "/admin/page": "app/admin/page.js"
+  "/admin/page": "app/admin/page.js",
+  "/notifications/page": "app/notifications/page.js"
 }
