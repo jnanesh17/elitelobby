@@ -9,24 +9,26 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "next": "15.1.8",
-    "@supabase/supabase-js": "^2.46.2",
+    "@clerk/nextjs": "^7.4.0",
+    "@clerk/themes": "^2.4.57",
     "@supabase/ssr": "^0.5.2",
-    "react": "catalog:",
-    "react-dom": "catalog:",
+    "@supabase/supabase-js": "^2.46.2",
+    "class-variance-authority": "catalog:",
+    "clsx": "catalog:",
+    "date-fns": "^4.1.0",
     "framer-motion": "catalog:",
     "lucide-react": "catalog:",
-    "clsx": "catalog:",
-    "tailwind-merge": "catalog:",
-    "class-variance-authority": "catalog:",
-    "date-fns": "^4.1.0"
+    "next": "15.1.8",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tailwind-merge": "catalog:"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.14",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "tailwindcss": "catalog:",
-    "@tailwindcss/postcss": "^4.1.14",
     "typescript": "^5.8.3"
   }
 }

@@ -1,11 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Menu, X, Zap } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { Menu, X, Zap, LogOut, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { NotificationBell } from "@/components/ui/notification-bell";
+import { useUser, useClerk } from "@clerk/nextjs";
 
 const NAV_LINKS = [
   { href: "/tournaments", label: "Tournaments" },
@@ -18,13 +19,32 @@ const NAV_LINKS = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, isLoaded, isSignedIn } = useUser();
+  const { signOut } = useClerk();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = () => setUserMenuOpen(false);
+    if (userMenuOpen) document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [userMenuOpen]);
+
+  const handleSignOut = () => {
+    signOut({ redirectUrl: "/" });
+    setUserMenuOpen(false);
+    setMobileOpen(false);
+  };
+
+  const avatarLetter = user?.firstName?.[0] || user?.username?.[0] || user?.emailAddresses?.[0]?.emailAddress?.[0] || "P";
+  const displayName = user?.firstName || user?.username || user?.emailAddresses?.[0]?.emailAddress?.split("@")[0] || "Player";
 
   return (
     <nav
@@ -64,21 +84,71 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* Auth */}
+        {/* Auth — Desktop */}
         <div className="hidden md:flex items-center gap-3">
           <NotificationBell />
-          <Link
-            href="/auth/login"
-            className="btn-secondary px-4 py-2 rounded-lg text-sm"
-          >
-            Login
-          </Link>
-          <Link
-            href="/auth/signup"
-            className="btn-primary px-5 py-2 rounded-lg text-sm relative z-10"
-          >
-            <span className="relative z-10">Play Now</span>
-          </Link>
+          {!isLoaded ? (
+            <div className="w-8 h-8 rounded-full bg-purple/20 animate-pulse" />
+          ) : isSignedIn ? (
+            <div className="relative">
+              <button
+                onClick={(e) => { e.stopPropagation(); setUserMenuOpen(!userMenuOpen); }}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-purple/30 hover:border-purple/60 transition-all glass"
+              >
+                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-600 to-cyan-500 flex items-center justify-center text-xs font-bold text-white font-display">
+                  {avatarLetter.toUpperCase()}
+                </div>
+                <span className="text-sm font-heading font-semibold text-slate-200 max-w-[100px] truncate">
+                  {displayName}
+                </span>
+              </button>
+
+              <AnimatePresence>
+                {userMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -8, scale: 0.95 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 top-full mt-2 w-48 glass-card rounded-xl border border-purple/20 overflow-hidden"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="flex items-center gap-2.5 px-4 py-3 text-sm font-heading text-slate-300 hover:bg-purple/10 hover:text-white transition-colors"
+                    >
+                      <User className="w-4 h-4 text-purple-400" />
+                      My Dashboard
+                    </Link>
+                    <div className="border-t border-purple/10" />
+                    <button
+                      onClick={handleSignOut}
+                      className="flex items-center gap-2.5 w-full px-4 py-3 text-sm font-heading text-red-400 hover:bg-red-500/10 transition-colors"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign Out
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ) : (
+            <>
+              <Link
+                href="/auth/login"
+                className="btn-secondary px-4 py-2 rounded-lg text-sm"
+              >
+                Login
+              </Link>
+              <Link
+                href="/auth/signup"
+                className="btn-primary px-5 py-2 rounded-lg text-sm relative z-10"
+              >
+                <span className="relative z-10">Play Now</span>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Toggle */}
@@ -116,12 +186,32 @@ export function Navbar() {
                 </Link>
               ))}
               <div className="pt-3 flex flex-col gap-2">
-                <Link href="/auth/login" className="btn-secondary px-4 py-3 rounded-lg text-center text-sm" onClick={() => setMobileOpen(false)}>
-                  Login
-                </Link>
-                <Link href="/auth/signup" className="btn-primary px-4 py-3 rounded-lg text-center text-sm relative" onClick={() => setMobileOpen(false)}>
-                  <span className="relative z-10">Play Now</span>
-                </Link>
+                {isSignedIn ? (
+                  <>
+                    <div className="flex items-center gap-3 px-4 py-3 glass-card rounded-lg">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-cyan-500 flex items-center justify-center text-sm font-bold text-white">
+                        {avatarLetter.toUpperCase()}
+                      </div>
+                      <span className="font-heading font-semibold text-white text-sm">{displayName}</span>
+                    </div>
+                    <button
+                      onClick={handleSignOut}
+                      className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-red-500/30 text-red-400 font-heading font-semibold text-sm hover:bg-red-500/10 transition-all"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link href="/auth/login" className="btn-secondary px-4 py-3 rounded-lg text-center text-sm" onClick={() => setMobileOpen(false)}>
+                      Login
+                    </Link>
+                    <Link href="/auth/signup" className="btn-primary px-4 py-3 rounded-lg text-center text-sm relative" onClick={() => setMobileOpen(false)}>
+                      <span className="relative z-10">Play Now</span>
+                    </Link>
+                  </>
+                )}
               </div>
             </div>
           </motion.div>
