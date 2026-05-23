@@ -6,7 +6,7 @@ import { MOCK_TOURNAMENTS } from "@/lib/mock-data";
 import { Search, SlidersHorizontal, Gamepad2, Users, Flame } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const GAMES = ["All", "Free Fire", "BGMI", "Valorant", "COD Mobile", "PUBG Mobile"];
+const GAMES = ["All", "Free Fire", "BGMI", "Valorant", "COD Mobile"];
 const COMING_SOON_GAMES = new Set(["BGMI", "Valorant", "COD Mobile"]);
 const MODES = ["All", "Solo", "Duo", "Squad"];
 const STATUSES = ["All", "Live", "Upcoming", "Completed"];

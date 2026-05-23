@@ -980,8 +980,7 @@ const GAMES = [
     "Free Fire",
     "BGMI",
     "Valorant",
-    "COD Mobile",
-    "PUBG Mobile"
+    "COD Mobile"
 ];
 const COMING_SOON_GAMES = new Set([
     "BGMI",
