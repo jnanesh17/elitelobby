@@ -3,7 +3,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { MOCK_TOURNAMENTS, MOCK_REGISTRATIONS } from "@/lib/mock-data";
 import { formatCurrency } from "@/lib/utils";
-import { Shield, Users, Trophy, DollarSign, BarChart3, Bell, Ban, CheckCircle2, XCircle, Clock, Plus, Edit, Trash2, Eye, TrendingUp, ImageIcon, X, ChevronDown, ChevronUp, Gift, ClipboardList, Search, Download, ChevronRight } from "lucide-react";
+import { Shield, Users, Trophy, DollarSign, BarChart3, Bell, Ban, CheckCircle2, XCircle, Clock, Plus, Edit, Trash2, Eye, TrendingUp, ImageIcon, X, ChevronDown, ChevronUp, Gift, ClipboardList, Search, Download, ChevronRight, Key, Lock, Unlock, Send, RotateCcw } from "lucide-react";
+import { useRoomIds } from "@/lib/room-id-context";
+import { useNotifications } from "@/lib/notifications-context";
 import { cn } from "@/lib/utils";
 
 type AdminTab = "overview" | "tournaments" | "registrations" | "users" | "payments" | "announcements";

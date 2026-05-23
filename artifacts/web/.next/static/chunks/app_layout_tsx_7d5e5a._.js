@@ -6,7 +6,7 @@
   "path": "static/chunks/app_layout_tsx_7d5e5a._.js",
   "chunks": [
     "static/chunks/app_globals_5a3a0d.css",
-    "static/chunks/[project]_artifacts_web_eebf03._.js",
+    "static/chunks/[project]_artifacts_web_a09786._.js",
     "static/chunks/7d4b8_next_3ec9a8._.js",
     "static/chunks/0c6eb_tailwind-merge_dist_bundle-mjs_mjs_fb77d5._.js",
     "static/chunks/dc4a0_@supabase_auth-js_dist_module_506dbf._.js",

@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { NotificationsProvider } from "@/lib/notifications-context";
 import { NotificationToastContainer } from "@/components/ui/notification-toast";
+import { RoomIdProvider } from "@/lib/room-id-context";
 
 export const metadata: Metadata = {
   title: "EliteLobby — Esports Tournament Platform",
@@ -25,13 +26,15 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="font-body antialiased">
         <NotificationsProvider>
-          <div className="grid-bg" />
-          <Navbar />
-          <main className="relative z-10 min-h-screen">
-            {children}
-          </main>
-          <Footer />
-          <NotificationToastContainer />
+          <RoomIdProvider>
+            <div className="grid-bg" />
+            <Navbar />
+            <main className="relative z-10 min-h-screen">
+              {children}
+            </main>
+            <Footer />
+            <NotificationToastContainer />
+          </RoomIdProvider>
         </NotificationsProvider>
       </body>
     </html>

@@ -2,25 +2,32 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { MOCK_TOURNAMENTS } from "@/lib/mock-data";
+import { motion, AnimatePresence } from "framer-motion";
+import { MOCK_TOURNAMENTS, MOCK_REGISTRATIONS } from "@/lib/mock-data";
 import { formatCurrency, formatTimeLeft, getGameIcon } from "@/lib/utils";
-import { ArrowLeft, Trophy, Users, Clock, Shield, Map, Swords, Eye, EyeOff, CheckCircle2, AlertCircle, Wallet, Upload, Copy } from "lucide-react";
+import { useRoomIds } from "@/lib/room-id-context";
+import { ArrowLeft, Trophy, Users, Clock, Shield, Map, Swords, Eye, EyeOff, CheckCircle2, AlertCircle, Wallet, Copy, Key, Lock, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format, parseISO } from "date-fns";
 
 export default function TournamentDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const { getRoomId } = useRoomIds();
+
   const tournament = MOCK_TOURNAMENTS.find(t => t.id === params.id);
   const [timeLeft, setTimeLeft] = useState(tournament ? formatTimeLeft(tournament.match_time) : "");
   const [registered, setRegistered] = useState(false);
   const [registering, setRegistering] = useState(false);
   const [showRoom, setShowRoom] = useState(false);
-  const [copiedRoomId, setCopiedRoomId] = useState(false);
+  const [copiedField, setCopiedField] = useState<"id" | "pass" | null>(null);
   const [activeTab, setActiveTab] = useState<"info" | "rules" | "participants">("info");
 
-  const MOCK_ROOM = { id: "ELITE2025", password: "battle99" };
+  const roomEntry = tournament ? getRoomId(tournament.id) : null;
+  const roomReleased = roomEntry?.released ?? false;
+
+  // Real participants for this tournament
+  const participants = MOCK_REGISTRATIONS.filter(r => r.tournament_id === params.id);
 
   useEffect(() => {
     if (!tournament) return;
@@ -50,10 +57,10 @@ export default function TournamentDetailPage() {
     setRegistering(false);
   }
 
-  function copyRoomId() {
-    navigator.clipboard.writeText(MOCK_ROOM.id);
-    setCopiedRoomId(true);
-    setTimeout(() => setCopiedRoomId(false), 2000);
+  async function copyField(text: string, field: "id" | "pass") {
+    await navigator.clipboard.writeText(text);
+    setCopiedField(field);
+    setTimeout(() => setCopiedField(null), 2000);
   }
 
   const prizeDist = [
@@ -61,6 +68,8 @@ export default function TournamentDetailPage() {
     { pos: "2nd Place", prize: Math.round(tournament.prize_pool * 0.3), color: "text-slate-300", icon: "🥈" },
     { pos: "3rd Place", prize: Math.round(tournament.prize_pool * 0.2), color: "text-amber-600", icon: "🥉" },
   ];
+
+  const canSeeRoom = registered || isLive || isCompleted;
 
   return (
     <div className="pt-24 pb-16 px-4">
@@ -70,12 +79,8 @@ export default function TournamentDetailPage() {
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Tournaments
         </button>
 
-        {/* Hero */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="glass-card rounded-2xl overflow-hidden mb-6"
-        >
+        {/* Hero banner */}
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-2xl overflow-hidden mb-6">
           <div className="relative h-48 md:h-64 bg-gradient-to-br from-purple-900/60 via-indigo-900/40 to-cyan-900/30 overflow-hidden">
             <div className="absolute inset-0" style={{ backgroundImage: "linear-gradient(rgba(124,58,237,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.08) 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
             <div className="absolute inset-0 flex items-center justify-center">
@@ -83,7 +88,6 @@ export default function TournamentDetailPage() {
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
-            {/* Status + badges */}
             <div className="absolute top-4 left-4 flex items-center gap-2">
               {isLive ? (
                 <div className="flex items-center gap-1.5 live-badge border rounded-full px-3 py-1.5 text-sm font-heading font-bold">
@@ -109,7 +113,7 @@ export default function TournamentDetailPage() {
             </div>
           </div>
 
-          {/* Key stats row */}
+          {/* Stats row */}
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-purple/15">
             {[
               { icon: <Wallet className="w-4 h-4 text-yellow-400" />, label: "Entry Fee", value: `₹${tournament.entry_fee}`, color: "text-yellow-400" },
@@ -127,19 +131,18 @@ export default function TournamentDetailPage() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left: details tabs */}
+          {/* Left: tabs */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Tabs */}
             <div className="glass-card rounded-2xl overflow-hidden">
               <div className="flex border-b border-purple/15">
                 {[
                   { key: "info", label: "Match Info" },
                   { key: "rules", label: "Rules" },
-                  { key: "participants", label: "Participants" },
+                  { key: "participants", label: `Participants (${participants.length})` },
                 ].map((tab) => (
                   <button
                     key={tab.key}
-                    onClick={() => setActiveTab(tab.key as any)}
+                    onClick={() => setActiveTab(tab.key as "info" | "rules" | "participants")}
                     className={cn(
                       "flex-1 py-3.5 font-heading font-bold text-sm tracking-wide transition-all border-b-2",
                       activeTab === tab.key
@@ -179,6 +182,7 @@ export default function TournamentDetailPage() {
                     </div>
                   </div>
                 )}
+
                 {activeTab === "rules" && (
                   <div className="prose prose-invert prose-sm max-w-none">
                     <p className="text-slate-300 leading-relaxed text-sm mb-4">{tournament.rules}</p>
@@ -199,6 +203,7 @@ export default function TournamentDetailPage() {
                     </ul>
                   </div>
                 )}
+
                 {activeTab === "participants" && (
                   <div>
                     <div className="flex items-center justify-between mb-4">
@@ -207,24 +212,31 @@ export default function TournamentDetailPage() {
                         <div className="progress-fill" style={{ width: `${slotsPercent}%` }} />
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                      {Array.from({ length: Math.min(tournament.filled_slots, 18) }).map((_, i) => (
-                        <div key={i} className="flex items-center gap-2 p-2 bg-black/20 rounded-lg border border-white/5">
-                          <div className="w-6 h-6 rounded bg-gradient-to-br from-purple-700 to-cyan-700 flex items-center justify-center text-xs font-display text-white flex-shrink-0">
-                            {String.fromCharCode(65 + (i % 26))}
+                    {participants.length > 0 ? (
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {participants.map((p) => (
+                          <div key={p.id} className="flex items-center gap-2 p-2 bg-black/20 rounded-lg border border-white/5">
+                            <div className="w-6 h-6 rounded bg-gradient-to-br from-purple-700 to-cyan-700 flex items-center justify-center text-xs font-display text-white flex-shrink-0">
+                              {p.username[0]}
+                            </div>
+                            <div className="min-w-0">
+                              <p className="text-xs text-white font-heading font-semibold truncate">{p.username}</p>
+                              <p className="text-xs text-slate-500 font-mono truncate">{p.game_uid}</p>
+                            </div>
                           </div>
-                          <span className="text-xs text-slate-300 font-heading truncate">Player{i + 1}</span>
-                        </div>
-                      ))}
-                      {slotsLeft > 0 && Array.from({ length: Math.min(slotsLeft, 6) }).map((_, i) => (
-                        <div key={`empty-${i}`} className="flex items-center gap-2 p-2 bg-black/10 rounded-lg border border-dashed border-white/5">
-                          <div className="w-6 h-6 rounded border border-dashed border-white/10 flex items-center justify-center flex-shrink-0">
-                            <span className="text-slate-600 text-xs">+</span>
+                        ))}
+                        {slotsLeft > 0 && Array.from({ length: Math.min(slotsLeft, 6) }).map((_, i) => (
+                          <div key={`empty-${i}`} className="flex items-center gap-2 p-2 bg-black/10 rounded-lg border border-dashed border-white/5">
+                            <div className="w-6 h-6 rounded border border-dashed border-white/10 flex items-center justify-center flex-shrink-0">
+                              <span className="text-slate-600 text-xs">+</span>
+                            </div>
+                            <span className="text-xs text-slate-600 font-heading">Open slot</span>
                           </div>
-                          <span className="text-xs text-slate-600 font-heading">Open slot</span>
-                        </div>
-                      ))}
-                    </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-slate-500 font-heading text-sm text-center py-6">No registrations yet</p>
+                    )}
                   </div>
                 )}
               </div>
@@ -233,43 +245,142 @@ export default function TournamentDetailPage() {
 
           {/* Right: action panel */}
           <div className="space-y-4">
-            {/* Room ID panel (post-registration or live) */}
-            {(registered || isLive) && (
+            {/* ── ROOM ID PANEL ── */}
+            {canSeeRoom && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="glass-card rounded-2xl p-5 border border-yellow-500/30"
+                className={cn(
+                  "glass-card rounded-2xl p-5 border",
+                  roomReleased ? "border-yellow-500/40" : "border-purple/25"
+                )}
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <Shield className="w-5 h-5 text-yellow-400" />
-                  <h3 className="font-heading font-bold text-yellow-400">ROOM DETAILS</h3>
+                  {roomReleased ? (
+                    <Key className="w-5 h-5 text-yellow-400" />
+                  ) : (
+                    <Lock className="w-5 h-5 text-slate-400" />
+                  )}
+                  <h3 className={cn("font-heading font-bold", roomReleased ? "text-yellow-400" : "text-slate-300")}>
+                    ROOM DETAILS
+                  </h3>
+                  {roomReleased && (
+                    <span className="ml-auto text-xs text-green-400 font-heading font-bold flex items-center gap-1 bg-green-500/10 border border-green-500/25 rounded-full px-2 py-0.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" /> LIVE
+                    </span>
+                  )}
                 </div>
-                {showRoom ? (
-                  <div className="space-y-3">
-                    <div className="bg-black/40 rounded-xl p-3 border border-yellow-500/20">
-                      <p className="text-xs text-slate-400 font-heading mb-1">Room ID</p>
-                      <div className="flex items-center justify-between">
-                        <p className="font-display font-bold text-lg text-yellow-400">{MOCK_ROOM.id}</p>
-                        <button onClick={copyRoomId} className="text-xs text-slate-400 hover:text-white flex items-center gap-1">
-                          {copiedRoomId ? <CheckCircle2 className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
-                          {copiedRoomId ? "Copied" : "Copy"}
-                        </button>
+
+                <AnimatePresence mode="wait">
+                  {!roomReleased ? (
+                    /* Waiting state */
+                    <motion.div
+                      key="waiting"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="text-center py-4"
+                    >
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                        className="w-12 h-12 mx-auto mb-3 rounded-full border-2 border-dashed border-purple/40 flex items-center justify-center"
+                      >
+                        <Lock className="w-5 h-5 text-slate-500" />
+                      </motion.div>
+                      <p className="font-heading font-semibold text-slate-300 text-sm mb-1">
+                        {roomEntry ? "Room ID Prepared" : "Room ID Pending"}
+                      </p>
+                      <p className="text-xs text-slate-500 font-heading leading-relaxed">
+                        {roomEntry
+                          ? "Admin has set the room ID. It will be released 15 minutes before match time."
+                          : "Admin will release the room ID 15 minutes before the match starts."}
+                      </p>
+                      <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-purple-400 font-heading">
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" /> Awaiting release...
                       </div>
-                    </div>
-                    <div className="bg-black/40 rounded-xl p-3 border border-yellow-500/20">
-                      <p className="text-xs text-slate-400 font-heading mb-1">Password</p>
-                      <p className="font-display font-bold text-lg text-yellow-400">{MOCK_ROOM.password}</p>
-                    </div>
-                    <p className="text-xs text-slate-500 font-heading flex items-start gap-1.5">
-                      <AlertCircle className="w-3.5 h-3.5 text-yellow-500 mt-0.5 flex-shrink-0" />
-                      Join the room within 5 minutes of match start time
-                    </p>
-                  </div>
-                ) : (
-                  <button onClick={() => setShowRoom(true)} className="btn-gold w-full py-3 rounded-xl font-heading font-bold text-sm flex items-center justify-center gap-2">
-                    <Eye className="w-4 h-4" /> Reveal Room Details
-                  </button>
-                )}
+                    </motion.div>
+                  ) : !showRoom ? (
+                    /* Reveal button */
+                    <motion.div key="reveal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                      <p className="text-xs text-slate-400 font-heading text-center mb-3">
+                        Room ID is now available! Tap to reveal.
+                      </p>
+                      <button
+                        onClick={() => setShowRoom(true)}
+                        className="btn-gold w-full py-3 rounded-xl font-heading font-bold text-sm flex items-center justify-center gap-2"
+                      >
+                        <Eye className="w-4 h-4" /> Reveal Room Details
+                      </button>
+                    </motion.div>
+                  ) : (
+                    /* Room details revealed */
+                    <motion.div
+                      key="details"
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="space-y-3"
+                    >
+                      {/* Room ID */}
+                      <div className="bg-black/40 rounded-xl p-3 border border-yellow-500/20">
+                        <p className="text-xs text-slate-400 font-heading mb-1.5">Room ID</p>
+                        <div className="flex items-center justify-between">
+                          <p className="font-display font-bold text-xl text-yellow-400 tracking-wider">
+                            {roomEntry!.room_id}
+                          </p>
+                          <button
+                            onClick={() => copyField(roomEntry!.room_id, "id")}
+                            className={cn(
+                              "flex items-center gap-1 text-xs font-heading font-bold transition-all px-2 py-1 rounded-lg border",
+                              copiedField === "id"
+                                ? "text-green-400 border-green-500/30 bg-green-500/10"
+                                : "text-slate-400 border-white/10 hover:border-purple/30 hover:text-purple-400"
+                            )}
+                          >
+                            {copiedField === "id" ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                            {copiedField === "id" ? "Copied!" : "Copy"}
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Password */}
+                      <div className="bg-black/40 rounded-xl p-3 border border-yellow-500/20">
+                        <p className="text-xs text-slate-400 font-heading mb-1.5">Password</p>
+                        <div className="flex items-center justify-between">
+                          <p className="font-display font-bold text-xl text-yellow-400 tracking-wider">
+                            {roomEntry!.password}
+                          </p>
+                          <button
+                            onClick={() => copyField(roomEntry!.password, "pass")}
+                            className={cn(
+                              "flex items-center gap-1 text-xs font-heading font-bold transition-all px-2 py-1 rounded-lg border",
+                              copiedField === "pass"
+                                ? "text-green-400 border-green-500/30 bg-green-500/10"
+                                : "text-slate-400 border-white/10 hover:border-purple/30 hover:text-purple-400"
+                            )}
+                          >
+                            {copiedField === "pass" ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                            {copiedField === "pass" ? "Copied!" : "Copy"}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-2 p-2.5 bg-yellow-500/5 border border-yellow-500/15 rounded-xl">
+                        <AlertCircle className="w-3.5 h-3.5 text-yellow-400 mt-0.5 flex-shrink-0" />
+                        <p className="text-xs text-slate-400 font-heading leading-relaxed">
+                          Join within 5 minutes of match start. Screenshot this for your records.
+                        </p>
+                      </div>
+
+                      <button
+                        onClick={() => setShowRoom(false)}
+                        className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-300 font-heading transition-colors mx-auto"
+                      >
+                        <EyeOff className="w-3.5 h-3.5" /> Hide
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             )}
 
@@ -281,7 +392,9 @@ export default function TournamentDetailPage() {
                 <div className="text-center py-4">
                   <CheckCircle2 className="w-12 h-12 text-green-400 mx-auto mb-3" />
                   <p className="font-heading font-bold text-green-400 mb-1">You're Registered!</p>
-                  <p className="text-xs text-slate-400 font-heading">Room ID will be revealed before match</p>
+                  <p className="text-xs text-slate-400 font-heading">
+                    {roomReleased ? "Room ID is available — check above!" : "Room ID will be released before match starts."}
+                  </p>
                 </div>
               ) : isCompleted ? (
                 <div className="text-center py-4">
