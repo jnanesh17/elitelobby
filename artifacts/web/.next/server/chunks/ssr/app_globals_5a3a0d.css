@@ -33,6 +33,7 @@
     --color-cyan-900: oklch(39.8% .07 227.392);
     --color-sky-900: oklch(39.1% .09 240.876);
     --color-blue-400: oklch(70.7% .165 254.624);
+    --color-blue-500: oklch(62.3% .214 259.815);
     --color-blue-900: oklch(37.9% .146 265.522);
     --color-indigo-400: oklch(67.3% .182 276.935);
     --color-indigo-600: oklch(51.1% .262 276.966);
@@ -486,6 +487,10 @@
     order: -9999;
   }
 
+  .col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
   .mx-1 {
     margin-inline: calc(var(--spacing) * 1);
   }
@@ -877,6 +882,10 @@
     max-width: var(--container-7xl);
   }
 
+  .max-w-\[60\%\] {
+    max-width: 60%;
+  }
+
   .max-w-\[100px\] {
     max-width: 100px;
   }
@@ -1212,6 +1221,16 @@
   @supports (color: color-mix(in lab, red, red)) {
     .border-black\/30 {
       border-color: color-mix(in oklab, var(--color-black) 30%, transparent);
+    }
+  }
+
+  .border-blue-500\/30 {
+    border-color: #3080ff4d;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-blue-500\/30 {
+      border-color: color-mix(in oklab, var(--color-blue-500) 30%, transparent);
     }
   }
 
@@ -1639,6 +1658,16 @@
     }
   }
 
+  .bg-blue-500\/10 {
+    background-color: #3080ff1a;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-blue-500\/10 {
+      background-color: color-mix(in oklab, var(--color-blue-500) 10%, transparent);
+    }
+  }
+
   .bg-current {
     background-color: currentColor;
   }
@@ -1944,6 +1973,11 @@
     .from-blue-900\/40 {
       --tw-gradient-from: color-mix(in oklab, var(--color-blue-900) 40%, transparent);
     }
+  }
+
+  .from-cyan-700 {
+    --tw-gradient-from: var(--color-cyan-700);
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
   }
 
   .from-green-500 {
@@ -3377,6 +3411,12 @@
   @media (width >= 48rem) {
     .md\:h-64 {
       height: calc(var(--spacing) * 64);
+    }
+  }
+
+  @media (width >= 48rem) {
+    .md\:w-52 {
+      width: calc(var(--spacing) * 52);
     }
   }
 

@@ -33,6 +33,30 @@ const MOCK_PENDING_PAYMENTS = [
   },
 ];
 
+const MOCK_PENDING_WITHDRAWALS = [
+  {
+    id: "w1", user: "NightShade_X", amount: 1000, netAmount: 1000, fee: 0,
+    method: "upi" as const, upiId: "nightshade@paytm", upiName: "Arjun Kumar",
+    time: "5 min ago", status: "pending",
+  },
+  {
+    id: "w2", user: "ShadowKing99", amount: 250, netAmount: 240, fee: 10,
+    method: "upi" as const, upiId: "shadowking@ybl", upiName: "Rahul Sharma",
+    time: "22 min ago", status: "pending",
+  },
+  {
+    id: "w3", user: "CyberHawk_V2", amount: 500, netAmount: 500, fee: 0,
+    method: "bank" as const, bankAccount: "••••7821", bankIfsc: "HDFC0001234",
+    bankName: "Vikram Singh", bankMobile: "9988776655",
+    time: "48 min ago", status: "pending",
+  },
+  {
+    id: "w4", user: "ProSniper_Z", amount: 2000, netAmount: 2000, fee: 0,
+    method: "upi" as const, upiId: "prosniper@okicici", upiName: "Sneha Patel",
+    time: "2 hrs ago", status: "pending",
+  },
+];
+
 const MOCK_USERS_ADMIN = [
   { id: "u1", username: "NightShade_X", email: "night@example.com", balance: 5200, status: "active", joined: "Jan 2025" },
   { id: "u2", username: "ShadowKing99", email: "shadow@example.com", balance: 1800, status: "active", joined: "Feb 2025" },
@@ -428,185 +452,101 @@ function RegistrationsTab({ onViewTournament }: { onViewTournament?: (id: string
   );
 }
 
-function PaymentsTab() {
+function DepositsSubTab() {
   const [payments, setPayments] = useState(
     MOCK_PENDING_PAYMENTS.map((p) => ({ ...p, status: "pending" as "pending" | "approved" | "rejected", expanded: false }))
   );
   const [lightbox, setLightbox] = useState<string | null>(null);
   const [filter, setFilter] = useState<"all" | "pending" | "approved" | "rejected">("pending");
 
-  function approve(id: string) {
-    setPayments((ps) => ps.map((p) => p.id === id ? { ...p, status: "approved" } : p));
-  }
-  function reject(id: string) {
-    setPayments((ps) => ps.map((p) => p.id === id ? { ...p, status: "rejected" } : p));
-  }
-  function toggle(id: string) {
-    setPayments((ps) => ps.map((p) => p.id === id ? { ...p, expanded: !p.expanded } : p));
-  }
+  function approve(id: string) { setPayments(ps => ps.map(p => p.id === id ? { ...p, status: "approved" } : p)); }
+  function reject(id: string) { setPayments(ps => ps.map(p => p.id === id ? { ...p, status: "rejected" } : p)); }
+  function toggle(id: string) { setPayments(ps => ps.map(p => p.id === id ? { ...p, expanded: !p.expanded } : p)); }
 
-  const filtered = payments.filter((p) => filter === "all" || p.status === filter);
+  const filtered = payments.filter(p => filter === "all" || p.status === filter);
   const counts = { all: payments.length, pending: payments.filter(p => p.status === "pending").length, approved: payments.filter(p => p.status === "approved").length, rejected: payments.filter(p => p.status === "rejected").length };
 
   return (
-    <div className="space-y-5">
-      {/* Summary cards */}
+    <div className="space-y-4">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {(["all", "pending", "approved", "rejected"] as const).map((f) => (
-          <button
-            key={f}
-            onClick={() => setFilter(f)}
-            className={cn(
-              "glass-card rounded-xl p-4 text-left border-2 transition-all",
-              filter === f
-                ? f === "pending" ? "border-yellow-500/50" : f === "approved" ? "border-green-500/50" : f === "rejected" ? "border-red-500/50" : "border-purple/50"
-                : "border-transparent hover:border-white/10"
-            )}
-          >
+        {(["all", "pending", "approved", "rejected"] as const).map(f => (
+          <button key={f} onClick={() => setFilter(f)}
+            className={cn("glass-card rounded-xl p-4 text-left border-2 transition-all",
+              filter === f ? f === "pending" ? "border-yellow-500/50" : f === "approved" ? "border-green-500/50" : f === "rejected" ? "border-red-500/50" : "border-purple/50" : "border-transparent hover:border-white/10"
+            )}>
             <p className="text-xs font-heading text-slate-400 mb-1 capitalize">{f}</p>
-            <p className={cn("font-display font-black text-2xl",
-              f === "pending" ? "text-yellow-400" : f === "approved" ? "text-green-400" : f === "rejected" ? "text-red-400" : "text-white"
-            )}>{counts[f]}</p>
+            <p className={cn("font-display font-black text-2xl", f === "pending" ? "text-yellow-400" : f === "approved" ? "text-green-400" : f === "rejected" ? "text-red-400" : "text-white")}>{counts[f]}</p>
           </button>
         ))}
       </div>
 
-      {/* Payment cards */}
       <div className="space-y-3">
-        {filtered.length === 0 && (
-          <div className="glass-card rounded-2xl p-10 text-center">
-            <p className="text-slate-500 font-heading">No {filter} payments</p>
-          </div>
-        )}
-        {filtered.map((p) => (
-          <motion.div
-            key={p.id}
-            layout
-            className={cn(
-              "glass-card rounded-2xl overflow-hidden border",
-              p.status === "approved" ? "border-green-500/20" : p.status === "rejected" ? "border-red-500/15" : "border-yellow-500/20"
-            )}
-          >
-            {/* Main row */}
+        {filtered.length === 0 && <div className="glass-card rounded-2xl p-10 text-center"><p className="text-slate-500 font-heading">No {filter} deposits</p></div>}
+        {filtered.map(p => (
+          <motion.div key={p.id} layout className={cn("glass-card rounded-2xl overflow-hidden border", p.status === "approved" ? "border-green-500/20" : p.status === "rejected" ? "border-red-500/15" : "border-yellow-500/20")}>
             <div className="flex items-center gap-4 p-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-700 to-cyan-700 flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0">
-                {p.user[0]}
-              </div>
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-700 to-cyan-700 flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0">{p.user[0]}</div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
                   <p className="font-heading font-bold text-white text-sm">{p.user}</p>
-                  <span className={cn(
-                    "text-xs font-heading font-bold border rounded-full px-2 py-0.5",
-                    p.status === "approved" ? "border-green-500/30 text-green-400 bg-green-500/10"
-                      : p.status === "rejected" ? "border-red-500/30 text-red-400 bg-red-500/10"
-                      : "border-yellow-500/30 text-yellow-400 bg-yellow-500/10"
-                  )}>
-                    {p.status.toUpperCase()}
-                  </span>
+                  <span className={cn("text-xs font-heading font-bold border rounded-full px-2 py-0.5",
+                    p.status === "approved" ? "border-green-500/30 text-green-400 bg-green-500/10" : p.status === "rejected" ? "border-red-500/30 text-red-400 bg-red-500/10" : "border-yellow-500/30 text-yellow-400 bg-yellow-500/10"
+                  )}>{p.status.toUpperCase()}</span>
                 </div>
-                <p className="text-xs text-slate-500 font-heading">
-                  UTR: <span className="font-mono text-cyan-400">{p.utr}</span> · {p.upi} · {p.time}
-                </p>
+                <p className="text-xs text-slate-500 font-heading">UTR: <span className="font-mono text-cyan-400">{p.utr}</span> · {p.upi} · {p.time}</p>
               </div>
               <div className="text-right flex-shrink-0">
                 <p className="font-display font-black text-xl text-yellow-400">₹{p.amount}</p>
-                {p.bonus > 0 && (
-                  <p className="text-xs text-green-400 font-heading flex items-center gap-1 justify-end">
-                    <Gift className="w-3 h-3" />+₹{p.bonus} bonus
-                  </p>
-                )}
+                {p.bonus > 0 && <p className="text-xs text-green-400 font-heading flex items-center gap-1 justify-end"><Gift className="w-3 h-3" />+₹{p.bonus}</p>}
               </div>
-              {/* Expand toggle */}
-              <button
-                onClick={() => toggle(p.id)}
-                className="w-8 h-8 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/25 transition-all flex-shrink-0"
-              >
+              <button onClick={() => toggle(p.id)} className="w-8 h-8 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all flex-shrink-0">
                 {p.expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
               </button>
             </div>
-
-            {/* Expanded detail */}
             {p.expanded && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="border-t border-white/5 p-4"
-              >
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="border-t border-white/5 p-4">
                 <div className="flex flex-col md:flex-row gap-5">
-                  {/* Screenshot preview */}
-                  <div className="md:w-56 flex-shrink-0">
-                    <p className="text-xs text-slate-400 font-heading mb-2 flex items-center gap-1.5">
-                      <ImageIcon className="w-3.5 h-3.5" /> Payment Screenshot
-                    </p>
+                  <div className="md:w-52 flex-shrink-0">
+                    <p className="text-xs text-slate-400 font-heading mb-2 flex items-center gap-1.5"><ImageIcon className="w-3.5 h-3.5" /> Screenshot</p>
                     {p.screenshot ? (
-                      <button
-                        onClick={() => setLightbox(p.screenshot!)}
-                        className="block w-full rounded-xl overflow-hidden border-2 border-purple/20 hover:border-purple/50 transition-all group"
-                      >
-                        <img
-                          src={p.screenshot}
-                          alt="Payment proof"
-                          className="w-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        <div className="bg-purple/20 py-1.5 text-center">
-                          <span className="text-xs text-purple-300 font-heading">Click to enlarge</span>
-                        </div>
+                      <button onClick={() => setLightbox(p.screenshot!)} className="block w-full rounded-xl overflow-hidden border-2 border-purple/20 hover:border-purple/50 transition-all group">
+                        <img src={p.screenshot} alt="proof" className="w-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <div className="bg-purple/20 py-1 text-center"><span className="text-xs text-purple-300 font-heading">Click to enlarge</span></div>
                       </button>
                     ) : (
                       <div className="flex flex-col items-center justify-center gap-2 p-8 rounded-xl border-2 border-dashed border-white/10 text-slate-600">
-                        <ImageIcon className="w-8 h-8" />
-                        <p className="text-xs font-heading">No screenshot</p>
+                        <ImageIcon className="w-8 h-8" /><p className="text-xs font-heading">No screenshot</p>
                       </div>
                     )}
                   </div>
-
-                  {/* Details & actions */}
                   <div className="flex-1 space-y-3">
                     <div className="grid grid-cols-2 gap-3">
                       {[
                         { label: "Amount", value: `₹${p.amount}`, color: "text-yellow-400" },
-                        { label: "Bonus Credit", value: p.bonus > 0 ? `+₹${p.bonus}` : "None", color: p.bonus > 0 ? "text-green-400" : "text-slate-500" },
+                        { label: "Bonus", value: p.bonus > 0 ? `+₹${p.bonus}` : "None", color: p.bonus > 0 ? "text-green-400" : "text-slate-500" },
                         { label: "Total Credit", value: `₹${p.amount + p.bonus}`, color: "text-white" },
                         { label: "UPI ID", value: p.upi, color: "text-cyan-400 font-mono text-xs" },
-                        { label: "UTR Number", value: p.utr, color: "text-purple-300 font-mono text-xs" },
-                        { label: "Submitted", value: p.time, color: "text-slate-400" },
-                      ].map((row) => (
+                        { label: "UTR", value: p.utr, color: "text-purple-300 font-mono text-xs" },
+                        { label: "Received", value: p.time, color: "text-slate-400" },
+                      ].map(row => (
                         <div key={row.label} className="bg-black/20 rounded-xl p-3 border border-white/5">
                           <p className="text-xs text-slate-500 font-heading mb-1">{row.label}</p>
-                          <p className={cn("font-heading font-bold text-sm", row.color)}>{row.value}</p>
+                          <p className={cn("font-heading font-bold text-sm truncate", row.color)}>{row.value}</p>
                         </div>
                       ))}
                     </div>
-
                     {p.status === "pending" && (
-                      <div className="flex gap-3 pt-1">
-                        <button
-                          onClick={() => approve(p.id)}
-                          className="btn-gold flex-1 py-2.5 rounded-xl text-sm font-heading font-bold flex items-center justify-center gap-2"
-                        >
+                      <div className="flex gap-3">
+                        <button onClick={() => approve(p.id)} className="btn-gold flex-1 py-2.5 rounded-xl text-sm font-heading font-bold flex items-center justify-center gap-2">
                           <CheckCircle2 className="w-4 h-4" /> Approve & Credit ₹{p.amount + p.bonus}
                         </button>
-                        <button
-                          onClick={() => reject(p.id)}
-                          className="btn-danger flex-1 py-2.5 rounded-xl text-sm font-heading font-bold flex items-center justify-center gap-2"
-                        >
+                        <button onClick={() => reject(p.id)} className="btn-danger flex-1 py-2.5 rounded-xl text-sm font-heading font-bold flex items-center justify-center gap-2">
                           <XCircle className="w-4 h-4" /> Reject
                         </button>
                       </div>
                     )}
-                    {p.status === "approved" && (
-                      <div className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/20 rounded-xl">
-                        <CheckCircle2 className="w-4 h-4 text-green-400" />
-                        <p className="text-sm text-green-400 font-heading font-semibold">Approved — ₹{p.amount + p.bonus} credited to player wallet</p>
-                      </div>
-                    )}
-                    {p.status === "rejected" && (
-                      <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl">
-                        <XCircle className="w-4 h-4 text-red-400" />
-                        <p className="text-sm text-red-400 font-heading font-semibold">Rejected — player notified</p>
-                      </div>
-                    )}
+                    {p.status === "approved" && <div className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/20 rounded-xl"><CheckCircle2 className="w-4 h-4 text-green-400" /><p className="text-sm text-green-400 font-heading font-semibold">Approved — ₹{p.amount + p.bonus} credited to wallet</p></div>}
+                    {p.status === "rejected" && <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl"><XCircle className="w-4 h-4 text-red-400" /><p className="text-sm text-red-400 font-heading font-semibold">Rejected — player notified</p></div>}
                   </div>
                 </div>
               </motion.div>
@@ -615,23 +555,171 @@ function PaymentsTab() {
         ))}
       </div>
 
-      {/* Lightbox */}
       {lightbox && (
-        <div
-          className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4"
-          onClick={() => setLightbox(null)}
-        >
-          <button className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors">
-            <X className="w-5 h-5" />
-          </button>
-          <img
-            src={lightbox}
-            alt="Payment screenshot"
-            className="max-w-md w-full max-h-[85vh] object-contain rounded-2xl border border-purple/30"
-            onClick={(e) => e.stopPropagation()}
-          />
+        <div className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" onClick={() => setLightbox(null)}>
+          <button className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"><X className="w-5 h-5" /></button>
+          <img src={lightbox} alt="Payment screenshot" className="max-w-md w-full max-h-[85vh] object-contain rounded-2xl border border-purple/30" onClick={e => e.stopPropagation()} />
         </div>
       )}
+    </div>
+  );
+}
+
+function WithdrawalsSubTab() {
+  const [withdrawals, setWithdrawals] = useState(
+    MOCK_PENDING_WITHDRAWALS.map(w => ({ ...w, status: "pending" as "pending" | "approved" | "rejected", expanded: false }))
+  );
+  const [filter, setFilter] = useState<"all" | "pending" | "approved" | "rejected">("pending");
+
+  function approve(id: string) { setWithdrawals(ws => ws.map(w => w.id === id ? { ...w, status: "approved" } : w)); }
+  function reject(id: string) { setWithdrawals(ws => ws.map(w => w.id === id ? { ...w, status: "rejected" } : w)); }
+  function toggle(id: string) { setWithdrawals(ws => ws.map(w => w.id === id ? { ...w, expanded: !w.expanded } : w)); }
+
+  const filtered = withdrawals.filter(w => filter === "all" || w.status === filter);
+  const counts = { all: withdrawals.length, pending: withdrawals.filter(w => w.status === "pending").length, approved: withdrawals.filter(w => w.status === "approved").length, rejected: withdrawals.filter(w => w.status === "rejected").length };
+  const totalPending = withdrawals.filter(w => w.status === "pending").reduce((s, w) => s + w.netAmount, 0);
+
+  return (
+    <div className="space-y-4">
+      {totalPending > 0 && (
+        <div className="flex items-center gap-3 p-3 bg-yellow-500/5 border border-yellow-500/20 rounded-xl">
+          <Clock className="w-4 h-4 text-yellow-400 flex-shrink-0" />
+          <p className="text-sm font-heading text-slate-300">
+            <strong className="text-yellow-400">₹{totalPending.toLocaleString()}</strong> pending payout — verify player details before approving
+          </p>
+        </div>
+      )}
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {(["all", "pending", "approved", "rejected"] as const).map(f => (
+          <button key={f} onClick={() => setFilter(f)}
+            className={cn("glass-card rounded-xl p-4 text-left border-2 transition-all",
+              filter === f ? f === "pending" ? "border-yellow-500/50" : f === "approved" ? "border-green-500/50" : f === "rejected" ? "border-red-500/50" : "border-purple/50" : "border-transparent hover:border-white/10"
+            )}>
+            <p className="text-xs font-heading text-slate-400 mb-1 capitalize">{f}</p>
+            <p className={cn("font-display font-black text-2xl", f === "pending" ? "text-yellow-400" : f === "approved" ? "text-green-400" : f === "rejected" ? "text-red-400" : "text-white")}>{counts[f]}</p>
+          </button>
+        ))}
+      </div>
+
+      <div className="space-y-3">
+        {filtered.length === 0 && <div className="glass-card rounded-2xl p-10 text-center"><p className="text-slate-500 font-heading">No {filter} withdrawals</p></div>}
+        {filtered.map(w => (
+          <motion.div key={w.id} layout className={cn("glass-card rounded-2xl overflow-hidden border",
+            w.status === "approved" ? "border-green-500/20" : w.status === "rejected" ? "border-red-500/15" : "border-purple/20"
+          )}>
+            <div className="flex items-center gap-4 p-4">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-700 to-purple-700 flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0">{w.user[0]}</div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <p className="font-heading font-bold text-white text-sm">{w.user}</p>
+                  <span className={cn("text-xs font-heading font-bold border rounded-full px-2 py-0.5",
+                    w.status === "approved" ? "border-green-500/30 text-green-400 bg-green-500/10" : w.status === "rejected" ? "border-red-500/30 text-red-400 bg-red-500/10" : "border-purple/30 text-purple-300 bg-purple/10"
+                  )}>{w.status.toUpperCase()}</span>
+                  <span className={cn("text-xs font-heading border rounded-full px-2 py-0.5",
+                    w.method === "upi" ? "border-cyan-500/30 text-cyan-400 bg-cyan-500/10" : "border-blue-500/30 text-blue-400 bg-blue-500/10"
+                  )}>{w.method === "upi" ? "UPI" : "BANK"}</span>
+                </div>
+                <p className="text-xs text-slate-500 font-heading truncate">
+                  {w.method === "upi" ? (w as { upiId: string }).upiId : (w as { bankIfsc: string }).bankIfsc} · {w.time}
+                </p>
+              </div>
+              <div className="text-right flex-shrink-0">
+                <p className="font-display font-black text-xl text-purple-300">₹{w.netAmount.toLocaleString()}</p>
+                {w.fee > 0 && <p className="text-xs text-slate-500 font-heading">-₹{w.fee} fee</p>}
+              </div>
+              <button onClick={() => toggle(w.id)} className="w-8 h-8 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all flex-shrink-0">
+                {w.expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </button>
+            </div>
+
+            {w.expanded && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="border-t border-white/5 p-4">
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    {[
+                      { label: "Requested", value: `₹${w.amount.toLocaleString()}`, color: "text-white" },
+                      { label: "Fee", value: w.fee > 0 ? `₹${w.fee}` : "FREE", color: w.fee > 0 ? "text-red-400" : "text-green-400" },
+                      { label: "Payout", value: `₹${w.netAmount.toLocaleString()}`, color: "text-purple-300" },
+                      { label: "Method", value: w.method === "upi" ? "UPI Transfer" : "Bank (IMPS)", color: "text-cyan-400" },
+                      ...(w.method === "upi"
+                        ? [
+                            { label: "UPI ID", value: (w as { upiId: string }).upiId, color: "text-purple-300 font-mono text-xs" },
+                            { label: "Name", value: (w as { upiName: string }).upiName, color: "text-white" },
+                          ]
+                        : [
+                            { label: "Account", value: (w as { bankAccount: string }).bankAccount, color: "text-purple-300 font-mono" },
+                            { label: "IFSC", value: (w as { bankIfsc: string }).bankIfsc, color: "text-cyan-400 font-mono" },
+                            { label: "Name", value: (w as { bankName: string }).bankName, color: "text-white" },
+                            { label: "Mobile", value: (w as { bankMobile: string }).bankMobile, color: "text-slate-300 font-mono" },
+                          ]
+                      ),
+                      { label: "Submitted", value: w.time, color: "text-slate-400" },
+                    ].map(row => (
+                      <div key={row.label} className="bg-black/20 rounded-xl p-3 border border-white/5">
+                        <p className="text-xs text-slate-500 font-heading mb-1">{row.label}</p>
+                        <p className={cn("font-heading font-bold text-sm truncate", row.color)}>{row.value}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {w.status === "pending" && (
+                    <div className="flex gap-3">
+                      <button onClick={() => approve(w.id)} className="btn-gold flex-1 py-2.5 rounded-xl text-sm font-heading font-bold flex items-center justify-center gap-2">
+                        <CheckCircle2 className="w-4 h-4" /> Approve — Pay ₹{w.netAmount.toLocaleString()}
+                      </button>
+                      <button onClick={() => reject(w.id)} className="btn-danger flex-1 py-2.5 rounded-xl text-sm font-heading font-bold flex items-center justify-center gap-2">
+                        <XCircle className="w-4 h-4" /> Reject
+                      </button>
+                    </div>
+                  )}
+                  {w.status === "approved" && <div className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/20 rounded-xl"><CheckCircle2 className="w-4 h-4 text-green-400" /><p className="text-sm text-green-400 font-heading font-semibold">Approved — ₹{w.netAmount.toLocaleString()} payout initiated</p></div>}
+                  {w.status === "rejected" && <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl"><XCircle className="w-4 h-4 text-red-400" /><p className="text-sm text-red-400 font-heading font-semibold">Rejected — funds returned to player wallet</p></div>}
+                </div>
+              </motion.div>
+            )}
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PaymentsTab() {
+  const [subTab, setSubTab] = useState<"deposits" | "withdrawals">("deposits");
+  const pendingDeposits = MOCK_PENDING_PAYMENTS.length;
+  const pendingWithdrawals = MOCK_PENDING_WITHDRAWALS.length;
+
+  return (
+    <div className="space-y-5">
+      <div className="flex gap-2">
+        {([
+          { key: "deposits" as const, label: "Deposits", badge: pendingDeposits, color: "text-green-400", badgeBg: "bg-green-500/20 text-green-400" },
+          { key: "withdrawals" as const, label: "Withdrawals", badge: pendingWithdrawals, color: "text-purple-400", badgeBg: "bg-purple/20 text-purple-300" },
+        ]).map(tab => (
+          <button
+            key={tab.key}
+            onClick={() => setSubTab(tab.key)}
+            className={cn(
+              "flex items-center gap-2 px-5 py-2.5 rounded-xl font-heading font-bold text-sm transition-all border",
+              subTab === tab.key ? "bg-white/10 border-white/20 text-white" : "border-transparent text-slate-400 hover:text-white"
+            )}
+          >
+            {tab.label}
+            {tab.badge > 0 && (
+              <span className={cn("text-xs font-heading font-bold rounded-full px-1.5 py-0.5 leading-none", tab.badgeBg)}>
+                {tab.badge}
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
+
+      <AnimatePresence mode="wait">
+        <motion.div key={subTab} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }}>
+          {subTab === "deposits" ? <DepositsSubTab /> : <WithdrawalsSubTab />}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
