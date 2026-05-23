@@ -7,6 +7,7 @@ import { Search, SlidersHorizontal, Gamepad2, Users, Flame } from "lucide-react"
 import { cn } from "@/lib/utils";
 
 const GAMES = ["All", "Free Fire", "BGMI", "Valorant", "COD Mobile", "PUBG Mobile"];
+const COMING_SOON_GAMES = new Set(["BGMI", "Valorant", "COD Mobile"]);
 const MODES = ["All", "Solo", "Duo", "Squad"];
 const STATUSES = ["All", "Live", "Upcoming", "Completed"];
 
@@ -97,20 +98,29 @@ export default function TournamentsPage() {
                 <div key={filter.label}>
                   <p className="text-xs text-slate-500 font-heading uppercase tracking-wider mb-2">{filter.label}</p>
                   <div className="flex flex-wrap gap-2">
-                    {filter.options.map((opt) => (
-                      <button
-                        key={opt}
-                        onClick={() => filter.setState(opt)}
-                        className={cn(
-                          "px-3 py-1 rounded-lg text-xs font-heading font-semibold border transition-all",
-                          filter.state === opt
-                            ? "bg-purple-600/30 border-purple-500/60 text-purple-300"
-                            : "border-white/10 text-slate-400 hover:border-white/20"
-                        )}
-                      >
-                        {opt}
-                      </button>
-                    ))}
+                    {filter.options.map((opt) => {
+                      const isComingSoon = filter.label === "Game" && COMING_SOON_GAMES.has(opt);
+                      return (
+                        <button
+                          key={opt}
+                          disabled={isComingSoon}
+                          onClick={() => !isComingSoon && filter.setState(opt)}
+                          className={cn(
+                            "px-3 py-1 rounded-lg text-xs font-heading font-semibold border transition-all",
+                            isComingSoon
+                              ? "border-white/5 text-slate-600 cursor-not-allowed opacity-60"
+                              : filter.state === opt
+                              ? "bg-purple-600/30 border-purple-500/60 text-purple-300"
+                              : "border-white/10 text-slate-400 hover:border-white/20"
+                          )}
+                        >
+                          {opt}
+                          {isComingSoon && (
+                            <span className="ml-1.5 text-[9px] font-bold text-amber-500/80 uppercase tracking-wide">Soon</span>
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               ))}
@@ -120,20 +130,29 @@ export default function TournamentsPage() {
 
         {/* Quick filter chips */}
         <div className="flex flex-wrap gap-2 mb-6">
-          {GAMES.slice(1).map((game) => (
-            <button
-              key={game}
-              onClick={() => setSelectedGame(selectedGame === game ? "All" : game)}
-              className={cn(
-                "px-3 py-1.5 rounded-full text-xs font-heading font-semibold border transition-all",
-                selectedGame === game
-                  ? "bg-purple-600/30 border-purple-500/60 text-purple-300"
-                  : "border-white/10 text-slate-400 hover:border-white/20"
-              )}
-            >
-              {game}
-            </button>
-          ))}
+          {GAMES.slice(1).map((game) => {
+            const isComingSoon = COMING_SOON_GAMES.has(game);
+            return (
+              <button
+                key={game}
+                disabled={isComingSoon}
+                onClick={() => !isComingSoon && setSelectedGame(selectedGame === game ? "All" : game)}
+                className={cn(
+                  "relative px-3 py-1.5 rounded-full text-xs font-heading font-semibold border transition-all",
+                  isComingSoon
+                    ? "border-white/5 text-slate-600 cursor-not-allowed opacity-60"
+                    : selectedGame === game
+                    ? "bg-purple-600/30 border-purple-500/60 text-purple-300"
+                    : "border-white/10 text-slate-400 hover:border-white/20"
+                )}
+              >
+                {game}
+                {isComingSoon && (
+                  <span className="ml-1.5 text-[9px] font-bold text-amber-500/80 uppercase tracking-wide">Soon</span>
+                )}
+              </button>
+            );
+          })}
         </div>
 
         {/* Results count */}

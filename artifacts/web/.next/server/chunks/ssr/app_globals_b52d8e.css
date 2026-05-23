@@ -11,6 +11,7 @@
     --color-red-600: oklch(57.7% .245 27.325);
     --color-red-900: oklch(39.6% .141 25.723);
     --color-orange-900: oklch(40.8% .123 38.172);
+    --color-amber-500: oklch(76.9% .188 70.08);
     --color-amber-600: oklch(66.6% .179 58.318);
     --color-amber-700: oklch(55.5% .163 48.998);
     --color-amber-800: oklch(47.3% .137 46.201);
@@ -568,6 +569,10 @@
 
   .mb-12 {
     margin-bottom: calc(var(--spacing) * 12);
+  }
+
+  .ml-1\.5 {
+    margin-left: calc(var(--spacing) * 1.5);
   }
 
   .ml-auto {
@@ -2478,6 +2483,10 @@
     line-height: var(--tw-leading, var(--text-xs--line-height));
   }
 
+  .text-\[9px\] {
+    font-size: 9px;
+  }
+
   .text-\[10px\] {
     font-size: 10px;
   }
@@ -2529,6 +2538,16 @@
 
   .whitespace-nowrap {
     white-space: nowrap;
+  }
+
+  .text-amber-500\/80 {
+    color: #f99c00cc;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .text-amber-500\/80 {
+      color: color-mix(in oklab, var(--color-amber-500) 80%, transparent);
+    }
   }
 
   .text-amber-600 {
