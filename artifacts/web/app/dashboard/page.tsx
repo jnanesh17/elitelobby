@@ -1,35 +1,62 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { TournamentCard } from "@/components/ui/tournament-card";
 import { MOCK_USER, MOCK_TOURNAMENTS, MOCK_NOTIFICATIONS, MOCK_TRANSACTIONS } from "@/lib/mock-data";
-import { Trophy, Zap, Wallet, Bell, Settings, Target, Swords, Crown, TrendingUp, Clock, CheckCircle2, XCircle, ArrowUpRight, ArrowDownLeft, Plus, Shield } from "lucide-react";
+import { Trophy, Zap, Wallet, Bell, Settings, Target, Swords, Crown, TrendingUp, Clock, CheckCircle2, XCircle, ArrowUpRight, ArrowDownLeft, Plus, Shield, UserCog } from "lucide-react";
 import { cn, formatCurrency, getRankColor } from "@/lib/utils";
 import { format, parseISO } from "date-fns";
+import { useUser } from "@clerk/nextjs";
 
 function ProfileCard() {
-  const rankColorClass = getRankColor(MOCK_USER.rank);
+  const { user, isLoaded } = useUser();
+  const [profile, setProfile] = useState<{ inGameName: string; uid: string; game: string } | null>(null);
   const progressToNext = 82;
+
+  useEffect(() => {
+    if (!user) return;
+    const stored = localStorage.getItem(`elitelobby_profile_${user.id}`);
+    if (stored) setProfile(JSON.parse(stored));
+  }, [user]);
+
+  const displayName = profile?.inGameName || user?.firstName || user?.username || MOCK_USER.username;
+  const displayUid = profile?.uid || MOCK_USER.game_id;
+  const avatarLetter = displayName[0]?.toUpperCase() || "P";
+  const rankColorClass = getRankColor(MOCK_USER.rank);
 
   return (
     <div className="glass-card rounded-2xl p-6">
       <div className="flex items-start gap-4 mb-6">
         <div className="relative">
           <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-600 to-cyan-600 flex items-center justify-center text-2xl font-display font-black text-white">
-            {MOCK_USER.username[0]}
+            {avatarLetter}
           </div>
           <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-surface" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <h2 className="font-display font-bold text-lg text-white truncate">{MOCK_USER.username}</h2>
+            <h2 className="font-display font-bold text-lg text-white truncate">{displayName}</h2>
             <Shield className="w-4 h-4 text-purple-400" />
           </div>
-          <p className="text-slate-400 text-xs font-heading mb-2">UID: <span className="text-cyan-400 font-mono">{MOCK_USER.game_id}</span></p>
-          <div className={cn("inline-flex items-center gap-1.5 border rounded-full px-3 py-1 text-xs font-heading font-bold", `rank-${MOCK_USER.rank.toLowerCase()}`)}>
-            <Crown className="w-3 h-3" />
-            {MOCK_USER.rank} Rank
+          <p className="text-slate-400 text-xs font-heading mb-2">
+            {profile?.game && <span className="text-purple-400 mr-2">{profile.game}</span>}
+            UID: <span className="text-cyan-400 font-mono">{displayUid}</span>
+          </p>
+          <div className="flex items-center gap-2 flex-wrap">
+            <div className={cn("inline-flex items-center gap-1.5 border rounded-full px-3 py-1 text-xs font-heading font-bold", `rank-${MOCK_USER.rank.toLowerCase()}`)}>
+              <Crown className="w-3 h-3" />
+              {MOCK_USER.rank} Rank
+            </div>
+            {!profile && (
+              <Link
+                href="/profile-setup"
+                className="inline-flex items-center gap-1 border border-amber-500/30 bg-amber-500/10 text-amber-400 rounded-full px-2.5 py-1 text-xs font-heading font-semibold hover:bg-amber-500/20 transition-colors"
+              >
+                <UserCog className="w-3 h-3" />
+                Set up profile
+              </Link>
+            )}
           </div>
         </div>
       </div>

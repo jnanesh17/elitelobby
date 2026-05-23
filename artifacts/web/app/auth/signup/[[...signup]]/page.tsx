@@ -115,7 +115,7 @@ export default function SignupPage() {
           routing="path"
           path="/auth/signup"
           signInUrl="/auth/login"
-          fallbackRedirectUrl="/dashboard"
+          fallbackRedirectUrl="/profile-setup"
           appearance={clerkAppearance}
         />
 

@@ -28,7 +28,7 @@ export default function RootLayout({
       signInUrl="/auth/login"
       signUpUrl="/auth/signup"
       signInFallbackRedirectUrl="/dashboard"
-      signUpFallbackRedirectUrl="/dashboard"
+      signUpFallbackRedirectUrl="/profile-setup"
     >
       <html lang="en" suppressHydrationWarning>
         <body className="font-body antialiased">
