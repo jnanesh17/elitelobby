@@ -392,9 +392,15 @@ export default function TournamentDetailPage() {
                 <div className="text-center py-4">
                   <CheckCircle2 className="w-12 h-12 text-green-400 mx-auto mb-3" />
                   <p className="font-heading font-bold text-green-400 mb-1">You're Registered!</p>
-                  <p className="text-xs text-slate-400 font-heading">
+                  <p className="text-xs text-slate-400 font-heading mb-4">
                     {roomReleased ? "Room ID is available — check above!" : "Room ID will be released before match starts."}
                   </p>
+                  <Link
+                    href={`/tournaments/${tournament.id}/lobby`}
+                    className="btn-primary w-full py-3 rounded-xl font-heading font-bold text-sm flex items-center justify-center gap-2"
+                  >
+                    <Swords className="w-4 h-4" /> Enter Match Lobby
+                  </Link>
                 </div>
               ) : isCompleted ? (
                 <div className="text-center py-4">

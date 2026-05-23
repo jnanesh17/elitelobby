@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Wallet, Trophy, Swords, Key, Megaphone, XCircle, ArrowUpRight } from "lucide-react";
 import { useNotifications, AppNotification, NotificationType } from "@/lib/notifications-context";
@@ -51,26 +51,22 @@ interface ToastItem {
 export function NotificationToastContainer() {
   const { notifications, markAsRead, dismiss } = useNotifications();
   const [toasts, setToasts] = useState<ToastItem[]>([]);
-  const [seen, setSeen] = useState<Set<string>>(new Set());
+  const seenRef = useRef<Set<string>>(new Set());
 
   // Watch for new (unread, not-dismissed) notifications that we haven't toasted yet
   useEffect(() => {
     const fresh = notifications.filter(
-      (n) => !n.read && !n.dismissed && !seen.has(n.id)
+      (n) => !n.read && !n.dismissed && !seenRef.current.has(n.id)
     );
     if (fresh.length === 0) return;
 
-    setSeen((prev) => {
-      const next = new Set(prev);
-      fresh.forEach((n) => next.add(n.id));
-      return next;
-    });
+    fresh.forEach((n) => seenRef.current.add(n.id));
 
     setToasts((prev) => [
       ...prev,
       ...fresh.map((n) => ({ notification: n, expiresAt: Date.now() + 5000 })),
     ]);
-  }, [notifications, seen]);
+  }, [notifications]);
 
   // Auto-dismiss expired toasts
   useEffect(() => {

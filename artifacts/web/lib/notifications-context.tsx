@@ -97,15 +97,16 @@ function seedTime(secondsAgo: number) {
 }
 
 export function NotificationsProvider({ children }: { children: ReactNode }) {
-  const [notifications, setNotifications] = useState<AppNotification[]>(() =>
-    SEED_NOTIFICATIONS.map((n, i) => ({
+  const [notifications, setNotifications] = useState<AppNotification[]>(() => {
+    const base = Date.now();
+    return SEED_NOTIFICATIONS.map((n, i) => ({
       ...n,
-      id: `seed-${i}`,
+      id: `seed-${base}-${i}`,
       read: i === 2,
       dismissed: false,
       created_at: seedTime((i + 1) * 3600),
-    }))
-  );
+    }));
+  });
 
   const demoIndexRef = useRef(0);
   const toastQueueRef = useRef<AppNotification[]>([]);
