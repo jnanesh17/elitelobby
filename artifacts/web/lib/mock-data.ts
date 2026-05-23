@@ -5,7 +5,7 @@ export const MOCK_TOURNAMENTS = [
     game: "Free Fire",
     game_mode: "Squad",
     entry_fee: 50,
-    prize_pool: 50000,
+    prize_pool: 5000,
     max_slots: 25,
     filled_slots: 18,
     match_time: new Date(Date.now() + 2 * 3600000).toISOString(),
@@ -20,7 +20,7 @@ export const MOCK_TOURNAMENTS = [
     game: "BGMI",
     game_mode: "Solo",
     entry_fee: 100,
-    prize_pool: 100000,
+    prize_pool: 5000,
     max_slots: 100,
     filled_slots: 100,
     match_time: new Date(Date.now() + 30 * 60000).toISOString(),
@@ -35,7 +35,7 @@ export const MOCK_TOURNAMENTS = [
     game: "Valorant",
     game_mode: "Squad",
     entry_fee: 200,
-    prize_pool: 250000,
+    prize_pool: 5000,
     max_slots: 16,
     filled_slots: 12,
     match_time: new Date(Date.now() + 6 * 3600000).toISOString(),
@@ -50,7 +50,7 @@ export const MOCK_TOURNAMENTS = [
     game: "COD Mobile",
     game_mode: "Duo",
     entry_fee: 75,
-    prize_pool: 75000,
+    prize_pool: 5000,
     max_slots: 50,
     filled_slots: 31,
     match_time: new Date(Date.now() + 4 * 3600000).toISOString(),
@@ -65,7 +65,7 @@ export const MOCK_TOURNAMENTS = [
     game: "PUBG Mobile",
     game_mode: "Squad",
     entry_fee: 150,
-    prize_pool: 200000,
+    prize_pool: 5000,
     max_slots: 25,
     filled_slots: 25,
     match_time: new Date(Date.now() - 3600000).toISOString(),
@@ -80,7 +80,7 @@ export const MOCK_TOURNAMENTS = [
     game: "Free Fire",
     game_mode: "Solo",
     entry_fee: 30,
-    prize_pool: 25000,
+    prize_pool: 5000,
     max_slots: 48,
     filled_slots: 22,
     match_time: new Date(Date.now() + 12 * 3600000).toISOString(),
@@ -105,10 +105,10 @@ export const MOCK_LEADERBOARD = [
 ];
 
 export const MOCK_RECENT_WINNERS = [
-  { username: "NightShade_X", tournament: "BGMI Pro League", prize: 50000, position: 1, game: "BGMI" },
-  { username: "ShadowKing99", tournament: "Free Fire Grand Series", prize: 25000, position: 1, game: "Free Fire" },
-  { username: "ProSniper_Z", tournament: "Valorant Ranked Cup", prize: 75000, position: 1, game: "Valorant" },
-  { username: "EliteForce77", tournament: "COD Mobile Mayhem", prize: 30000, position: 1, game: "COD Mobile" },
+  { username: "NightShade_X", tournament: "BGMI Pro League", prize: 2500, position: 1, game: "BGMI" },
+  { username: "ShadowKing99", tournament: "Free Fire Grand Series", prize: 2500, position: 1, game: "Free Fire" },
+  { username: "ProSniper_Z", tournament: "Valorant Ranked Cup", prize: 2500, position: 1, game: "Valorant" },
+  { username: "EliteForce77", tournament: "COD Mobile Mayhem", prize: 2500, position: 1, game: "COD Mobile" },
 ];
 
 export const MOCK_STATS = {

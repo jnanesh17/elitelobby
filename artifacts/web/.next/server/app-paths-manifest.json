@@ -2,5 +2,7 @@
   "/page": "app/page.js",
   "/auth/login/[[...login]]/page": "app/auth/login/[[...login]]/page.js",
   "/profile-setup/page": "app/profile-setup/page.js",
-  "/wallet/deposit/page": "app/wallet/deposit/page.js"
+  "/wallet/deposit/page": "app/wallet/deposit/page.js",
+  "/tournaments/page": "app/tournaments/page.js",
+  "/admin/page": "app/admin/page.js"
 }
