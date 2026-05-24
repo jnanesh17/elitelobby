@@ -234,20 +234,24 @@ function seedTime(secondsAgo) {
 }
 function NotificationsProvider({ children }) {
     _s();
-    const [notifications, setNotifications] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
-        "NotificationsProvider.useState": ()=>{
+    const [notifications, setNotifications] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    // Seed initial notifications on the client only (avoids SSR/hydration mismatch
+    // from Date.now() producing different values on server vs client).
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "NotificationsProvider.useEffect": ()=>{
             const base = Date.now();
-            return SEED_NOTIFICATIONS.map({
-                "NotificationsProvider.useState": (n, i)=>({
+            setNotifications(SEED_NOTIFICATIONS.map({
+                "NotificationsProvider.useEffect": (n, i)=>({
                         ...n,
                         id: `seed-${base}-${i}`,
                         read: i === 2,
                         dismissed: false,
                         created_at: seedTime((i + 1) * 3600)
                     })
-            }["NotificationsProvider.useState"]);
+            }["NotificationsProvider.useEffect"]));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         }
-    }["NotificationsProvider.useState"]);
+    }["NotificationsProvider.useEffect"], []);
     const demoIndexRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(0);
     const toastQueueRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])([]);
     const addNotification = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
@@ -404,11 +408,11 @@ function NotificationsProvider({ children }) {
         children: children
     }, void 0, false, {
         fileName: "[project]/artifacts/web/lib/notifications-context.tsx",
-        lineNumber: 203,
+        lineNumber: 210,
         columnNumber: 5
     }, this);
 }
-_s(NotificationsProvider, "UUeh4ekXe/II/WgJ/uTEF/OlkX4=");
+_s(NotificationsProvider, "U3xbb87wOeThjYkGS25R9OcgeI8=");
 _c = NotificationsProvider;
 function useNotifications() {
     _s1();
@@ -1731,13 +1735,14 @@ var _s = __turbopack_refresh__.signature(), _s1 = __turbopack_refresh__.signatur
 "use client";
 ;
 const RoomIdContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"])(null);
-// Seed: BGMI Pro League (t2) starts in 30 mins — pre-set room ID as draft
+// Seed: BGMI Pro League (t2) starts in 30 mins — pre-set room ID as draft.
+// Use a fixed ISO string so server and client render identically (no Date.now() mismatch).
 const INITIAL_ROOM_IDS = {
     t2: {
         room_id: "BGMI_ELITE_77",
         password: "proplay99",
         released: false,
-        set_at: new Date(Date.now() - 600000).toISOString()
+        set_at: "2026-05-24T09:00:00.000Z"
     }
 };
 function RoomIdProvider({ children }) {
@@ -1809,7 +1814,7 @@ function RoomIdProvider({ children }) {
         children: children
     }, void 0, false, {
         fileName: "[project]/artifacts/web/lib/room-id-context.tsx",
-        lineNumber: 82,
+        lineNumber: 83,
         columnNumber: 5
     }, this);
 }

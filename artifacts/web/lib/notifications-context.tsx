@@ -97,16 +97,23 @@ function seedTime(secondsAgo: number) {
 }
 
 export function NotificationsProvider({ children }: { children: ReactNode }) {
-  const [notifications, setNotifications] = useState<AppNotification[]>(() => {
+  const [notifications, setNotifications] = useState<AppNotification[]>([]);
+
+  // Seed initial notifications on the client only (avoids SSR/hydration mismatch
+  // from Date.now() producing different values on server vs client).
+  useEffect(() => {
     const base = Date.now();
-    return SEED_NOTIFICATIONS.map((n, i) => ({
-      ...n,
-      id: `seed-${base}-${i}`,
-      read: i === 2,
-      dismissed: false,
-      created_at: seedTime((i + 1) * 3600),
-    }));
-  });
+    setNotifications(
+      SEED_NOTIFICATIONS.map((n, i) => ({
+        ...n,
+        id: `seed-${base}-${i}`,
+        read: i === 2,
+        dismissed: false,
+        created_at: seedTime((i + 1) * 3600),
+      }))
+    );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const demoIndexRef = useRef(0);
   const toastQueueRef = useRef<AppNotification[]>([]);

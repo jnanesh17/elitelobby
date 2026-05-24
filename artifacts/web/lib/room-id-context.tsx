@@ -19,13 +19,14 @@ interface RoomIdContextValue {
 
 const RoomIdContext = createContext<RoomIdContextValue | null>(null);
 
-// Seed: BGMI Pro League (t2) starts in 30 mins — pre-set room ID as draft
+// Seed: BGMI Pro League (t2) starts in 30 mins — pre-set room ID as draft.
+// Use a fixed ISO string so server and client render identically (no Date.now() mismatch).
 const INITIAL_ROOM_IDS: Record<string, RoomIdEntry> = {
   t2: {
     room_id: "BGMI_ELITE_77",
     password: "proplay99",
     released: false,
-    set_at: new Date(Date.now() - 600000).toISOString(),
+    set_at: "2026-05-24T09:00:00.000Z",
   },
 };
 
