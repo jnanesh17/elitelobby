@@ -3,12 +3,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { MOCK_TOURNAMENTS, MOCK_REGISTRATIONS } from "@/lib/mock-data";
 import { formatCurrency } from "@/lib/utils";
-import { Shield, Users, Trophy, DollarSign, BarChart3, Bell, Ban, CheckCircle2, XCircle, Clock, Plus, Edit, Trash2, Eye, TrendingUp, ImageIcon, X, ChevronDown, ChevronUp, Gift, ClipboardList, Search, Download, ChevronRight, Key, Lock, Unlock, Send, RotateCcw } from "lucide-react";
+import { Shield, Users, Trophy, DollarSign, BarChart3, Bell, Ban, CheckCircle2, XCircle, Clock, Plus, Edit, Trash2, Eye, TrendingUp, ImageIcon, X, ChevronDown, ChevronUp, Gift, ClipboardList, Search, Download, ChevronRight, Key, Lock, Unlock, Send, RotateCcw, Swords, Crown, Medal, Award, Hash, AlertCircle, Wallet } from "lucide-react";
 import { useRoomIds } from "@/lib/room-id-context";
 import { useNotifications } from "@/lib/notifications-context";
 import { cn } from "@/lib/utils";
 
-type AdminTab = "overview" | "tournaments" | "registrations" | "users" | "payments" | "announcements";
+type AdminTab = "overview" | "tournaments" | "registrations" | "users" | "payments" | "results" | "announcements";
 
 const MOCK_PENDING_PAYMENTS = [
   {
@@ -30,6 +30,33 @@ const MOCK_PENDING_PAYMENTS = [
     id: "p4", user: "StormRaider_K", amount: 2000, utr: "020304050607",
     time: "1 hr ago", upi: "stormraider@ybl", bonus: 300,
     screenshot: "https://placehold.co/400x600/0a0a14/f59e0b?text=Payment+Screenshot",
+  },
+];
+
+const MOCK_PENDING_RESULTS = [
+  {
+    id: "res1", player: "NightShade_X", tournament_id: "t1", tournament_name: "Free Fire Grand Series",
+    game: "Free Fire", placement: 1, kills: 12, match_id: "FF-928374",
+    prize_eligible: 2500, time: "18 min ago", status: "pending",
+    screenshot: "https://placehold.co/800x500/0a0a14/f59e0b?text=1st+Place+Match+Result",
+  },
+  {
+    id: "res2", player: "ShadowKing99", tournament_id: "t1", tournament_name: "Free Fire Grand Series",
+    game: "Free Fire", placement: 2, kills: 8, match_id: "FF-928374",
+    prize_eligible: 1500, time: "20 min ago", status: "pending",
+    screenshot: "https://placehold.co/800x500/0a0a14/06b6d4?text=2nd+Place+Match+Result",
+  },
+  {
+    id: "res3", player: "CyberHawk_V2", tournament_id: "t2", tournament_name: "BGMI Pro League",
+    game: "BGMI", placement: 1, kills: 15, match_id: "BG-112233",
+    prize_eligible: 2500, time: "2 hrs ago", status: "pending",
+    screenshot: "https://placehold.co/800x500/0a0a14/7c3aed?text=BGMI+Winner+Screen",
+  },
+  {
+    id: "res4", player: "ProSniper_Z", tournament_id: "t2", tournament_name: "BGMI Pro League",
+    game: "BGMI", placement: 3, kills: 5, match_id: "BG-112233",
+    prize_eligible: 1000, time: "2 hrs ago", status: "pending",
+    screenshot: null,
   },
 ];
 
@@ -685,6 +712,209 @@ function WithdrawalsSubTab() {
   );
 }
 
+function ResultsTab() {
+  const { addNotification } = useNotifications();
+  const [results, setResults] = useState(
+    MOCK_PENDING_RESULTS.map(r => ({ ...r, status: "pending" as "pending" | "approved" | "rejected", expanded: false, prizeOverride: "" }))
+  );
+  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [filter, setFilter] = useState<"all" | "pending" | "approved" | "rejected">("pending");
+
+  function approve(id: string) {
+    const r = results.find(r => r.id === id);
+    if (!r) return;
+    const amount = Number(r.prizeOverride) || r.prize_eligible;
+    setResults(rs => rs.map(r => r.id === id ? { ...r, status: "approved" } : r));
+    addNotification({
+      type: "prize_credited",
+      title: "Prize Money Credited! 🏆",
+      message: `${r.player}'s result verified. ${formatCurrency(amount)} credited for ${r.placement === 1 ? "1st" : r.placement === 2 ? "2nd" : "3rd"} place in ${r.tournament_name}.`,
+      meta: { amount, player: r.player },
+    });
+  }
+  function reject(id: string) { setResults(rs => rs.map(r => r.id === id ? { ...r, status: "rejected" } : r)); }
+  function toggle(id: string) { setResults(rs => rs.map(r => r.id === id ? { ...r, expanded: !r.expanded } : r)); }
+  function setPrize(id: string, val: string) { setResults(rs => rs.map(r => r.id === id ? { ...r, prizeOverride: val } : r)); }
+
+  const filtered = results.filter(r => filter === "all" || r.status === filter);
+  const counts = { all: results.length, pending: results.filter(r => r.status === "pending").length, approved: results.filter(r => r.status === "approved").length, rejected: results.filter(r => r.status === "rejected").length };
+
+  const PLACEMENT_ICONS: Record<number, React.ReactNode> = {
+    1: <Crown className="w-4 h-4 text-yellow-400" />,
+    2: <Medal className="w-4 h-4 text-slate-300" />,
+    3: <Award className="w-4 h-4 text-amber-600" />,
+  };
+  const PLACEMENT_LABELS: Record<number, string> = { 1: "1st Place", 2: "2nd Place", 3: "3rd Place", 4: "Top 10", 5: "Other" };
+  const PLACEMENT_COLORS: Record<number, string> = { 1: "text-yellow-400 border-yellow-500/30 bg-yellow-500/10", 2: "text-slate-300 border-slate-400/30 bg-slate-500/10", 3: "text-amber-600 border-amber-700/30 bg-amber-700/10", 4: "text-slate-400 border-white/10 bg-white/5", 5: "text-slate-500 border-white/5 bg-black/20" };
+
+  return (
+    <div className="space-y-4">
+      {counts.pending > 0 && (
+        <div className="flex items-center gap-3 p-3 bg-purple/5 border border-purple/20 rounded-xl">
+          <Swords className="w-4 h-4 text-purple-400 flex-shrink-0" />
+          <p className="text-sm font-heading text-slate-300">
+            <strong className="text-purple-300">{counts.pending} result{counts.pending > 1 ? "s" : ""}</strong> pending review —
+            verify screenshots before crediting prize money
+          </p>
+        </div>
+      )}
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {(["all", "pending", "approved", "rejected"] as const).map(f => (
+          <button key={f} onClick={() => setFilter(f)}
+            className={cn("glass-card rounded-xl p-4 text-left border-2 transition-all",
+              filter === f ? f === "pending" ? "border-purple/50" : f === "approved" ? "border-green-500/50" : f === "rejected" ? "border-red-500/50" : "border-white/20" : "border-transparent hover:border-white/10"
+            )}>
+            <p className="text-xs font-heading text-slate-400 mb-1 capitalize">{f}</p>
+            <p className={cn("font-display font-black text-2xl", f === "pending" ? "text-purple-300" : f === "approved" ? "text-green-400" : f === "rejected" ? "text-red-400" : "text-white")}>{counts[f]}</p>
+          </button>
+        ))}
+      </div>
+
+      <div className="space-y-3">
+        {filtered.length === 0 && <div className="glass-card rounded-2xl p-10 text-center"><p className="text-slate-500 font-heading">No {filter} results</p></div>}
+        {filtered.map(r => (
+          <motion.div key={r.id} layout className={cn("glass-card rounded-2xl overflow-hidden border",
+            r.status === "approved" ? "border-green-500/20" : r.status === "rejected" ? "border-red-500/15" : "border-purple/20"
+          )}>
+            {/* Row */}
+            <div className="flex items-center gap-4 p-4">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-700 to-yellow-700 flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0">
+                {r.player[0]}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <p className="font-heading font-bold text-white text-sm">{r.player}</p>
+                  <span className={cn("text-xs font-heading font-bold border rounded-full px-2 py-0.5",
+                    r.status === "approved" ? "border-green-500/30 text-green-400 bg-green-500/10" : r.status === "rejected" ? "border-red-500/30 text-red-400 bg-red-500/10" : "border-purple/30 text-purple-300 bg-purple/10"
+                  )}>{r.status.toUpperCase()}</span>
+                  <span className={cn("text-xs font-heading border rounded-full px-2 py-0.5 flex items-center gap-1",
+                    PLACEMENT_COLORS[r.placement] ?? PLACEMENT_COLORS[5]
+                  )}>
+                    {PLACEMENT_ICONS[r.placement] ?? <Hash className="w-3 h-3" />}
+                    {PLACEMENT_LABELS[r.placement] ?? "Other"}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 font-heading truncate">
+                  {r.tournament_name} · {r.kills} kills · {r.time}
+                </p>
+              </div>
+              <div className="text-right flex-shrink-0">
+                <p className="font-display font-black text-lg text-yellow-400">{formatCurrency(r.prize_eligible)}</p>
+                <p className="text-xs text-slate-500 font-heading">eligible</p>
+              </div>
+              <button onClick={() => toggle(r.id)} className="w-8 h-8 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all flex-shrink-0">
+                {r.expanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              </button>
+            </div>
+
+            {/* Expanded */}
+            {r.expanded && (
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="border-t border-white/5 p-4">
+                <div className="flex flex-col md:flex-row gap-5">
+                  {/* Screenshot */}
+                  <div className="md:w-64 flex-shrink-0">
+                    <p className="text-xs text-slate-400 font-heading mb-2 flex items-center gap-1.5"><ImageIcon className="w-3.5 h-3.5" /> Match Screenshot</p>
+                    {r.screenshot ? (
+                      <button onClick={() => setLightbox(r.screenshot!)} className="block w-full rounded-xl overflow-hidden border-2 border-purple/20 hover:border-purple/50 transition-all group">
+                        <img src={r.screenshot} alt="Match proof" className="w-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <div className="bg-purple/20 py-1 text-center"><span className="text-xs text-purple-300 font-heading">Click to enlarge</span></div>
+                      </button>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center gap-2 p-8 rounded-xl border-2 border-dashed border-white/10 text-slate-600">
+                        <ImageIcon className="w-8 h-8" /><p className="text-xs font-heading">No screenshot uploaded</p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Details + actions */}
+                  <div className="flex-1 space-y-3">
+                    <div className="grid grid-cols-2 gap-3">
+                      {[
+                        { label: "Player", value: r.player, color: "text-white" },
+                        { label: "Tournament", value: r.tournament_name, color: "text-cyan-400 text-xs" },
+                        { label: "Game", value: r.game, color: "text-purple-300" },
+                        { label: "Placement", value: PLACEMENT_LABELS[r.placement] ?? "Other", color: r.placement === 1 ? "text-yellow-400" : r.placement === 2 ? "text-slate-300" : "text-amber-600" },
+                        { label: "Kills", value: String(r.kills), color: "text-white" },
+                        { label: "Match ID", value: r.match_id || "N/A", color: "text-slate-400 font-mono text-xs" },
+                        { label: "Submitted", value: r.time, color: "text-slate-400" },
+                        { label: "Prize Eligible", value: formatCurrency(r.prize_eligible), color: "text-yellow-400" },
+                      ].map(row => (
+                        <div key={row.label} className="bg-black/20 rounded-xl p-3 border border-white/5">
+                          <p className="text-xs text-slate-500 font-heading mb-1">{row.label}</p>
+                          <p className={cn("font-heading font-bold text-sm truncate", row.color)}>{row.value}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {r.status === "pending" && (
+                      <>
+                        {/* Prize override */}
+                        <div className="flex items-center gap-3 p-3 bg-black/30 rounded-xl border border-white/8">
+                          <Wallet className="w-4 h-4 text-yellow-400 flex-shrink-0" />
+                          <div className="flex-1">
+                            <p className="text-xs text-slate-400 font-heading mb-1">Prize amount to credit</p>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm font-heading text-slate-300">₹</span>
+                              <input
+                                type="number"
+                                value={r.prizeOverride || r.prize_eligible}
+                                onChange={e => setPrize(r.id, e.target.value)}
+                                className="gaming-input flex-1 px-2 py-1.5 rounded-lg text-sm w-24"
+                                min={0}
+                              />
+                              <span className="text-xs text-slate-500 font-heading">default: {formatCurrency(r.prize_eligible)}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {!r.screenshot && (
+                          <div className="flex items-start gap-2 p-2.5 bg-yellow-500/5 border border-yellow-500/15 rounded-xl">
+                            <AlertCircle className="w-3.5 h-3.5 text-yellow-400 mt-0.5 flex-shrink-0" />
+                            <p className="text-xs text-yellow-400/80 font-heading">No screenshot provided — verify via other means before approving.</p>
+                          </div>
+                        )}
+
+                        <div className="flex gap-3">
+                          <button onClick={() => approve(r.id)} className="btn-gold flex-1 py-2.5 rounded-xl text-sm font-heading font-bold flex items-center justify-center gap-2">
+                            <CheckCircle2 className="w-4 h-4" /> Approve & Credit {formatCurrency(Number(r.prizeOverride) || r.prize_eligible)}
+                          </button>
+                          <button onClick={() => reject(r.id)} className="btn-danger flex-1 py-2.5 rounded-xl text-sm font-heading font-bold flex items-center justify-center gap-2">
+                            <XCircle className="w-4 h-4" /> Reject
+                          </button>
+                        </div>
+                      </>
+                    )}
+                    {r.status === "approved" && (
+                      <div className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/20 rounded-xl">
+                        <CheckCircle2 className="w-4 h-4 text-green-400" />
+                        <p className="text-sm text-green-400 font-heading font-semibold">Approved — {formatCurrency(Number(r.prizeOverride) || r.prize_eligible)} credited to {r.player}'s wallet</p>
+                      </div>
+                    )}
+                    {r.status === "rejected" && (
+                      <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded-xl">
+                        <XCircle className="w-4 h-4 text-red-400" />
+                        <p className="text-sm text-red-400 font-heading font-semibold">Rejected — player notified, no prize credited</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </motion.div>
+        ))}
+      </div>
+
+      {lightbox && (
+        <div className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4" onClick={() => setLightbox(null)}>
+          <button className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"><X className="w-5 h-5" /></button>
+          <img src={lightbox} alt="Match screenshot" className="max-w-2xl w-full max-h-[85vh] object-contain rounded-2xl border border-purple/30" onClick={e => e.stopPropagation()} />
+        </div>
+      )}
+    </div>
+  );
+}
+
 function PaymentsTab() {
   const [subTab, setSubTab] = useState<"deposits" | "withdrawals">("deposits");
   const pendingDeposits = MOCK_PENDING_PAYMENTS.length;
@@ -733,6 +963,7 @@ export default function AdminPage() {
     { key: "registrations", label: "Registrations", icon: <ClipboardList className="w-4 h-4" />, badge: totalRegs },
     { key: "users", label: "Users", icon: <Users className="w-4 h-4" /> },
     { key: "payments", label: "Payments", icon: <DollarSign className="w-4 h-4" /> },
+    { key: "results", label: "Results", icon: <Swords className="w-4 h-4" />, badge: MOCK_PENDING_RESULTS.length },
     { key: "announcements", label: "Announce", icon: <Bell className="w-4 h-4" /> },
   ];
 
@@ -788,6 +1019,7 @@ export default function AdminPage() {
           {activeTab === "registrations" && <RegistrationsTab />}
           {activeTab === "users" && <UsersTab />}
           {activeTab === "payments" && <PaymentsTab />}
+          {activeTab === "results" && <ResultsTab />}
           {activeTab === "announcements" && (
             <div className="glass-card rounded-2xl p-6">
               <h3 className="font-heading font-bold text-white mb-4">Send Announcement</h3>

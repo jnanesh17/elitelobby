@@ -10,7 +10,7 @@ import { useUser } from "@clerk/nextjs";
 import {
   ArrowLeft, Trophy, Users, Clock, Shield, Map, Swords,
   CheckCircle2, AlertCircle, Copy, Key, Lock, Loader2, Send,
-  Wifi, WifiOff, Eye, EyeOff, Zap, Crown, MessageSquare,
+  Wifi, Eye, EyeOff, Zap, Crown, MessageSquare, Upload,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -517,6 +517,27 @@ export default function TournamentLobbyPage() {
                 }
               </button>
             </motion.div>
+
+            {/* Submit result CTA — shows when live or match time passed */}
+            {(isLive || countdown.total <= 0) && (
+              <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                className="glass-card rounded-2xl p-5 border border-yellow-500/25"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <Trophy className="w-4 h-4 text-yellow-400" />
+                  <h3 className="font-heading font-bold text-yellow-400 text-sm">Match Ended?</h3>
+                </div>
+                <p className="text-xs text-slate-400 font-heading leading-relaxed mb-4">
+                  Upload your end-game screenshot to claim your prize money. Admin will verify and credit your wallet within 24 hours.
+                </p>
+                <Link
+                  href={`/tournaments/${tournament.id}/results`}
+                  className="btn-gold w-full py-3 rounded-xl font-heading font-bold text-sm flex items-center justify-center gap-2"
+                >
+                  <Upload className="w-4 h-4" /> Submit Match Result
+                </Link>
+              </motion.div>
+            )}
 
             {/* Match info summary */}
             <div className="glass-card rounded-2xl p-4 space-y-2">

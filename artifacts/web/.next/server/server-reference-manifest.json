@@ -1,49 +1,24 @@
 {
   "node": {
-    "7feb79b0419fea41e058cc1b6d07117ff83c6443b2": {
+    "7f12ae34f5fa9217ac9ec5ca11aeae157c3eb7a5b5": {
       "workers": {
         "app/page": {
           "moduleId": "[project]/artifacts/web/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
         },
-        "app/auth/login/[[...login]]/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/auth/login/[[...login]]/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/profile-setup/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/profile-setup/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/wallet/deposit/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/wallet/deposit/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/tournaments/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/tournaments/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
+        "app/tournaments/[id]/results/page": {
+          "moduleId": "[project]/artifacts/web/.next-internal/server/app/tournaments/[id]/results/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
         },
         "app/admin/page": {
           "moduleId": "[project]/artifacts/web/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
-        },
-        "app/wallet/withdraw/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/wallet/withdraw/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/tournaments/[id]/lobby/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/tournaments/[id]/lobby/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
         }
       },
       "layer": {
-        "app/page": "rsc",
-        "app/auth/login/[[...login]]/page": "action-browser",
-        "app/profile-setup/page": "action-browser",
-        "app/wallet/deposit/page": "action-browser",
-        "app/tournaments/page": "rsc",
-        "app/admin/page": "rsc",
-        "app/wallet/withdraw/page": "rsc",
-        "app/tournaments/[id]/lobby/page": "action-browser"
+        "app/page": "action-browser",
+        "app/tournaments/[id]/results/page": "rsc",
+        "app/admin/page": "action-browser"
       }
     },
     "7f739fdf58cec993f349011d9d9f8f8b0524fd4568": {
@@ -52,90 +27,40 @@
           "moduleId": "[project]/artifacts/web/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
         },
-        "app/auth/login/[[...login]]/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/auth/login/[[...login]]/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/profile-setup/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/profile-setup/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/wallet/deposit/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/wallet/deposit/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/tournaments/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/tournaments/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
+        "app/tournaments/[id]/results/page": {
+          "moduleId": "[project]/artifacts/web/.next-internal/server/app/tournaments/[id]/results/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
         },
         "app/admin/page": {
           "moduleId": "[project]/artifacts/web/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
-        },
-        "app/wallet/withdraw/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/wallet/withdraw/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/tournaments/[id]/lobby/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/tournaments/[id]/lobby/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
         }
       },
       "layer": {
-        "app/page": "rsc",
-        "app/auth/login/[[...login]]/page": "action-browser",
-        "app/profile-setup/page": "action-browser",
-        "app/wallet/deposit/page": "action-browser",
-        "app/tournaments/page": "rsc",
-        "app/admin/page": "rsc",
-        "app/wallet/withdraw/page": "rsc",
-        "app/tournaments/[id]/lobby/page": "action-browser"
+        "app/page": "action-browser",
+        "app/tournaments/[id]/results/page": "rsc",
+        "app/admin/page": "action-browser"
       }
     },
-    "7f12ae34f5fa9217ac9ec5ca11aeae157c3eb7a5b5": {
+    "7feb79b0419fea41e058cc1b6d07117ff83c6443b2": {
       "workers": {
         "app/page": {
           "moduleId": "[project]/artifacts/web/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
         },
-        "app/auth/login/[[...login]]/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/auth/login/[[...login]]/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/profile-setup/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/profile-setup/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/wallet/deposit/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/wallet/deposit/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/tournaments/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/tournaments/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
+        "app/tournaments/[id]/results/page": {
+          "moduleId": "[project]/artifacts/web/.next-internal/server/app/tournaments/[id]/results/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
         },
         "app/admin/page": {
           "moduleId": "[project]/artifacts/web/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
-        },
-        "app/wallet/withdraw/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/wallet/withdraw/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/tournaments/[id]/lobby/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/tournaments/[id]/lobby/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
         }
       },
       "layer": {
-        "app/page": "rsc",
-        "app/auth/login/[[...login]]/page": "action-browser",
-        "app/profile-setup/page": "action-browser",
-        "app/wallet/deposit/page": "action-browser",
-        "app/tournaments/page": "rsc",
-        "app/admin/page": "rsc",
-        "app/wallet/withdraw/page": "rsc",
-        "app/tournaments/[id]/lobby/page": "action-browser"
+        "app/page": "action-browser",
+        "app/tournaments/[id]/results/page": "rsc",
+        "app/admin/page": "action-browser"
       }
     },
     "7f2a504b19aa799e26eb932f4c0a5dd6688b8866d8": {
@@ -144,44 +69,19 @@
           "moduleId": "[project]/artifacts/web/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
         },
-        "app/auth/login/[[...login]]/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/auth/login/[[...login]]/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/profile-setup/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/profile-setup/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/wallet/deposit/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/wallet/deposit/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/tournaments/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/tournaments/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
+        "app/tournaments/[id]/results/page": {
+          "moduleId": "[project]/artifacts/web/.next-internal/server/app/tournaments/[id]/results/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
         },
         "app/admin/page": {
           "moduleId": "[project]/artifacts/web/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
-        },
-        "app/wallet/withdraw/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/wallet/withdraw/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
-        },
-        "app/tournaments/[id]/lobby/page": {
-          "moduleId": "[project]/artifacts/web/.next-internal/server/app/tournaments/[id]/lobby/page/actions.js { ACTIONS_MODULE0 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/keyless-actions.js [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/node_modules/.pnpm/@clerk+nextjs@7.4.0_next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0__react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/nextjs/dist/esm/app-router/server-actions.js [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
-          "async": false
         }
       },
       "layer": {
         "app/page": "action-browser",
-        "app/auth/login/[[...login]]/page": "action-browser",
-        "app/profile-setup/page": "action-browser",
-        "app/wallet/deposit/page": "action-browser",
-        "app/tournaments/page": "action-browser",
-        "app/admin/page": "action-browser",
-        "app/wallet/withdraw/page": "action-browser",
-        "app/tournaments/[id]/lobby/page": "action-browser"
+        "app/tournaments/[id]/results/page": "action-browser",
+        "app/admin/page": "action-browser"
       }
     }
   },
