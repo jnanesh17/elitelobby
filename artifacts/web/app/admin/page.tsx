@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { MOCK_TOURNAMENTS, MOCK_REGISTRATIONS } from "@/lib/mock-data";
 import { formatCurrency } from "@/lib/utils";
 import { Shield, Users, Trophy, DollarSign, BarChart3, Bell, Ban, CheckCircle2, XCircle, Clock, Plus, Edit, Trash2, Eye, TrendingUp, ImageIcon, X, ChevronDown, ChevronUp, Gift, ClipboardList, Search, Download, ChevronRight, Key, Lock, Unlock, Send, RotateCcw, Swords, Crown, Medal, Award, Hash, AlertCircle, Wallet } from "lucide-react";
@@ -148,7 +148,7 @@ function OverviewTab() {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-heading font-semibold text-white text-sm">{p.user}</p>
-                <p className="text-xs text-slate-400 font-heading font-mono">{p.txId}</p>
+                <p className="text-xs text-slate-400 font-heading font-mono">{p.utr}</p>
               </div>
               <span className="font-display font-bold text-yellow-400 text-sm">₹{p.amount}</span>
               <span className="text-xs text-slate-500 font-heading hidden sm:block">{p.time}</span>
