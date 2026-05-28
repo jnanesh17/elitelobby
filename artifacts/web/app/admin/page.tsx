@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MOCK_TOURNAMENTS, MOCK_REGISTRATIONS } from "@/lib/mock-data";
 import { formatCurrency } from "@/lib/utils";
@@ -32,6 +32,40 @@ const MOCK_PENDING_PAYMENTS = [
     screenshot: "https://placehold.co/400x600/0a0a14/f59e0b?text=Payment+Screenshot",
   },
 ];
+
+function timeAgo(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return "just now";
+  if (mins < 60) return `${mins} min ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs} hr${hrs > 1 ? "s" : ""} ago`;
+  return `${Math.floor(hrs / 24)}d ago`;
+}
+
+function loadStoredResults() {
+  try {
+    const raw = localStorage.getItem("elitelobby_match_results");
+    if (!raw) return [];
+    const items = JSON.parse(raw) as Array<Record<string, unknown>>;
+    return items.map((r) => ({
+      id: String(r.id ?? ""),
+      player: String(r.player ?? "DemoPlayer"),
+      tournament_id: String(r.tournament_id ?? ""),
+      tournament_name: String(r.tournament_name ?? ""),
+      game: "Unknown",
+      placement: Number(r.placement ?? 5),
+      kills: Number(r.kills) || 0,
+      match_id: String(r.match_id ?? ""),
+      prize_eligible: Number(r.prize_eligible ?? 0),
+      time: timeAgo(String(r.submitted_at ?? new Date().toISOString())),
+      status: "pending" as const,
+      screenshot: r.image ? String(r.image) : null,
+    }));
+  } catch {
+    return [];
+  }
+}
 
 const MOCK_PENDING_RESULTS = [
   {
@@ -714,11 +748,24 @@ function WithdrawalsSubTab() {
 
 function ResultsTab() {
   const { addNotification } = useNotifications();
-  const [results, setResults] = useState(
+  const [results, setResults] = useState(() =>
     MOCK_PENDING_RESULTS.map(r => ({ ...r, status: "pending" as "pending" | "approved" | "rejected", expanded: false, prizeOverride: "" }))
   );
   const [lightbox, setLightbox] = useState<string | null>(null);
   const [filter, setFilter] = useState<"all" | "pending" | "approved" | "rejected">("pending");
+
+  // Merge player-submitted results from localStorage on mount
+  useEffect(() => {
+    const stored = loadStoredResults();
+    if (stored.length === 0) return;
+    setResults(prev => {
+      const existingIds = new Set(prev.map(r => r.id));
+      const fresh = stored
+        .filter(r => !existingIds.has(r.id))
+        .map(r => ({ ...r, expanded: false, prizeOverride: "" }));
+      return fresh.length > 0 ? [...fresh, ...prev] : prev;
+    });
+  }, []);
 
   function approve(id: string) {
     const r = results.find(r => r.id === id);
@@ -956,14 +1003,25 @@ function PaymentsTab() {
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<AdminTab>("overview");
+  const [pendingResultsBadge, setPendingResultsBadge] = useState(MOCK_PENDING_RESULTS.length);
   const totalRegs = MOCK_REGISTRATIONS.length;
+
+  // Update badge to include localStorage submissions
+  useEffect(() => {
+    const stored = loadStoredResults();
+    const storedIds = new Set(stored.map(r => r.id));
+    const mockIds = new Set(MOCK_PENDING_RESULTS.map(r => r.id));
+    const uniqueStored = stored.filter(r => !mockIds.has(r.id)).length;
+    setPendingResultsBadge(MOCK_PENDING_RESULTS.length + uniqueStored);
+  }, []);
+
   const TABS: { key: AdminTab; label: string; icon: React.ReactNode; badge?: number }[] = [
     { key: "overview", label: "Overview", icon: <BarChart3 className="w-4 h-4" /> },
     { key: "tournaments", label: "Tournaments", icon: <Trophy className="w-4 h-4" /> },
     { key: "registrations", label: "Registrations", icon: <ClipboardList className="w-4 h-4" />, badge: totalRegs },
     { key: "users", label: "Users", icon: <Users className="w-4 h-4" /> },
     { key: "payments", label: "Payments", icon: <DollarSign className="w-4 h-4" /> },
-    { key: "results", label: "Results", icon: <Swords className="w-4 h-4" />, badge: MOCK_PENDING_RESULTS.length },
+    { key: "results", label: "Results", icon: <Swords className="w-4 h-4" />, badge: pendingResultsBadge },
     { key: "announcements", label: "Announce", icon: <Bell className="w-4 h-4" /> },
   ];
 

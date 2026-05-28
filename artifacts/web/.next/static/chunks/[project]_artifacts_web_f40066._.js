@@ -643,6 +643,38 @@ const MOCK_PENDING_PAYMENTS = [
         screenshot: "https://placehold.co/400x600/0a0a14/f59e0b?text=Payment+Screenshot"
     }
 ];
+function timeAgo(iso) {
+    const diff = Date.now() - new Date(iso).getTime();
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return "just now";
+    if (mins < 60) return `${mins} min ago`;
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return `${hrs} hr${hrs > 1 ? "s" : ""} ago`;
+    return `${Math.floor(hrs / 24)}d ago`;
+}
+function loadStoredResults() {
+    try {
+        const raw = localStorage.getItem("elitelobby_match_results");
+        if (!raw) return [];
+        const items = JSON.parse(raw);
+        return items.map((r)=>({
+                id: String(r.id ?? ""),
+                player: String(r.player ?? "DemoPlayer"),
+                tournament_id: String(r.tournament_id ?? ""),
+                tournament_name: String(r.tournament_name ?? ""),
+                game: "Unknown",
+                placement: Number(r.placement ?? 5),
+                kills: Number(r.kills) || 0,
+                match_id: String(r.match_id ?? ""),
+                prize_eligible: Number(r.prize_eligible ?? 0),
+                time: timeAgo(String(r.submitted_at ?? new Date().toISOString())),
+                status: "pending",
+                screenshot: r.image ? String(r.image) : null
+            }));
+    } catch  {
+        return [];
+    }
+}
 const MOCK_PENDING_RESULTS = [
     {
         id: "res1",
@@ -789,7 +821,7 @@ function OverviewTab() {
                 className: "w-5 h-5"
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 95,
+                lineNumber: 129,
                 columnNumber: 69
             }, this),
             color: "text-yellow-400"
@@ -802,7 +834,7 @@ function OverviewTab() {
                 className: "w-5 h-5"
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 96,
+                lineNumber: 130,
                 columnNumber: 71
             }, this),
             color: "text-cyan-400"
@@ -815,7 +847,7 @@ function OverviewTab() {
                 className: "w-5 h-5"
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 97,
+                lineNumber: 131,
                 columnNumber: 73
             }, this),
             color: "text-red-400"
@@ -828,7 +860,7 @@ function OverviewTab() {
                 className: "w-5 h-5"
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 98,
+                lineNumber: 132,
                 columnNumber: 77
             }, this),
             color: "text-purple-400"
@@ -858,7 +890,7 @@ function OverviewTab() {
                                 children: s.icon
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 112,
+                                lineNumber: 146,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -866,7 +898,7 @@ function OverviewTab() {
                                 children: s.label
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 113,
+                                lineNumber: 147,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -874,7 +906,7 @@ function OverviewTab() {
                                 children: s.value
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 114,
+                                lineNumber: 148,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -882,18 +914,18 @@ function OverviewTab() {
                                 children: s.change
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 115,
+                                lineNumber: 149,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, i, true, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 105,
+                        lineNumber: 139,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 103,
+                lineNumber: 137,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -907,7 +939,7 @@ function OverviewTab() {
                                 children: "Revenue Overview"
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 123,
+                                lineNumber: 157,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -917,20 +949,20 @@ function OverviewTab() {
                                         className: "w-4 h-4"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 125,
+                                        lineNumber: 159,
                                         columnNumber: 13
                                     }, this),
                                     " +22% this month"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 124,
+                                lineNumber: 158,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 122,
+                        lineNumber: 156,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -956,12 +988,12 @@ function OverviewTab() {
                                 }
                             }, i, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 130,
+                                lineNumber: 164,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 128,
+                        lineNumber: 162,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -984,18 +1016,18 @@ function OverviewTab() {
                                 children: m
                             }, m, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 135,
+                                lineNumber: 169,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 133,
+                        lineNumber: 167,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 121,
+                lineNumber: 155,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1006,7 +1038,7 @@ function OverviewTab() {
                         children: "Pending Payments"
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 142,
+                        lineNumber: 176,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1019,7 +1051,7 @@ function OverviewTab() {
                                         children: p.user[0]
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 146,
+                                        lineNumber: 180,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1030,7 +1062,7 @@ function OverviewTab() {
                                                 children: p.user
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 150,
+                                                lineNumber: 184,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1038,13 +1070,13 @@ function OverviewTab() {
                                                 children: p.utr
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 151,
+                                                lineNumber: 185,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 149,
+                                        lineNumber: 183,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1055,7 +1087,7 @@ function OverviewTab() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 153,
+                                        lineNumber: 187,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1063,7 +1095,7 @@ function OverviewTab() {
                                         children: p.time
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 154,
+                                        lineNumber: 188,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1075,12 +1107,12 @@ function OverviewTab() {
                                                     className: "w-3.5 h-3.5"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 157,
+                                                    lineNumber: 191,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 156,
+                                                lineNumber: 190,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1089,41 +1121,41 @@ function OverviewTab() {
                                                     className: "w-3.5 h-3.5"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 160,
+                                                    lineNumber: 194,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 159,
+                                                lineNumber: 193,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 155,
+                                        lineNumber: 189,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, p.id, true, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 145,
+                                lineNumber: 179,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 143,
+                        lineNumber: 177,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 141,
+                lineNumber: 175,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-        lineNumber: 102,
+        lineNumber: 136,
         columnNumber: 5
     }, this);
 }
@@ -1140,7 +1172,7 @@ function TournamentsTab() {
                         children: "All Tournaments"
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 175,
+                        lineNumber: 209,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1150,7 +1182,7 @@ function TournamentsTab() {
                                 className: "w-4 h-4 relative z-10"
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 177,
+                                lineNumber: 211,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1158,19 +1190,19 @@ function TournamentsTab() {
                                 children: "Create Tournament"
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 178,
+                                lineNumber: 212,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 176,
+                        lineNumber: 210,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 174,
+                lineNumber: 208,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1186,7 +1218,7 @@ function TournamentsTab() {
                                         children: "Tournament"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 185,
+                                        lineNumber: 219,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1194,7 +1226,7 @@ function TournamentsTab() {
                                         children: "Game"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 186,
+                                        lineNumber: 220,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1202,7 +1234,7 @@ function TournamentsTab() {
                                         children: "Prize"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 187,
+                                        lineNumber: 221,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1210,7 +1242,7 @@ function TournamentsTab() {
                                         children: "Slots"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 188,
+                                        lineNumber: 222,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1218,7 +1250,7 @@ function TournamentsTab() {
                                         children: "Status"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 189,
+                                        lineNumber: 223,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1226,18 +1258,18 @@ function TournamentsTab() {
                                         children: "Actions"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 190,
+                                        lineNumber: 224,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 184,
+                                lineNumber: 218,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 183,
+                            lineNumber: 217,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1249,7 +1281,7 @@ function TournamentsTab() {
                                             children: t.title
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 196,
+                                            lineNumber: 230,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1257,7 +1289,7 @@ function TournamentsTab() {
                                             children: t.game
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 197,
+                                            lineNumber: 231,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1265,7 +1297,7 @@ function TournamentsTab() {
                                             children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatCurrency"])(t.prize_pool)
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 198,
+                                            lineNumber: 232,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1277,7 +1309,7 @@ function TournamentsTab() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 199,
+                                            lineNumber: 233,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1287,12 +1319,12 @@ function TournamentsTab() {
                                                 children: t.status.toUpperCase()
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 201,
+                                                lineNumber: 235,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 200,
+                                            lineNumber: 234,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1306,12 +1338,12 @@ function TournamentsTab() {
                                                             className: "w-3.5 h-3.5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                            lineNumber: 208,
+                                                            lineNumber: 242,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 207,
+                                                        lineNumber: 241,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1320,12 +1352,12 @@ function TournamentsTab() {
                                                             className: "w-3.5 h-3.5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                            lineNumber: 211,
+                                                            lineNumber: 245,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 210,
+                                                        lineNumber: 244,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1334,51 +1366,51 @@ function TournamentsTab() {
                                                             className: "w-3.5 h-3.5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                            lineNumber: 214,
+                                                            lineNumber: 248,
                                                             columnNumber: 23
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 213,
+                                                        lineNumber: 247,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 206,
+                                                lineNumber: 240,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 205,
+                                            lineNumber: 239,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, t.id, true, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 195,
+                                    lineNumber: 229,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 193,
+                            lineNumber: 227,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                    lineNumber: 182,
+                    lineNumber: 216,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 181,
+                lineNumber: 215,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-        lineNumber: 173,
+        lineNumber: 207,
         columnNumber: 5
     }, this);
 }
@@ -1394,12 +1426,12 @@ function UsersTab() {
                     children: "User Management"
                 }, void 0, false, {
                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                    lineNumber: 231,
+                    lineNumber: 265,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 230,
+                lineNumber: 264,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1415,7 +1447,7 @@ function UsersTab() {
                                         children: "Player"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 237,
+                                        lineNumber: 271,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1423,7 +1455,7 @@ function UsersTab() {
                                         children: "Email"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 238,
+                                        lineNumber: 272,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1431,7 +1463,7 @@ function UsersTab() {
                                         children: "Balance"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 239,
+                                        lineNumber: 273,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1439,7 +1471,7 @@ function UsersTab() {
                                         children: "Joined"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 240,
+                                        lineNumber: 274,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1447,7 +1479,7 @@ function UsersTab() {
                                         children: "Status"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 241,
+                                        lineNumber: 275,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1455,18 +1487,18 @@ function UsersTab() {
                                         children: "Actions"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 242,
+                                        lineNumber: 276,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 236,
+                                lineNumber: 270,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 235,
+                            lineNumber: 269,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1481,7 +1513,7 @@ function UsersTab() {
                                                         children: u.username[0]
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 250,
+                                                        lineNumber: 284,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1489,18 +1521,18 @@ function UsersTab() {
                                                         children: u.username
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 253,
+                                                        lineNumber: 287,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 249,
+                                                lineNumber: 283,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 248,
+                                            lineNumber: 282,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1508,7 +1540,7 @@ function UsersTab() {
                                             children: u.email
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 256,
+                                            lineNumber: 290,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1519,7 +1551,7 @@ function UsersTab() {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 257,
+                                            lineNumber: 291,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1527,7 +1559,7 @@ function UsersTab() {
                                             children: u.joined
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 258,
+                                            lineNumber: 292,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1537,12 +1569,12 @@ function UsersTab() {
                                                 children: u.status.toUpperCase()
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 260,
+                                                lineNumber: 294,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 259,
+                                            lineNumber: 293,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1553,51 +1585,51 @@ function UsersTab() {
                                                     className: "w-3.5 h-3.5"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 270,
+                                                    lineNumber: 304,
                                                     columnNumber: 46
                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$lucide$2d$react$40$0$2e$545$2e$0_react$40$19$2e$1$2e$0$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$ban$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Ban$3e$__["Ban"], {
                                                     className: "w-3.5 h-3.5"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 270,
+                                                    lineNumber: 304,
                                                     columnNumber: 89
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 265,
+                                                lineNumber: 299,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 264,
+                                            lineNumber: 298,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, u.id, true, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 247,
+                                    lineNumber: 281,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 245,
+                            lineNumber: 279,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                    lineNumber: 234,
+                    lineNumber: 268,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 233,
+                lineNumber: 267,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-        lineNumber: 229,
+        lineNumber: 263,
         columnNumber: 5
     }, this);
 }
@@ -1639,14 +1671,14 @@ function RegistrationsTab({ onViewTournament }) {
                                 className: "w-4 h-4 text-purple-400"
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 315,
+                                lineNumber: 349,
                                 columnNumber: 11
                             }, this),
                             " Tournament Registrations"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 314,
+                        lineNumber: 348,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1665,7 +1697,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                         children: t.title
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 329,
+                                                        lineNumber: 363,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1677,13 +1709,13 @@ function RegistrationsTab({ onViewTournament }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 330,
+                                                        lineNumber: 364,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 328,
+                                                lineNumber: 362,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1691,13 +1723,13 @@ function RegistrationsTab({ onViewTournament }) {
                                                 children: t.status.toUpperCase()
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 332,
+                                                lineNumber: 366,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 327,
+                                        lineNumber: 361,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1711,7 +1743,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                         children: t.regCount
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 338,
+                                                        lineNumber: 372,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1719,13 +1751,13 @@ function RegistrationsTab({ onViewTournament }) {
                                                         children: "Total"
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 339,
+                                                        lineNumber: 373,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 337,
+                                                lineNumber: 371,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1736,7 +1768,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                         children: t.confirmed
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 342,
+                                                        lineNumber: 376,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1744,13 +1776,13 @@ function RegistrationsTab({ onViewTournament }) {
                                                         children: "Paid"
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 343,
+                                                        lineNumber: 377,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 341,
+                                                lineNumber: 375,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1765,7 +1797,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 346,
+                                                        lineNumber: 380,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1773,19 +1805,19 @@ function RegistrationsTab({ onViewTournament }) {
                                                         children: "Revenue"
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 347,
+                                                        lineNumber: 381,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 345,
+                                                lineNumber: 379,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 336,
+                                        lineNumber: 370,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1800,12 +1832,12 @@ function RegistrationsTab({ onViewTournament }) {
                                                     }
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 352,
+                                                    lineNumber: 386,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 351,
+                                                lineNumber: 385,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1817,30 +1849,30 @@ function RegistrationsTab({ onViewTournament }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 354,
+                                                lineNumber: 388,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 350,
+                                        lineNumber: 384,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, t.id, true, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 319,
+                                lineNumber: 353,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 317,
+                        lineNumber: 351,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 313,
+                lineNumber: 347,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1861,13 +1893,13 @@ function RegistrationsTab({ onViewTournament }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 366,
+                                        lineNumber: 400,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 364,
+                                lineNumber: 398,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1881,14 +1913,14 @@ function RegistrationsTab({ onViewTournament }) {
                                                 className: "w-3 h-3"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 374,
+                                                lineNumber: 408,
                                                 columnNumber: 17
                                             }, this),
                                             " Clear filter"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 370,
+                                        lineNumber: 404,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1898,7 +1930,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                 className: "absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 379,
+                                                lineNumber: 413,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1909,25 +1941,25 @@ function RegistrationsTab({ onViewTournament }) {
                                                 className: "gaming-input pl-8 pr-3 py-1.5 rounded-lg text-xs w-40"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 380,
+                                                lineNumber: 414,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 378,
+                                        lineNumber: 412,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 368,
+                                lineNumber: 402,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 363,
+                        lineNumber: 397,
                         columnNumber: 9
                     }, this),
                     regs.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1937,7 +1969,7 @@ function RegistrationsTab({ onViewTournament }) {
                                 className: "w-10 h-10 text-slate-700 mx-auto mb-2"
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 393,
+                                lineNumber: 427,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1945,13 +1977,13 @@ function RegistrationsTab({ onViewTournament }) {
                                 children: "No registrations found"
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 394,
+                                lineNumber: 428,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 392,
+                        lineNumber: 426,
                         columnNumber: 11
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "overflow-x-auto",
@@ -1966,7 +1998,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                 children: "#"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 401,
+                                                lineNumber: 435,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1974,7 +2006,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                 children: "Player"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 402,
+                                                lineNumber: 436,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1982,7 +2014,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                 children: "Game UID"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 403,
+                                                lineNumber: 437,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1990,7 +2022,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                 children: "Email"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 404,
+                                                lineNumber: 438,
                                                 columnNumber: 19
                                             }, this),
                                             !selectedTournament && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1998,7 +2030,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                 children: "Tournament"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 405,
+                                                lineNumber: 439,
                                                 columnNumber: 43
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2006,7 +2038,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                 children: "Entry Fee"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 406,
+                                                lineNumber: 440,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2014,7 +2046,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                 children: "Payment"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 407,
+                                                lineNumber: 441,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -2022,18 +2054,18 @@ function RegistrationsTab({ onViewTournament }) {
                                                 children: "Registered"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 408,
+                                                lineNumber: 442,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 400,
+                                        lineNumber: 434,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 399,
+                                    lineNumber: 433,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -2055,7 +2087,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                     children: i + 1
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 421,
+                                                    lineNumber: 455,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2067,7 +2099,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                                 children: r.username[0]
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 424,
+                                                                lineNumber: 458,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2075,18 +2107,18 @@ function RegistrationsTab({ onViewTournament }) {
                                                                 children: r.username
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 427,
+                                                                lineNumber: 461,
                                                                 columnNumber: 27
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 423,
+                                                        lineNumber: 457,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 422,
+                                                    lineNumber: 456,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2094,7 +2126,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                     children: r.game_uid
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 430,
+                                                    lineNumber: 464,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2102,7 +2134,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                     children: r.email
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 431,
+                                                    lineNumber: 465,
                                                     columnNumber: 23
                                                 }, this),
                                                 !selectedTournament && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2117,18 +2149,18 @@ function RegistrationsTab({ onViewTournament }) {
                                                                 className: "w-3 h-3"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 438,
+                                                                lineNumber: 472,
                                                                 columnNumber: 40
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 434,
+                                                        lineNumber: 468,
                                                         columnNumber: 27
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 433,
+                                                    lineNumber: 467,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2139,7 +2171,7 @@ function RegistrationsTab({ onViewTournament }) {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 442,
+                                                    lineNumber: 476,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2149,12 +2181,12 @@ function RegistrationsTab({ onViewTournament }) {
                                                         children: r.payment_status === "confirmed" ? "✓ Paid" : "Pending"
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 444,
+                                                        lineNumber: 478,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 443,
+                                                    lineNumber: 477,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2167,30 +2199,30 @@ function RegistrationsTab({ onViewTournament }) {
                                                     })
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 453,
+                                                    lineNumber: 487,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, r.id, true, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 415,
+                                            lineNumber: 449,
                                             columnNumber: 21
                                         }, this);
                                     })
                                 }, void 0, false, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 411,
+                                    lineNumber: 445,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 398,
+                            lineNumber: 432,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 397,
+                        lineNumber: 431,
                         columnNumber: 11
                     }, this),
                     regs.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2206,7 +2238,7 @@ function RegistrationsTab({ onViewTournament }) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 467,
+                                lineNumber: 501,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2221,31 +2253,31 @@ function RegistrationsTab({ onViewTournament }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 471,
+                                        lineNumber: 505,
                                         columnNumber: 32
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 470,
+                                lineNumber: 504,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 466,
+                        lineNumber: 500,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 362,
+                lineNumber: 396,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-        lineNumber: 311,
+        lineNumber: 345,
         columnNumber: 5
     }, this);
 }
@@ -2306,7 +2338,7 @@ function DepositsSubTab() {
                                 children: f
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 504,
+                                lineNumber: 538,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2314,18 +2346,18 @@ function DepositsSubTab() {
                                 children: counts[f]
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 505,
+                                lineNumber: 539,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, f, true, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 500,
+                        lineNumber: 534,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 498,
+                lineNumber: 532,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2342,12 +2374,12 @@ function DepositsSubTab() {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 511,
+                            lineNumber: 545,
                             columnNumber: 92
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 511,
+                        lineNumber: 545,
                         columnNumber: 35
                     }, this),
                     filtered.map((p)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -2362,7 +2394,7 @@ function DepositsSubTab() {
                                             children: p.user[0]
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 515,
+                                            lineNumber: 549,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2376,7 +2408,7 @@ function DepositsSubTab() {
                                                             children: p.user
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                            lineNumber: 518,
+                                                            lineNumber: 552,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2384,13 +2416,13 @@ function DepositsSubTab() {
                                                             children: p.status.toUpperCase()
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                            lineNumber: 519,
+                                                            lineNumber: 553,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 517,
+                                                    lineNumber: 551,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2402,7 +2434,7 @@ function DepositsSubTab() {
                                                             children: p.utr
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                            lineNumber: 523,
+                                                            lineNumber: 557,
                                                             columnNumber: 73
                                                         }, this),
                                                         " · ",
@@ -2412,13 +2444,13 @@ function DepositsSubTab() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 523,
+                                                    lineNumber: 557,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 516,
+                                            lineNumber: 550,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2432,7 +2464,7 @@ function DepositsSubTab() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 526,
+                                                    lineNumber: 560,
                                                     columnNumber: 17
                                                 }, this),
                                                 p.bonus > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2442,7 +2474,7 @@ function DepositsSubTab() {
                                                             className: "w-3 h-3"
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                            lineNumber: 527,
+                                                            lineNumber: 561,
                                                             columnNumber: 120
                                                         }, this),
                                                         "+₹",
@@ -2450,13 +2482,13 @@ function DepositsSubTab() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 527,
+                                                    lineNumber: 561,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 525,
+                                            lineNumber: 559,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2466,24 +2498,24 @@ function DepositsSubTab() {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 530,
+                                                lineNumber: 564,
                                                 columnNumber: 31
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$lucide$2d$react$40$0$2e$545$2e$0_react$40$19$2e$1$2e$0$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 530,
+                                                lineNumber: 564,
                                                 columnNumber: 67
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 529,
+                                            lineNumber: 563,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 514,
+                                    lineNumber: 548,
                                     columnNumber: 13
                                 }, this),
                                 p.expanded && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -2509,14 +2541,14 @@ function DepositsSubTab() {
                                                                 className: "w-3.5 h-3.5"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 537,
+                                                                lineNumber: 571,
                                                                 columnNumber: 103
                                                             }, this),
                                                             " Screenshot"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 537,
+                                                        lineNumber: 571,
                                                         columnNumber: 21
                                                     }, this),
                                                     p.screenshot ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2529,7 +2561,7 @@ function DepositsSubTab() {
                                                                 className: "w-full object-cover group-hover:scale-105 transition-transform duration-300"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 540,
+                                                                lineNumber: 574,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2539,18 +2571,18 @@ function DepositsSubTab() {
                                                                     children: "Click to enlarge"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                    lineNumber: 541,
+                                                                    lineNumber: 575,
                                                                     columnNumber: 72
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 541,
+                                                                lineNumber: 575,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 539,
+                                                        lineNumber: 573,
                                                         columnNumber: 23
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "flex flex-col items-center justify-center gap-2 p-8 rounded-xl border-2 border-dashed border-white/10 text-slate-600",
@@ -2559,7 +2591,7 @@ function DepositsSubTab() {
                                                                 className: "w-8 h-8"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 545,
+                                                                lineNumber: 579,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2567,19 +2599,19 @@ function DepositsSubTab() {
                                                                 children: "No screenshot"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 545,
+                                                                lineNumber: 579,
                                                                 columnNumber: 58
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 544,
+                                                        lineNumber: 578,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 536,
+                                                lineNumber: 570,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2626,7 +2658,7 @@ function DepositsSubTab() {
                                                                         children: row.label
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                        lineNumber: 560,
+                                                                        lineNumber: 594,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2634,18 +2666,18 @@ function DepositsSubTab() {
                                                                         children: row.value
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                        lineNumber: 561,
+                                                                        lineNumber: 595,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, row.label, true, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 559,
+                                                                lineNumber: 593,
                                                                 columnNumber: 25
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 550,
+                                                        lineNumber: 584,
                                                         columnNumber: 21
                                                     }, this),
                                                     p.status === "pending" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2659,7 +2691,7 @@ function DepositsSubTab() {
                                                                         className: "w-4 h-4"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                        lineNumber: 568,
+                                                                        lineNumber: 602,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     " Approve & Credit ₹",
@@ -2667,7 +2699,7 @@ function DepositsSubTab() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 567,
+                                                                lineNumber: 601,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2678,20 +2710,20 @@ function DepositsSubTab() {
                                                                         className: "w-4 h-4"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                        lineNumber: 571,
+                                                                        lineNumber: 605,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     " Reject"
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 570,
+                                                                lineNumber: 604,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 566,
+                                                        lineNumber: 600,
                                                         columnNumber: 23
                                                     }, this),
                                                     p.status === "approved" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2701,7 +2733,7 @@ function DepositsSubTab() {
                                                                 className: "w-4 h-4 text-green-400"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 575,
+                                                                lineNumber: 609,
                                                                 columnNumber: 148
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2713,13 +2745,13 @@ function DepositsSubTab() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 575,
+                                                                lineNumber: 609,
                                                                 columnNumber: 199
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 575,
+                                                        lineNumber: 609,
                                                         columnNumber: 49
                                                     }, this),
                                                     p.status === "rejected" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2729,7 +2761,7 @@ function DepositsSubTab() {
                                                                 className: "w-4 h-4 text-red-400"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 576,
+                                                                lineNumber: 610,
                                                                 columnNumber: 144
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2737,42 +2769,42 @@ function DepositsSubTab() {
                                                                 children: "Rejected — player notified"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 576,
+                                                                lineNumber: 610,
                                                                 columnNumber: 188
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 576,
+                                                        lineNumber: 610,
                                                         columnNumber: 49
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 549,
+                                                lineNumber: 583,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 535,
+                                        lineNumber: 569,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 534,
+                                    lineNumber: 568,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, p.id, true, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 513,
+                            lineNumber: 547,
                             columnNumber: 11
                         }, this))
                 ]
             }, void 0, true, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 510,
+                lineNumber: 544,
                 columnNumber: 7
             }, this),
             lightbox && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2785,12 +2817,12 @@ function DepositsSubTab() {
                             className: "w-5 h-5"
                         }, void 0, false, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 587,
+                            lineNumber: 621,
                             columnNumber: 192
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 587,
+                        lineNumber: 621,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
@@ -2800,19 +2832,19 @@ function DepositsSubTab() {
                         onClick: (e)=>e.stopPropagation()
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 588,
+                        lineNumber: 622,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 586,
+                lineNumber: 620,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-        lineNumber: 497,
+        lineNumber: 531,
         columnNumber: 5
     }, this);
 }
@@ -2864,7 +2896,7 @@ function WithdrawalsSubTab() {
                         className: "w-4 h-4 text-yellow-400 flex-shrink-0"
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 613,
+                        lineNumber: 647,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2878,20 +2910,20 @@ function WithdrawalsSubTab() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 615,
+                                lineNumber: 649,
                                 columnNumber: 13
                             }, this),
                             " pending payout — verify player details before approving"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 614,
+                        lineNumber: 648,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 612,
+                lineNumber: 646,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2910,7 +2942,7 @@ function WithdrawalsSubTab() {
                                 children: f
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 626,
+                                lineNumber: 660,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2918,18 +2950,18 @@ function WithdrawalsSubTab() {
                                 children: counts[f]
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 627,
+                                lineNumber: 661,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, f, true, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 622,
+                        lineNumber: 656,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 620,
+                lineNumber: 654,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2946,12 +2978,12 @@ function WithdrawalsSubTab() {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 633,
+                            lineNumber: 667,
                             columnNumber: 92
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 633,
+                        lineNumber: 667,
                         columnNumber: 35
                     }, this),
                     filtered.map((w)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -2966,7 +2998,7 @@ function WithdrawalsSubTab() {
                                             children: w.user[0]
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 639,
+                                            lineNumber: 673,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2980,7 +3012,7 @@ function WithdrawalsSubTab() {
                                                             children: w.user
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                            lineNumber: 642,
+                                                            lineNumber: 676,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2988,7 +3020,7 @@ function WithdrawalsSubTab() {
                                                             children: w.status.toUpperCase()
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                            lineNumber: 643,
+                                                            lineNumber: 677,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2996,13 +3028,13 @@ function WithdrawalsSubTab() {
                                                             children: w.method === "upi" ? "UPI" : "BANK"
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                            lineNumber: 646,
+                                                            lineNumber: 680,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 641,
+                                                    lineNumber: 675,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3014,13 +3046,13 @@ function WithdrawalsSubTab() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 650,
+                                                    lineNumber: 684,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 640,
+                                            lineNumber: 674,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3034,7 +3066,7 @@ function WithdrawalsSubTab() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 655,
+                                                    lineNumber: 689,
                                                     columnNumber: 17
                                                 }, this),
                                                 w.fee > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3046,13 +3078,13 @@ function WithdrawalsSubTab() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 656,
+                                                    lineNumber: 690,
                                                     columnNumber: 31
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 654,
+                                            lineNumber: 688,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3062,24 +3094,24 @@ function WithdrawalsSubTab() {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 659,
+                                                lineNumber: 693,
                                                 columnNumber: 31
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$lucide$2d$react$40$0$2e$545$2e$0_react$40$19$2e$1$2e$0$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 659,
+                                                lineNumber: 693,
                                                 columnNumber: 67
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 658,
+                                            lineNumber: 692,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 638,
+                                    lineNumber: 672,
                                     columnNumber: 13
                                 }, this),
                                 w.expanded && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -3164,7 +3196,7 @@ function WithdrawalsSubTab() {
                                                                 children: row.label
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 687,
+                                                                lineNumber: 721,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3172,18 +3204,18 @@ function WithdrawalsSubTab() {
                                                                 children: row.value
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 688,
+                                                                lineNumber: 722,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, row.label, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 686,
+                                                        lineNumber: 720,
                                                         columnNumber: 23
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 666,
+                                                lineNumber: 700,
                                                 columnNumber: 19
                                             }, this),
                                             w.status === "pending" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3197,7 +3229,7 @@ function WithdrawalsSubTab() {
                                                                 className: "w-4 h-4"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 696,
+                                                                lineNumber: 730,
                                                                 columnNumber: 25
                                                             }, this),
                                                             " Approve — Pay ₹",
@@ -3205,7 +3237,7 @@ function WithdrawalsSubTab() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 695,
+                                                        lineNumber: 729,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3216,20 +3248,20 @@ function WithdrawalsSubTab() {
                                                                 className: "w-4 h-4"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 699,
+                                                                lineNumber: 733,
                                                                 columnNumber: 25
                                                             }, this),
                                                             " Reject"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 698,
+                                                        lineNumber: 732,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 694,
+                                                lineNumber: 728,
                                                 columnNumber: 21
                                             }, this),
                                             w.status === "approved" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3239,7 +3271,7 @@ function WithdrawalsSubTab() {
                                                         className: "w-4 h-4 text-green-400"
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 703,
+                                                        lineNumber: 737,
                                                         columnNumber: 146
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3251,13 +3283,13 @@ function WithdrawalsSubTab() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 703,
+                                                        lineNumber: 737,
                                                         columnNumber: 197
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 703,
+                                                lineNumber: 737,
                                                 columnNumber: 47
                                             }, this),
                                             w.status === "rejected" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3267,7 +3299,7 @@ function WithdrawalsSubTab() {
                                                         className: "w-4 h-4 text-red-400"
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 704,
+                                                        lineNumber: 738,
                                                         columnNumber: 142
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3275,42 +3307,42 @@ function WithdrawalsSubTab() {
                                                         children: "Rejected — funds returned to player wallet"
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 704,
+                                                        lineNumber: 738,
                                                         columnNumber: 186
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 704,
+                                                lineNumber: 738,
                                                 columnNumber: 47
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 665,
+                                        lineNumber: 699,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 664,
+                                    lineNumber: 698,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, w.id, true, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 635,
+                            lineNumber: 669,
                             columnNumber: 11
                         }, this))
                 ]
             }, void 0, true, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 632,
+                lineNumber: 666,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-        lineNumber: 610,
+        lineNumber: 644,
         columnNumber: 5
     }, this);
 }
@@ -3319,16 +3351,45 @@ _c5 = WithdrawalsSubTab;
 function ResultsTab() {
     _s3();
     const { addNotification } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$notifications$2d$context$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useNotifications"])();
-    const [results, setResults] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(MOCK_PENDING_RESULTS.map({
-        "ResultsTab.useState": (r)=>({
-                ...r,
-                status: "pending",
-                expanded: false,
-                prizeOverride: ""
-            })
-    }["ResultsTab.useState"]));
+    const [results, setResults] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
+        "ResultsTab.useState": ()=>MOCK_PENDING_RESULTS.map({
+                "ResultsTab.useState": (r)=>({
+                        ...r,
+                        status: "pending",
+                        expanded: false,
+                        prizeOverride: ""
+                    })
+            }["ResultsTab.useState"])
+    }["ResultsTab.useState"]);
     const [lightbox, setLightbox] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [filter, setFilter] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("pending");
+    // Merge player-submitted results from localStorage on mount
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "ResultsTab.useEffect": ()=>{
+            const stored = loadStoredResults();
+            if (stored.length === 0) return;
+            setResults({
+                "ResultsTab.useEffect": (prev)=>{
+                    const existingIds = new Set(prev.map({
+                        "ResultsTab.useEffect": (r)=>r.id
+                    }["ResultsTab.useEffect"]));
+                    const fresh = stored.filter({
+                        "ResultsTab.useEffect.fresh": (r)=>!existingIds.has(r.id)
+                    }["ResultsTab.useEffect.fresh"]).map({
+                        "ResultsTab.useEffect.fresh": (r)=>({
+                                ...r,
+                                expanded: false,
+                                prizeOverride: ""
+                            })
+                    }["ResultsTab.useEffect.fresh"]);
+                    return fresh.length > 0 ? [
+                        ...fresh,
+                        ...prev
+                    ] : prev;
+                }
+            }["ResultsTab.useEffect"]);
+        }
+    }["ResultsTab.useEffect"], []);
     function approve(id) {
         const r = results.find((r)=>r.id === id);
         if (!r) return;
@@ -3377,21 +3438,21 @@ function ResultsTab() {
             className: "w-4 h-4 text-yellow-400"
         }, void 0, false, {
             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-            lineNumber: 743,
+            lineNumber: 790,
             columnNumber: 8
         }, this),
         2: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$lucide$2d$react$40$0$2e$545$2e$0_react$40$19$2e$1$2e$0$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$medal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Medal$3e$__["Medal"], {
             className: "w-4 h-4 text-slate-300"
         }, void 0, false, {
             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-            lineNumber: 744,
+            lineNumber: 791,
             columnNumber: 8
         }, this),
         3: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$lucide$2d$react$40$0$2e$545$2e$0_react$40$19$2e$1$2e$0$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$award$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Award$3e$__["Award"], {
             className: "w-4 h-4 text-amber-600"
         }, void 0, false, {
             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-            lineNumber: 745,
+            lineNumber: 792,
             columnNumber: 8
         }, this)
     };
@@ -3419,7 +3480,7 @@ function ResultsTab() {
                         className: "w-4 h-4 text-purple-400 flex-shrink-0"
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 754,
+                        lineNumber: 801,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3434,20 +3495,20 @@ function ResultsTab() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 756,
+                                lineNumber: 803,
                                 columnNumber: 13
                             }, this),
                             " pending review — verify screenshots before crediting prize money"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 755,
+                        lineNumber: 802,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 753,
+                lineNumber: 800,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3466,7 +3527,7 @@ function ResultsTab() {
                                 children: f
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 768,
+                                lineNumber: 815,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3474,18 +3535,18 @@ function ResultsTab() {
                                 children: counts[f]
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 769,
+                                lineNumber: 816,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, f, true, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 764,
+                        lineNumber: 811,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 762,
+                lineNumber: 809,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3502,12 +3563,12 @@ function ResultsTab() {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 775,
+                            lineNumber: 822,
                             columnNumber: 92
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 775,
+                        lineNumber: 822,
                         columnNumber: 35
                     }, this),
                     filtered.map((r)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -3522,7 +3583,7 @@ function ResultsTab() {
                                             children: r.player[0]
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 782,
+                                            lineNumber: 829,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3536,7 +3597,7 @@ function ResultsTab() {
                                                             children: r.player
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                            lineNumber: 787,
+                                                            lineNumber: 834,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3544,7 +3605,7 @@ function ResultsTab() {
                                                             children: r.status.toUpperCase()
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                            lineNumber: 788,
+                                                            lineNumber: 835,
                                                             columnNumber: 19
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3554,20 +3615,20 @@ function ResultsTab() {
                                                                     className: "w-3 h-3"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                    lineNumber: 794,
+                                                                    lineNumber: 841,
                                                                     columnNumber: 54
                                                                 }, this),
                                                                 PLACEMENT_LABELS[r.placement] ?? "Other"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                            lineNumber: 791,
+                                                            lineNumber: 838,
                                                             columnNumber: 19
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 786,
+                                                    lineNumber: 833,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3581,13 +3642,13 @@ function ResultsTab() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 798,
+                                                    lineNumber: 845,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 785,
+                                            lineNumber: 832,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3598,7 +3659,7 @@ function ResultsTab() {
                                                     children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatCurrency"])(r.prize_eligible)
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 803,
+                                                    lineNumber: 850,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3606,13 +3667,13 @@ function ResultsTab() {
                                                     children: "eligible"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 804,
+                                                    lineNumber: 851,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 802,
+                                            lineNumber: 849,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3622,24 +3683,24 @@ function ResultsTab() {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 807,
+                                                lineNumber: 854,
                                                 columnNumber: 31
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$lucide$2d$react$40$0$2e$545$2e$0_react$40$19$2e$1$2e$0$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
                                                 className: "w-4 h-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 807,
+                                                lineNumber: 854,
                                                 columnNumber: 67
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 806,
+                                            lineNumber: 853,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 781,
+                                    lineNumber: 828,
                                     columnNumber: 13
                                 }, this),
                                 r.expanded && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -3665,14 +3726,14 @@ function ResultsTab() {
                                                                 className: "w-3.5 h-3.5"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 817,
+                                                                lineNumber: 864,
                                                                 columnNumber: 103
                                                             }, this),
                                                             " Match Screenshot"
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 817,
+                                                        lineNumber: 864,
                                                         columnNumber: 21
                                                     }, this),
                                                     r.screenshot ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3685,7 +3746,7 @@ function ResultsTab() {
                                                                 className: "w-full object-cover group-hover:scale-105 transition-transform duration-300"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 820,
+                                                                lineNumber: 867,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3695,18 +3756,18 @@ function ResultsTab() {
                                                                     children: "Click to enlarge"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                    lineNumber: 821,
+                                                                    lineNumber: 868,
                                                                     columnNumber: 72
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 821,
+                                                                lineNumber: 868,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 819,
+                                                        lineNumber: 866,
                                                         columnNumber: 23
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "flex flex-col items-center justify-center gap-2 p-8 rounded-xl border-2 border-dashed border-white/10 text-slate-600",
@@ -3715,7 +3776,7 @@ function ResultsTab() {
                                                                 className: "w-8 h-8"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 825,
+                                                                lineNumber: 872,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3723,19 +3784,19 @@ function ResultsTab() {
                                                                 children: "No screenshot uploaded"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 825,
+                                                                lineNumber: 872,
                                                                 columnNumber: 58
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 824,
+                                                        lineNumber: 871,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 816,
+                                                lineNumber: 863,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3792,7 +3853,7 @@ function ResultsTab() {
                                                                         children: row.label
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                        lineNumber: 844,
+                                                                        lineNumber: 891,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3800,18 +3861,18 @@ function ResultsTab() {
                                                                         children: row.value
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                        lineNumber: 845,
+                                                                        lineNumber: 892,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, row.label, true, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 843,
+                                                                lineNumber: 890,
                                                                 columnNumber: 25
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 832,
+                                                        lineNumber: 879,
                                                         columnNumber: 21
                                                     }, this),
                                                     r.status === "pending" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -3823,7 +3884,7 @@ function ResultsTab() {
                                                                         className: "w-4 h-4 text-yellow-400 flex-shrink-0"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                        lineNumber: 854,
+                                                                        lineNumber: 901,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3834,7 +3895,7 @@ function ResultsTab() {
                                                                                 children: "Prize amount to credit"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                                lineNumber: 856,
+                                                                                lineNumber: 903,
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3845,7 +3906,7 @@ function ResultsTab() {
                                                                                         children: "₹"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                                        lineNumber: 858,
+                                                                                        lineNumber: 905,
                                                                                         columnNumber: 31
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3856,7 +3917,7 @@ function ResultsTab() {
                                                                                         min: 0
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                                        lineNumber: 859,
+                                                                                        lineNumber: 906,
                                                                                         columnNumber: 31
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3867,25 +3928,25 @@ function ResultsTab() {
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                                        lineNumber: 866,
+                                                                                        lineNumber: 913,
                                                                                         columnNumber: 31
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                                lineNumber: 857,
+                                                                                lineNumber: 904,
                                                                                 columnNumber: 29
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                        lineNumber: 855,
+                                                                        lineNumber: 902,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 853,
+                                                                lineNumber: 900,
                                                                 columnNumber: 25
                                                             }, this),
                                                             !r.screenshot && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3895,7 +3956,7 @@ function ResultsTab() {
                                                                         className: "w-3.5 h-3.5 text-yellow-400 mt-0.5 flex-shrink-0"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                        lineNumber: 873,
+                                                                        lineNumber: 920,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3903,13 +3964,13 @@ function ResultsTab() {
                                                                         children: "No screenshot provided — verify via other means before approving."
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                        lineNumber: 874,
+                                                                        lineNumber: 921,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 872,
+                                                                lineNumber: 919,
                                                                 columnNumber: 27
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3923,7 +3984,7 @@ function ResultsTab() {
                                                                                 className: "w-4 h-4"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                                lineNumber: 880,
+                                                                                lineNumber: 927,
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             " Approve & Credit ",
@@ -3931,7 +3992,7 @@ function ResultsTab() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                        lineNumber: 879,
+                                                                        lineNumber: 926,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3942,20 +4003,20 @@ function ResultsTab() {
                                                                                 className: "w-4 h-4"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                                lineNumber: 883,
+                                                                                lineNumber: 930,
                                                                                 columnNumber: 29
                                                                             }, this),
                                                                             " Reject"
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                        lineNumber: 882,
+                                                                        lineNumber: 929,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 878,
+                                                                lineNumber: 925,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
@@ -3967,7 +4028,7 @@ function ResultsTab() {
                                                                 className: "w-4 h-4 text-green-400"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 890,
+                                                                lineNumber: 937,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3981,13 +4042,13 @@ function ResultsTab() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 891,
+                                                                lineNumber: 938,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 889,
+                                                        lineNumber: 936,
                                                         columnNumber: 23
                                                     }, this),
                                                     r.status === "rejected" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3997,7 +4058,7 @@ function ResultsTab() {
                                                                 className: "w-4 h-4 text-red-400"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 896,
+                                                                lineNumber: 943,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4005,42 +4066,42 @@ function ResultsTab() {
                                                                 children: "Rejected — player notified, no prize credited"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                                lineNumber: 897,
+                                                                lineNumber: 944,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                        lineNumber: 895,
+                                                        lineNumber: 942,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                lineNumber: 831,
+                                                lineNumber: 878,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                        lineNumber: 814,
+                                        lineNumber: 861,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 813,
+                                    lineNumber: 860,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, r.id, true, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 777,
+                            lineNumber: 824,
                             columnNumber: 11
                         }, this))
                 ]
             }, void 0, true, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 774,
+                lineNumber: 821,
                 columnNumber: 7
             }, this),
             lightbox && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4053,12 +4114,12 @@ function ResultsTab() {
                             className: "w-5 h-5"
                         }, void 0, false, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 910,
+                            lineNumber: 957,
                             columnNumber: 192
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 910,
+                        lineNumber: 957,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
@@ -4068,23 +4129,23 @@ function ResultsTab() {
                         onClick: (e)=>e.stopPropagation()
                     }, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 911,
+                        lineNumber: 958,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 909,
+                lineNumber: 956,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-        lineNumber: 751,
+        lineNumber: 798,
         columnNumber: 5
     }, this);
 }
-_s3(ResultsTab, "2+tbCJNoBZDZrW3t5AH0yb3sRBc=", false, function() {
+_s3(ResultsTab, "3waWYXkxiDq/+mr4LPEGICnGtoI=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$notifications$2d$context$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useNotifications"]
     ];
@@ -4125,18 +4186,18 @@ function PaymentsTab() {
                                 children: tab.badge
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 940,
+                                lineNumber: 987,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, tab.key, true, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 930,
+                        lineNumber: 977,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 925,
+                lineNumber: 972,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -4159,27 +4220,27 @@ function PaymentsTab() {
                     },
                     children: subTab === "deposits" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(DepositsSubTab, {}, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 950,
+                        lineNumber: 997,
                         columnNumber: 36
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(WithdrawalsSubTab, {}, void 0, false, {
                         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                        lineNumber: 950,
+                        lineNumber: 997,
                         columnNumber: 57
                     }, this)
                 }, subTab, false, {
                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                    lineNumber: 949,
+                    lineNumber: 996,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 948,
+                lineNumber: 995,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-        lineNumber: 924,
+        lineNumber: 971,
         columnNumber: 5
     }, this);
 }
@@ -4188,7 +4249,24 @@ _c7 = PaymentsTab;
 function AdminPage() {
     _s5();
     const [activeTab, setActiveTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("overview");
+    const [pendingResultsBadge, setPendingResultsBadge] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(MOCK_PENDING_RESULTS.length);
     const totalRegs = __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$mock$2d$data$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MOCK_REGISTRATIONS"].length;
+    // Update badge to include localStorage submissions
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "AdminPage.useEffect": ()=>{
+            const stored = loadStoredResults();
+            const storedIds = new Set(stored.map({
+                "AdminPage.useEffect": (r)=>r.id
+            }["AdminPage.useEffect"]));
+            const mockIds = new Set(MOCK_PENDING_RESULTS.map({
+                "AdminPage.useEffect": (r)=>r.id
+            }["AdminPage.useEffect"]));
+            const uniqueStored = stored.filter({
+                "AdminPage.useEffect": (r)=>!mockIds.has(r.id)
+            }["AdminPage.useEffect"]).length;
+            setPendingResultsBadge(MOCK_PENDING_RESULTS.length + uniqueStored);
+        }
+    }["AdminPage.useEffect"], []);
     const TABS = [
         {
             key: "overview",
@@ -4197,7 +4275,7 @@ function AdminPage() {
                 className: "w-4 h-4"
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 961,
+                lineNumber: 1019,
                 columnNumber: 49
             }, this)
         },
@@ -4208,7 +4286,7 @@ function AdminPage() {
                 className: "w-4 h-4"
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 962,
+                lineNumber: 1020,
                 columnNumber: 55
             }, this)
         },
@@ -4219,7 +4297,7 @@ function AdminPage() {
                 className: "w-4 h-4"
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 963,
+                lineNumber: 1021,
                 columnNumber: 59
             }, this),
             badge: totalRegs
@@ -4231,7 +4309,7 @@ function AdminPage() {
                 className: "w-4 h-4"
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 964,
+                lineNumber: 1022,
                 columnNumber: 43
             }, this)
         },
@@ -4242,7 +4320,7 @@ function AdminPage() {
                 className: "w-4 h-4"
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 965,
+                lineNumber: 1023,
                 columnNumber: 49
             }, this)
         },
@@ -4253,10 +4331,10 @@ function AdminPage() {
                 className: "w-4 h-4"
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 966,
+                lineNumber: 1024,
                 columnNumber: 47
             }, this),
-            badge: MOCK_PENDING_RESULTS.length
+            badge: pendingResultsBadge
         },
         {
             key: "announcements",
@@ -4265,7 +4343,7 @@ function AdminPage() {
                 className: "w-4 h-4"
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                lineNumber: 967,
+                lineNumber: 1025,
                 columnNumber: 54
             }, this)
         }
@@ -4292,12 +4370,12 @@ function AdminPage() {
                                 className: "w-6 h-6 text-white"
                             }, void 0, false, {
                                 fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                lineNumber: 976,
+                                lineNumber: 1034,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 975,
+                            lineNumber: 1033,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4311,13 +4389,13 @@ function AdminPage() {
                                             children: "PANEL"
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 980,
+                                            lineNumber: 1038,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 979,
+                                    lineNumber: 1037,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -4325,13 +4403,13 @@ function AdminPage() {
                                     children: "Manage tournaments, users, and payments"
                                 }, void 0, false, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 982,
+                                    lineNumber: 1040,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 978,
+                            lineNumber: 1036,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4341,20 +4419,20 @@ function AdminPage() {
                                     className: "w-3 h-3"
                                 }, void 0, false, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 985,
+                                    lineNumber: 1043,
                                     columnNumber: 13
                                 }, this),
                                 " ADMIN ACCESS"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 984,
+                            lineNumber: 1042,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                    lineNumber: 974,
+                    lineNumber: 1032,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4371,18 +4449,18 @@ function AdminPage() {
                                     children: tab.badge
                                 }, void 0, false, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 1002,
+                                    lineNumber: 1060,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, tab.key, true, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 992,
+                            lineNumber: 1050,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                    lineNumber: 990,
+                    lineNumber: 1048,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -4400,32 +4478,32 @@ function AdminPage() {
                     children: [
                         activeTab === "overview" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(OverviewTab, {}, void 0, false, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 1017,
+                            lineNumber: 1075,
                             columnNumber: 40
                         }, this),
                         activeTab === "tournaments" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(TournamentsTab, {}, void 0, false, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 1018,
+                            lineNumber: 1076,
                             columnNumber: 43
                         }, this),
                         activeTab === "registrations" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(RegistrationsTab, {}, void 0, false, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 1019,
+                            lineNumber: 1077,
                             columnNumber: 45
                         }, this),
                         activeTab === "users" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(UsersTab, {}, void 0, false, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 1020,
+                            lineNumber: 1078,
                             columnNumber: 37
                         }, this),
                         activeTab === "payments" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(PaymentsTab, {}, void 0, false, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 1021,
+                            lineNumber: 1079,
                             columnNumber: 40
                         }, this),
                         activeTab === "results" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ResultsTab, {}, void 0, false, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 1022,
+                            lineNumber: 1080,
                             columnNumber: 39
                         }, this),
                         activeTab === "announcements" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4436,7 +4514,7 @@ function AdminPage() {
                                     children: "Send Announcement"
                                 }, void 0, false, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 1025,
+                                    lineNumber: 1083,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4449,7 +4527,7 @@ function AdminPage() {
                                                     children: "Title"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 1028,
+                                                    lineNumber: 1086,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -4458,13 +4536,13 @@ function AdminPage() {
                                                     className: "gaming-input w-full px-4 py-3 rounded-xl text-sm"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 1029,
+                                                    lineNumber: 1087,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 1027,
+                                            lineNumber: 1085,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4474,7 +4552,7 @@ function AdminPage() {
                                                     children: "Message"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 1032,
+                                                    lineNumber: 1090,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -4483,13 +4561,13 @@ function AdminPage() {
                                                     className: "gaming-input w-full px-4 py-3 rounded-xl text-sm resize-none"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 1033,
+                                                    lineNumber: 1091,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 1031,
+                                            lineNumber: 1089,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4499,7 +4577,7 @@ function AdminPage() {
                                                     children: "Type"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 1036,
+                                                    lineNumber: 1094,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4513,18 +4591,18 @@ function AdminPage() {
                                                             children: t
                                                         }, t, false, {
                                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                            lineNumber: 1039,
+                                                            lineNumber: 1097,
                                                             columnNumber: 23
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 1037,
+                                                    lineNumber: 1095,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 1035,
+                                            lineNumber: 1093,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -4534,7 +4612,7 @@ function AdminPage() {
                                                     className: "w-4 h-4 relative z-10"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 1050,
+                                                    lineNumber: 1108,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -4542,46 +4620,46 @@ function AdminPage() {
                                                     children: "Send to All Players"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                                    lineNumber: 1051,
+                                                    lineNumber: 1109,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                            lineNumber: 1049,
+                                            lineNumber: 1107,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                                    lineNumber: 1026,
+                                    lineNumber: 1084,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                            lineNumber: 1024,
+                            lineNumber: 1082,
                             columnNumber: 13
                         }, this)
                     ]
                 }, activeTab, true, {
                     fileName: "[project]/artifacts/web/app/admin/page.tsx",
-                    lineNumber: 1011,
+                    lineNumber: 1069,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/artifacts/web/app/admin/page.tsx",
-            lineNumber: 972,
+            lineNumber: 1030,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/artifacts/web/app/admin/page.tsx",
-        lineNumber: 971,
+        lineNumber: 1029,
         columnNumber: 5
     }, this);
 }
-_s5(AdminPage, "0RhE9c0qkQp+3CR2mJOCewxRmMU=");
+_s5(AdminPage, "n0kfwTXSPucPDfxFVxw/ZQjbF9Q=");
 _c8 = AdminPage;
 var _c, _c1, _c2, _c3, _c4, _c5, _c6, _c7, _c8;
 __turbopack_refresh__.register(_c, "OverviewTab");
