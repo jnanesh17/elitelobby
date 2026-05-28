@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useWallet } from "@/lib/wallet-context";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { MOCK_TOURNAMENTS, MOCK_REGISTRATIONS, MOCK_LEADERBOARD } from "@/lib/mock-data";
@@ -14,6 +15,7 @@ export default function TournamentDetailPage() {
   const params = useParams();
   const router = useRouter();
   const { getRoomId } = useRoomIds();
+  const { balance, deductFee, canAfford } = useWallet();
 
   const tournament = MOCK_TOURNAMENTS.find(t => t.id === params.id);
   const [timeLeft, setTimeLeft] = useState(tournament ? formatTimeLeft(tournament.match_time) : "");
@@ -103,9 +105,16 @@ export default function TournamentDetailPage() {
   const isFull = slotsLeft === 0;
 
   async function handleRegister() {
+    if (!canAfford(effectiveEntryFee)) return;
     setRegistering(true);
     await new Promise(r => setTimeout(r, 1200));
-    setRegistered(true);
+    const label = isClashSquad
+      ? `Clash Squad stake: ${tournament?.title}`
+      : `Tournament entry: ${tournament?.title}`;
+    const success = deductFee(effectiveEntryFee, label);
+    if (success) {
+      setRegistered(true);
+    }
     setRegistering(false);
   }
 
@@ -542,12 +551,12 @@ export default function TournamentDetailPage() {
                     <div className="space-y-2 mb-5">
                       {[
                         { label: "Entry Fee", value: `₹${tournament.entry_fee}`, highlight: true },
-                        { label: "Your Balance", value: "₹1,250", highlight: false },
+                        { label: "Your Balance", value: `₹${balance.toLocaleString()}`, highlight: false, warn: balance < tournament.entry_fee },
                         { label: "Slots Available", value: isFull ? "FULL" : `${slotsLeft} remaining`, highlight: false },
                       ].map((row) => (
                         <div key={row.label} className="flex justify-between text-sm py-1 border-b border-white/5">
                           <span className="text-slate-400 font-heading">{row.label}</span>
-                          <span className={cn("font-heading font-bold", row.highlight ? "text-yellow-400" : "text-white")}>{row.value}</span>
+                          <span className={cn("font-heading font-bold", row.highlight ? "text-yellow-400" : (row as {warn?: boolean}).warn ? "text-red-400" : "text-white")}>{row.value}</span>
                         </div>
                       ))}
                     </div>
@@ -557,7 +566,7 @@ export default function TournamentDetailPage() {
                   {isClashSquad && (
                     <div className="flex justify-between text-sm py-2 border-b border-white/5 mb-4">
                       <span className="text-slate-400 font-heading">Your Balance</span>
-                      <span className={cn("font-heading font-bold", stake > 1250 ? "text-red-400" : "text-white")}>₹1,250</span>
+                      <span className={cn("font-heading font-bold", stake > balance ? "text-red-400" : "text-white")}>₹{balance.toLocaleString()}</span>
                     </div>
                   )}
 
@@ -783,10 +792,11 @@ export default function TournamentDetailPage() {
                       <p className="text-red-400 font-heading font-semibold text-sm mb-3">Tournament is FULL</p>
                       <Link href="/tournaments" className="btn-secondary w-full py-3 rounded-xl font-heading font-bold text-sm text-center block">Browse Other Tournaments</Link>
                     </div>
-                  ) : stake > 1250 && isClashSquad ? (
-                    <div className="text-center py-2">
-                      <p className="text-red-400 font-heading font-semibold text-sm mb-3">Insufficient wallet balance</p>
-                      <Link href="/wallet/deposit" className="btn-secondary w-full py-3 rounded-xl font-heading font-bold text-sm text-center block">Add Funds to Wallet</Link>
+                  ) : !canAfford(effectiveEntryFee) ? (
+                    <div className="text-center py-2 space-y-2">
+                      <p className="text-red-400 font-heading font-semibold text-sm">Insufficient wallet balance</p>
+                      <p className="text-slate-500 text-xs font-heading">You need ₹{effectiveEntryFee} · You have ₹{balance.toLocaleString()}</p>
+                      <Link href="/wallet/deposit" className="btn-gold w-full py-3 rounded-xl font-heading font-bold text-sm text-center block">+ Add Funds to Wallet</Link>
                     </div>
                   ) : isClashSquad && playMode === "squad" && !squadReady ? (
                     <button

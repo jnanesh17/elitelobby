@@ -3291,16 +3291,6 @@
     }
   }
 
-  .text-amber-500\/80 {
-    color: #f99c00cc;
-  }
-
-  @supports (color: color-mix(in lab, red, red)) {
-    .text-amber-500\/80 {
-      color: color-mix(in oklab, var(--color-amber-500) 80%, transparent);
-    }
-  }
-
   .text-amber-600 {
     color: var(--color-amber-600);
   }

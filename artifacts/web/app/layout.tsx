@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/footer";
 import { NotificationsProvider } from "@/lib/notifications-context";
 import { NotificationToastContainer } from "@/components/ui/notification-toast";
 import { RoomIdProvider } from "@/lib/room-id-context";
+import { WalletProvider } from "@/lib/wallet-context";
 import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
@@ -33,15 +34,17 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <body className="font-body antialiased">
           <NotificationsProvider>
-            <RoomIdProvider>
-              <div className="grid-bg" />
-              <Navbar />
-              <main className="relative z-10 min-h-screen">
-                {children}
-              </main>
-              <Footer />
-              <NotificationToastContainer />
-            </RoomIdProvider>
+            <WalletProvider>
+              <RoomIdProvider>
+                <div className="grid-bg" />
+                <Navbar />
+                <main className="relative z-10 min-h-screen">
+                  {children}
+                </main>
+                <Footer />
+                <NotificationToastContainer />
+              </RoomIdProvider>
+            </WalletProvider>
           </NotificationsProvider>
         </body>
       </html>

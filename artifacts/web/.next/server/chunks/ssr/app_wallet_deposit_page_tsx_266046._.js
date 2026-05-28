@@ -13,6 +13,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$ne
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/.pnpm/next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/.pnpm/next@15.1.8_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/next/navigation.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/artifacts/web/lib/utils.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$wallet$2d$context$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/artifacts/web/lib/wallet-context.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$lucide$2d$react$40$0$2e$545$2e$0_react$40$19$2e$1$2e$0$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__ = __turbopack_import__("[project]/node_modules/.pnpm/lucide-react@0.545.0_react@19.1.0/node_modules/lucide-react/dist/esm/icons/arrow-left.js [app-ssr] (ecmascript) <export default as ArrowLeft>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$lucide$2d$react$40$0$2e$545$2e$0_react$40$19$2e$1$2e$0$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle2$3e$__ = __turbopack_import__("[project]/node_modules/.pnpm/lucide-react@0.545.0_react@19.1.0/node_modules/lucide-react/dist/esm/icons/circle-check.js [app-ssr] (ecmascript) <export default as CheckCircle2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/.pnpm/framer-motion@12.38.0_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs [app-ssr] (ecmascript)");
@@ -29,6 +30,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$lu
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$lucide$2d$react$40$0$2e$545$2e$0_react$40$19$2e$1$2e$0$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$wallet$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Wallet$3e$__ = __turbopack_import__("[project]/node_modules/.pnpm/lucide-react@0.545.0_react@19.1.0/node_modules/lucide-react/dist/esm/icons/wallet.js [app-ssr] (ecmascript) <export default as Wallet>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f40$clerk$2b$shared$40$4$2e$13$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f40$clerk$2f$shared$2f$dist$2f$runtime$2f$react$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/.pnpm/@clerk+shared@4.13.0_react-dom@19.1.0_react@19.1.0__react@19.1.0/node_modules/@clerk/shared/dist/runtime/react/index.mjs [app-ssr] (ecmascript)");
 "use client";
+;
 ;
 ;
 ;
@@ -108,12 +110,12 @@ function StepDot({ active, done, label }) {
                     className: "w-3.5 h-3.5"
                 }, void 0, false, {
                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                    lineNumber: 44,
+                    lineNumber: 45,
                     columnNumber: 17
                 }, this) : active ? "●" : "○"
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                lineNumber: 40,
+                lineNumber: 41,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -121,20 +123,20 @@ function StepDot({ active, done, label }) {
                 children: label
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                lineNumber: 46,
+                lineNumber: 47,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex-1 h-px bg-white/10 last:hidden"
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                lineNumber: 49,
+                lineNumber: 50,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-        lineNumber: 39,
+        lineNumber: 40,
         columnNumber: 5
     }, this);
 }
@@ -161,7 +163,7 @@ function CountdownTimer({ seconds }) {
                 ]
             }, void 0, true, {
                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                lineNumber: 65,
+                lineNumber: 66,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -169,7 +171,7 @@ function CountdownTimer({ seconds }) {
                 children: "time left"
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                lineNumber: 68,
+                lineNumber: 69,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -182,23 +184,24 @@ function CountdownTimer({ seconds }) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                    lineNumber: 70,
+                    lineNumber: 71,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                lineNumber: 69,
+                lineNumber: 70,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-        lineNumber: 64,
+        lineNumber: 65,
         columnNumber: 5
     }, this);
 }
 function DepositPage() {
     const { user } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f40$clerk$2b$shared$40$4$2e$13$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f40$clerk$2f$shared$2f$dist$2f$runtime$2f$react$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useUser"])();
+    const { addFunds } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$wallet$2d$context$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useWallet"])();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
     const [step, setStep] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("amount");
     const [selectedAmount, setSelectedAmount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
@@ -290,16 +293,7 @@ function DepositPage() {
                         });
                         const verifyData = await verifyRes.json();
                         if (verifyData.success) {
-                            if (user) {
-                                const key = `elitelobby_wallet_pending_${user.id}`;
-                                const pending = JSON.parse(localStorage.getItem(key) || "[]");
-                                pending.push({
-                                    amount: totalCredit,
-                                    ref: verifyData.referenceId || "",
-                                    ts: new Date().toISOString()
-                                });
-                                localStorage.setItem(key, JSON.stringify(pending));
-                            }
+                            addFunds(totalCredit, "Wallet Top-up via Razorpay");
                             setReferenceId(verifyData.referenceId || `EL-${response.razorpay_payment_id.slice(-8).toUpperCase()}`);
                             setStep("success");
                         } else {
@@ -324,6 +318,7 @@ function DepositPage() {
         setSubmitting(true);
         await new Promise((r)=>setTimeout(r, 800));
         const ref = `EL-DEP-${Date.now().toString().slice(-8)}`;
+        addFunds(totalCredit, "Wallet Top-up via UPI (pending verification)");
         setReferenceId(ref);
         setSubmitting(false);
         setStep("success");
@@ -375,14 +370,14 @@ function DepositPage() {
                             className: "w-4 h-4 group-hover:-translate-x-1 transition-transform"
                         }, void 0, false, {
                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                            lineNumber: 215,
+                            lineNumber: 213,
                             columnNumber: 11
                         }, this),
                         " Back to Wallet"
                     ]
                 }, void 0, true, {
                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                    lineNumber: 214,
+                    lineNumber: 212,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -396,12 +391,12 @@ function DepositPage() {
                                         className: "w-3.5 h-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 226,
+                                        lineNumber: 224,
                                         columnNumber: 40
                                     }, this) : i + 1
                                 }, void 0, false, {
                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                    lineNumber: 222,
+                                    lineNumber: 220,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -409,25 +404,25 @@ function DepositPage() {
                                     children: label.replace(" ✓", "")
                                 }, void 0, false, {
                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                    lineNumber: 228,
+                                    lineNumber: 226,
                                     columnNumber: 15
                                 }, this),
                                 i < arr.length - 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cn"])("flex-1 h-px mx-1", label.includes("✓") ? "bg-green-500/40" : "bg-white/10")
                                 }, void 0, false, {
                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                    lineNumber: 231,
+                                    lineNumber: 229,
                                     columnNumber: 38
                                 }, this)
                             ]
                         }, label, true, {
                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                            lineNumber: 221,
+                            lineNumber: 219,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                    lineNumber: 219,
+                    lineNumber: 217,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -460,13 +455,13 @@ function DepositPage() {
                                                     children: "FUNDS"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 242,
+                                                    lineNumber: 240,
                                                     columnNumber: 84
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 242,
+                                            lineNumber: 240,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -474,7 +469,7 @@ function DepositPage() {
                                             children: "Select the amount to deposit to your wallet"
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 243,
+                                            lineNumber: 241,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -495,7 +490,7 @@ function DepositPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 256,
+                                                            lineNumber: 254,
                                                             columnNumber: 25
                                                         }, this),
                                                         preset.hot && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -503,14 +498,14 @@ function DepositPage() {
                                                             children: "🔥 HOT"
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 261,
+                                                            lineNumber: 259,
                                                             columnNumber: 25
                                                         }, this),
                                                         selectedAmount === preset.amount && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$lucide$2d$react$40$0$2e$545$2e$0_react$40$19$2e$1$2e$0$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle2$3e$__["CheckCircle2"], {
                                                             className: "absolute top-2 right-2 w-3.5 h-3.5 text-yellow-400"
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 263,
+                                                            lineNumber: 261,
                                                             columnNumber: 60
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -518,7 +513,7 @@ function DepositPage() {
                                                             children: preset.label
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 264,
+                                                            lineNumber: 262,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -529,18 +524,18 @@ function DepositPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 265,
+                                                            lineNumber: 263,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, preset.amount, true, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 247,
+                                                    lineNumber: 245,
                                                     columnNumber: 21
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 245,
+                                            lineNumber: 243,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -551,7 +546,7 @@ function DepositPage() {
                                                     children: "Custom Amount"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 271,
+                                                    lineNumber: 269,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -562,7 +557,7 @@ function DepositPage() {
                                                             children: "₹"
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 273,
+                                                            lineNumber: 271,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -578,19 +573,19 @@ function DepositPage() {
                                                             className: "gaming-input w-full pl-9 pr-4 py-3 rounded-xl text-sm"
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 274,
+                                                            lineNumber: 272,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 272,
+                                                    lineNumber: 270,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 270,
+                                            lineNumber: 268,
                                             columnNumber: 17
                                         }, this),
                                         finalAmount >= 500 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -608,7 +603,7 @@ function DepositPage() {
                                                     className: "w-5 h-5 text-green-400 flex-shrink-0"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 288,
+                                                    lineNumber: 286,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -623,7 +618,7 @@ function DepositPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 290,
+                                                            lineNumber: 288,
                                                             columnNumber: 31
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -637,19 +632,19 @@ function DepositPage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 291,
+                                                            lineNumber: 289,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 289,
+                                                    lineNumber: 287,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 286,
+                                            lineNumber: 284,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -662,19 +657,19 @@ function DepositPage() {
                                                     className: "w-4 h-4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 301,
+                                                    lineNumber: 299,
                                                     columnNumber: 39
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 296,
+                                            lineNumber: 294,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                    lineNumber: 241,
+                                    lineNumber: 239,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -687,14 +682,14 @@ function DepositPage() {
                                                     className: "w-3.5 h-3.5 text-green-400"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 306,
+                                                    lineNumber: 304,
                                                     columnNumber: 59
                                                 }, this),
                                                 " 256-bit Secured"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 306,
+                                            lineNumber: 304,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -704,14 +699,14 @@ function DepositPage() {
                                                     className: "w-3.5 h-3.5 text-yellow-400"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 307,
+                                                    lineNumber: 305,
                                                     columnNumber: 59
                                                 }, this),
                                                 " Instant Credit"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 307,
+                                            lineNumber: 305,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -721,26 +716,26 @@ function DepositPage() {
                                                     className: "w-3.5 h-3.5 text-cyan-400"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 308,
+                                                    lineNumber: 306,
                                                     columnNumber: 59
                                                 }, this),
                                                 " 24/7 Support"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 308,
+                                            lineNumber: 306,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                    lineNumber: 305,
+                                    lineNumber: 303,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, "amount", true, {
                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                            lineNumber: 240,
+                            lineNumber: 238,
                             columnNumber: 13
                         }, this),
                         step === "paying" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -769,7 +764,7 @@ function DepositPage() {
                                                     children: "Paying"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 318,
+                                                    lineNumber: 316,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -780,7 +775,7 @@ function DepositPage() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 319,
+                                                    lineNumber: 317,
                                                     columnNumber: 19
                                                 }, this),
                                                 bonusAmount > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -794,13 +789,13 @@ function DepositPage() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 321,
+                                                    lineNumber: 319,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 317,
+                                            lineNumber: 315,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -813,14 +808,14 @@ function DepositPage() {
                                                             className: "w-3.5 h-3.5 text-purple-400"
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 328,
+                                                            lineNumber: 326,
                                                             columnNumber: 21
                                                         }, this),
                                                         " Instant UPI Payment"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 327,
+                                                    lineNumber: 325,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -834,14 +829,14 @@ function DepositPage() {
                                                                 className: "w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                                lineNumber: 338,
+                                                                lineNumber: 336,
                                                                 columnNumber: 25
                                                             }, this),
                                                             "Opening Payment..."
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 337,
+                                                        lineNumber: 335,
                                                         columnNumber: 23
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         className: "relative z-10 flex items-center gap-3",
@@ -850,7 +845,7 @@ function DepositPage() {
                                                                 className: "w-5 h-5"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                                lineNumber: 343,
+                                                                lineNumber: 341,
                                                                 columnNumber: 25
                                                             }, this),
                                                             "PAY WITH UPI",
@@ -859,18 +854,18 @@ function DepositPage() {
                                                                 children: "Google Pay / PhonePe / Paytm"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                                lineNumber: 345,
+                                                                lineNumber: 343,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 342,
+                                                        lineNumber: 340,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 331,
+                                                    lineNumber: 329,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -884,7 +879,7 @@ function DepositPage() {
                                                                         children: app.emoji
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                                        lineNumber: 353,
+                                                                        lineNumber: 351,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -892,13 +887,13 @@ function DepositPage() {
                                                                         children: app.short
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                                        lineNumber: 354,
+                                                                        lineNumber: 352,
                                                                         columnNumber: 25
                                                                     }, this)
                                                                 ]
                                                             }, app.name, true, {
                                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                                lineNumber: 352,
+                                                                lineNumber: 350,
                                                                 columnNumber: 23
                                                             }, this)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -909,7 +904,7 @@ function DepositPage() {
                                                                     children: "🏦"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                                    lineNumber: 358,
+                                                                    lineNumber: 356,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -917,25 +912,25 @@ function DepositPage() {
                                                                     children: "Net Banking"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                                    lineNumber: 359,
+                                                                    lineNumber: 357,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 357,
+                                                            lineNumber: 355,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 350,
+                                                    lineNumber: 348,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 326,
+                                            lineNumber: 324,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -945,7 +940,7 @@ function DepositPage() {
                                                     className: "flex-1 h-px bg-white/10"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 365,
+                                                    lineNumber: 363,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -953,20 +948,20 @@ function DepositPage() {
                                                     children: "or pay manually"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 366,
+                                                    lineNumber: 364,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "flex-1 h-px bg-white/10"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 367,
+                                                    lineNumber: 365,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 364,
+                                            lineNumber: 362,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -980,14 +975,14 @@ function DepositPage() {
                                                     className: "w-4 h-4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 375,
+                                                    lineNumber: 373,
                                                     columnNumber: 19
                                                 }, this),
                                                 " Scan QR / Enter UPI ID manually"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 371,
+                                            lineNumber: 369,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -996,13 +991,13 @@ function DepositPage() {
                                             children: "← Change amount"
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 378,
+                                            lineNumber: 376,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                    lineNumber: 316,
+                                    lineNumber: 314,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1012,20 +1007,20 @@ function DepositPage() {
                                             className: "w-3.5 h-3.5 text-green-400"
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 384,
+                                            lineNumber: 382,
                                             columnNumber: 17
                                         }, this),
                                         "Payments secured by Razorpay · 256-bit SSL"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                    lineNumber: 383,
+                                    lineNumber: 381,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, "paying", true, {
                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                            lineNumber: 315,
+                            lineNumber: 313,
                             columnNumber: 13
                         }, this),
                         step === "manual_qr" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1056,7 +1051,7 @@ function DepositPage() {
                                                         children: "Pay Exactly"
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 396,
+                                                        lineNumber: 394,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1067,26 +1062,26 @@ function DepositPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 397,
+                                                        lineNumber: 395,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 395,
+                                                lineNumber: 393,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(CountdownTimer, {
                                                 seconds: 600
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 399,
+                                                lineNumber: 397,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 394,
+                                        lineNumber: 392,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1099,12 +1094,12 @@ function DepositPage() {
                                             className: "rounded-xl"
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 403,
+                                            lineNumber: 401,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 402,
+                                        lineNumber: 400,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1112,7 +1107,7 @@ function DepositPage() {
                                         children: "Scan with any UPI app"
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 405,
+                                        lineNumber: 403,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1126,7 +1121,7 @@ function DepositPage() {
                                                         children: "UPI ID"
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 410,
+                                                        lineNumber: 408,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1134,13 +1129,13 @@ function DepositPage() {
                                                         children: UPI_ID
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 411,
+                                                        lineNumber: 409,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 409,
+                                                lineNumber: 407,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1152,7 +1147,7 @@ function DepositPage() {
                                                             className: "w-3.5 h-3.5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 420,
+                                                            lineNumber: 418,
                                                             columnNumber: 36
                                                         }, this),
                                                         " Copied!"
@@ -1163,7 +1158,7 @@ function DepositPage() {
                                                             className: "w-3.5 h-3.5"
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 420,
+                                                            lineNumber: 418,
                                                             columnNumber: 92
                                                         }, this),
                                                         " Copy"
@@ -1171,13 +1166,13 @@ function DepositPage() {
                                                 }, void 0, true)
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 413,
+                                                lineNumber: 411,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 408,
+                                        lineNumber: 406,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1191,7 +1186,7 @@ function DepositPage() {
                                                         children: app.emoji
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 430,
+                                                        lineNumber: 428,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1199,18 +1194,18 @@ function DepositPage() {
                                                         children: app.short
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 431,
+                                                        lineNumber: 429,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, app.name, true, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 427,
+                                                lineNumber: 425,
                                                 columnNumber: 21
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 425,
+                                        lineNumber: 423,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1220,7 +1215,7 @@ function DepositPage() {
                                                 className: "w-4 h-4 text-yellow-400 mt-0.5 flex-shrink-0"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 437,
+                                                lineNumber: 435,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1235,7 +1230,7 @@ function DepositPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 439,
+                                                        lineNumber: 437,
                                                         columnNumber: 25
                                                     }, this),
                                                     " — no rounding. After payment, note your ",
@@ -1244,20 +1239,20 @@ function DepositPage() {
                                                         children: "UTR/Transaction ID"
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 440,
+                                                        lineNumber: 438,
                                                         columnNumber: 46
                                                     }, this),
                                                     " from your UPI app."
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 438,
+                                                lineNumber: 436,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 436,
+                                        lineNumber: 434,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1269,7 +1264,7 @@ function DepositPage() {
                                                 children: "← Back"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 445,
+                                                lineNumber: 443,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1280,29 +1275,29 @@ function DepositPage() {
                                                     children: "I've Paid → Enter UTR"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 447,
+                                                    lineNumber: 445,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 446,
+                                                lineNumber: 444,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 444,
+                                        lineNumber: 442,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                lineNumber: 393,
+                                lineNumber: 391,
                                 columnNumber: 15
                             }, this)
                         }, "manual_qr", false, {
                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                            lineNumber: 392,
+                            lineNumber: 390,
                             columnNumber: 13
                         }, this),
                         step === "manual_proof" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1332,13 +1327,13 @@ function DepositPage() {
                                                         children: "UTR NUMBER"
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 459,
+                                                        lineNumber: 457,
                                                         columnNumber: 88
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 459,
+                                                lineNumber: 457,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1346,13 +1341,13 @@ function DepositPage() {
                                                 children: "Enter your UPI transaction reference for verification"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 460,
+                                                lineNumber: 458,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 458,
+                                        lineNumber: 456,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1363,7 +1358,7 @@ function DepositPage() {
                                                 children: "Amount Paid"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 464,
+                                                lineNumber: 462,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1374,13 +1369,13 @@ function DepositPage() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 465,
+                                                lineNumber: 463,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 463,
+                                        lineNumber: 461,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1394,13 +1389,13 @@ function DepositPage() {
                                                         children: "*"
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 470,
+                                                        lineNumber: 468,
                                                         columnNumber: 42
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 469,
+                                                lineNumber: 467,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1411,7 +1406,7 @@ function DepositPage() {
                                                 className: "gaming-input w-full px-4 py-3 rounded-xl text-sm font-mono"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 472,
+                                                lineNumber: 470,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1419,13 +1414,13 @@ function DepositPage() {
                                                 children: "Find in your UPI app → Transaction History → Transaction ID"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 479,
+                                                lineNumber: 477,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 468,
+                                        lineNumber: 466,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1435,7 +1430,7 @@ function DepositPage() {
                                                 className: "w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 485,
+                                                lineNumber: 483,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1447,20 +1442,20 @@ function DepositPage() {
                                                         children: "30 minutes"
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 487,
+                                                        lineNumber: 485,
                                                         columnNumber: 37
                                                     }, this),
                                                     " (9 AM – 11 PM IST). Funds credited automatically on approval."
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 486,
+                                                lineNumber: 484,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 484,
+                                        lineNumber: 482,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1472,7 +1467,7 @@ function DepositPage() {
                                                 children: "← Back"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 492,
+                                                lineNumber: 490,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1485,7 +1480,7 @@ function DepositPage() {
                                                             className: "w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 499,
+                                                            lineNumber: 497,
                                                             columnNumber: 27
                                                         }, this),
                                                         " Submitting..."
@@ -1496,7 +1491,7 @@ function DepositPage() {
                                                             className: "w-4 h-4"
                                                         }, void 0, false, {
                                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                            lineNumber: 500,
+                                                            lineNumber: 498,
                                                             columnNumber: 27
                                                         }, this),
                                                         " Submit for Review"
@@ -1504,24 +1499,24 @@ function DepositPage() {
                                                 }, void 0, true)
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 493,
+                                                lineNumber: 491,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 491,
+                                        lineNumber: 489,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                lineNumber: 457,
+                                lineNumber: 455,
                                 columnNumber: 15
                             }, this)
                         }, "manual_proof", false, {
                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                            lineNumber: 456,
+                            lineNumber: 454,
                             columnNumber: 13
                         }, this),
                         step === "success" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -1555,12 +1550,12 @@ function DepositPage() {
                                             className: "w-10 h-10 text-green-400"
                                         }, void 0, false, {
                                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                            lineNumber: 518,
+                                            lineNumber: 516,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 512,
+                                        lineNumber: 510,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -1573,7 +1568,7 @@ function DepositPage() {
                                                     children: "SUCCESSFULLY!"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 522,
+                                                    lineNumber: 520,
                                                     columnNumber: 47
                                                 }, this)
                                             ]
@@ -1585,14 +1580,14 @@ function DepositPage() {
                                                     children: "CONFIRMED!"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 522,
+                                                    lineNumber: 520,
                                                     columnNumber: 116
                                                 }, this)
                                             ]
                                         }, void 0, true)
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 521,
+                                        lineNumber: 519,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1600,7 +1595,7 @@ function DepositPage() {
                                         children: isManualMode ? `Your deposit of ₹${finalAmount.toLocaleString()} is under review and will be credited within 30 minutes.` : `₹${totalCredit.toLocaleString()} has been credited to your wallet!${bonusAmount > 0 ? ` (includes ₹${bonusAmount} bonus)` : ""}`
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 524,
+                                        lineNumber: 522,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1611,7 +1606,7 @@ function DepositPage() {
                                                 children: "Reference Number"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 532,
+                                                lineNumber: 530,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1619,7 +1614,7 @@ function DepositPage() {
                                                 children: referenceId
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 533,
+                                                lineNumber: 531,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1627,13 +1622,13 @@ function DepositPage() {
                                                 children: "Screenshot this for support inquiries"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 534,
+                                                lineNumber: 532,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 531,
+                                        lineNumber: 529,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1644,7 +1639,7 @@ function DepositPage() {
                                                     className: "w-4 h-4 text-yellow-400 mx-auto mb-1"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 539,
+                                                    lineNumber: 537,
                                                     columnNumber: 29
                                                 }, this),
                                                 label: "Processing",
@@ -1655,7 +1650,7 @@ function DepositPage() {
                                                     className: "w-4 h-4 text-green-400 mx-auto mb-1"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 540,
+                                                    lineNumber: 538,
                                                     columnNumber: 29
                                                 }, this),
                                                 label: "Status",
@@ -1666,7 +1661,7 @@ function DepositPage() {
                                                     className: "w-4 h-4 text-cyan-400 mx-auto mb-1"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 541,
+                                                    lineNumber: 539,
                                                     columnNumber: 29
                                                 }, this),
                                                 label: "Amount",
@@ -1681,7 +1676,7 @@ function DepositPage() {
                                                         children: item.label
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 545,
+                                                        lineNumber: 543,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1689,18 +1684,18 @@ function DepositPage() {
                                                         children: item.value
                                                     }, void 0, false, {
                                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                        lineNumber: 546,
+                                                        lineNumber: 544,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, item.label, true, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 543,
+                                                lineNumber: 541,
                                                 columnNumber: 21
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 537,
+                                        lineNumber: 535,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1712,7 +1707,7 @@ function DepositPage() {
                                                 children: "View Wallet"
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 552,
+                                                lineNumber: 550,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1723,46 +1718,46 @@ function DepositPage() {
                                                     children: "Browse Tournaments"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                    lineNumber: 554,
+                                                    lineNumber: 552,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                                lineNumber: 553,
+                                                lineNumber: 551,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                        lineNumber: 551,
+                                        lineNumber: 549,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                                lineNumber: 511,
+                                lineNumber: 509,
                                 columnNumber: 15
                             }, this)
                         }, "success", false, {
                             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                            lineNumber: 510,
+                            lineNumber: 508,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-                    lineNumber: 236,
+                    lineNumber: 234,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-            lineNumber: 213,
+            lineNumber: 211,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/artifacts/web/app/wallet/deposit/page.tsx",
-        lineNumber: 212,
+        lineNumber: 210,
         columnNumber: 5
     }, this);
 }

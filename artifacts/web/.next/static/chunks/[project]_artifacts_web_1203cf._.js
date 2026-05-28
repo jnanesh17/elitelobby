@@ -5,6 +5,8 @@
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, k: __turbopack_refresh__, m: module, z: __turbopack_require_stub__ } = __turbopack_context__;
 {
+// Fixed base time — using a stable reference so SSR and client hydration produce
+// identical date strings and avoid React hydration mismatches.
 __turbopack_esm__({
     "MOCK_LEADERBOARD": (()=>MOCK_LEADERBOARD),
     "MOCK_NOTIFICATIONS": (()=>MOCK_NOTIFICATIONS),
@@ -15,6 +17,8 @@ __turbopack_esm__({
     "MOCK_TRANSACTIONS": (()=>MOCK_TRANSACTIONS),
     "MOCK_USER": (()=>MOCK_USER)
 });
+const _BASE = new Date("2026-05-28T20:00:00.000Z").getTime();
+const _T = (offsetMs)=>new Date(_BASE + offsetMs).toISOString();
 const MOCK_TOURNAMENTS = [
     {
         id: "t1",
@@ -25,7 +29,7 @@ const MOCK_TOURNAMENTS = [
         prize_pool: 5000,
         max_slots: 25,
         filled_slots: 18,
-        match_time: new Date(Date.now() + 2 * 3600000).toISOString(),
+        match_time: _T(2 * 3600000),
         map_name: "Bermuda",
         status: "upcoming",
         banner_url: null,
@@ -40,7 +44,7 @@ const MOCK_TOURNAMENTS = [
         prize_pool: 8000,
         max_slots: 48,
         filled_slots: 48,
-        match_time: new Date(Date.now() + 30 * 60000).toISOString(),
+        match_time: _T(30 * 60000),
         map_name: "Bermuda",
         status: "live",
         banner_url: null,
@@ -55,7 +59,7 @@ const MOCK_TOURNAMENTS = [
         prize_pool: 6000,
         max_slots: 24,
         filled_slots: 16,
-        match_time: new Date(Date.now() + 6 * 3600000).toISOString(),
+        match_time: _T(6 * 3600000),
         map_name: "Kalahari",
         status: "upcoming",
         banner_url: null,
@@ -70,7 +74,7 @@ const MOCK_TOURNAMENTS = [
         prize_pool: 10000,
         max_slots: 16,
         filled_slots: 6,
-        match_time: new Date(Date.now() + 4 * 3600000).toISOString(),
+        match_time: _T(4 * 3600000),
         map_name: "Bermuda",
         status: "upcoming",
         banner_url: null,
@@ -85,7 +89,7 @@ const MOCK_TOURNAMENTS = [
         prize_pool: 12000,
         max_slots: 25,
         filled_slots: 25,
-        match_time: new Date(Date.now() - 3600000).toISOString(),
+        match_time: _T(-3600000),
         map_name: "Purgatory",
         status: "completed",
         banner_url: null,
@@ -100,7 +104,7 @@ const MOCK_TOURNAMENTS = [
         prize_pool: 3000,
         max_slots: 48,
         filled_slots: 22,
-        match_time: new Date(Date.now() + 12 * 3600000).toISOString(),
+        match_time: _T(12 * 3600000),
         map_name: "Purgatory",
         status: "upcoming",
         banner_url: null,

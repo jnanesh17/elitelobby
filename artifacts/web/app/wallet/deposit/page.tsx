@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Zap, Copy, CheckCircle2, Clock, Shield, QrCode, Wallet, Info, ChevronRight, Gift, Bolt, CreditCard, Smartphone } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useWallet } from "@/lib/wallet-context";
 import { useUser } from "@clerk/nextjs";
 
 declare global {
@@ -78,6 +79,7 @@ function CountdownTimer({ seconds }: { seconds: number }) {
 
 export default function DepositPage() {
   const { user } = useUser();
+  const { addFunds } = useWallet();
   const router = useRouter();
   const [step, setStep] = useState<Step>("amount");
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
@@ -157,12 +159,7 @@ export default function DepositPage() {
             });
             const verifyData = await verifyRes.json() as { success?: boolean; referenceId?: string; error?: string };
             if (verifyData.success) {
-              if (user) {
-                const key = `elitelobby_wallet_pending_${user.id}`;
-                const pending = JSON.parse(localStorage.getItem(key) || "[]") as { amount: number; ref: string; ts: string }[];
-                pending.push({ amount: totalCredit, ref: verifyData.referenceId || "", ts: new Date().toISOString() });
-                localStorage.setItem(key, JSON.stringify(pending));
-              }
+              addFunds(totalCredit, "Wallet Top-up via Razorpay");
               setReferenceId(verifyData.referenceId || `EL-${response.razorpay_payment_id.slice(-8).toUpperCase()}`);
               setStep("success");
             } else {
@@ -189,6 +186,7 @@ export default function DepositPage() {
     setSubmitting(true);
     await new Promise(r => setTimeout(r, 800));
     const ref = `EL-DEP-${Date.now().toString().slice(-8)}`;
+    addFunds(totalCredit, "Wallet Top-up via UPI (pending verification)");
     setReferenceId(ref);
     setSubmitting(false);
     setStep("success");

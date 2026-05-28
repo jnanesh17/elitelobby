@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { MOCK_USER, MOCK_TRANSACTIONS } from "@/lib/mock-data";
+import { useWallet } from "@/lib/wallet-context";
 import { Wallet, Plus, ArrowUpRight, ArrowDownLeft, TrendingUp, Clock, CheckCircle2, XCircle, Trophy, Swords } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format, parseISO } from "date-fns";
@@ -21,11 +22,11 @@ const TX_LABEL: Record<string, string> = {
 };
 
 export default function WalletPage() {
-  const deposits = MOCK_TRANSACTIONS.filter(t => t.type === "deposit");
-  const withdrawals = MOCK_TRANSACTIONS.filter(t => t.type === "withdrawal" || t.amount < 0);
+  const { balance, transactions: walletTxs } = useWallet();
+  const allTxs = [...walletTxs, ...MOCK_TRANSACTIONS];
 
-  const totalIn = MOCK_TRANSACTIONS.filter(t => t.amount > 0).reduce((s, t) => s + t.amount, 0);
-  const totalOut = Math.abs(MOCK_TRANSACTIONS.filter(t => t.amount < 0).reduce((s, t) => s + t.amount, 0));
+  const totalIn = allTxs.filter(t => t.amount > 0).reduce((s, t) => s + t.amount, 0);
+  const totalOut = Math.abs(allTxs.filter(t => t.amount < 0).reduce((s, t) => s + t.amount, 0));
 
   return (
     <div className="pt-24 pb-16 px-4">
@@ -49,7 +50,7 @@ export default function WalletPage() {
             <div>
               <p className="text-slate-400 text-sm font-heading mb-1">Available Balance</p>
               <p className="font-display font-black text-5xl gradient-text-gold">
-                ₹{MOCK_USER.wallet_balance.toLocaleString()}
+                ₹{balance.toLocaleString()}
               </p>
               <p className="text-slate-400 text-xs font-heading mt-2 flex items-center gap-1.5">
                 <TrendingUp className="w-3.5 h-3.5 text-green-400" />
@@ -102,16 +103,16 @@ export default function WalletPage() {
         >
           <div className="px-6 py-4 border-b border-purple/15 flex items-center justify-between">
             <h3 className="font-heading font-bold text-white">Transaction History</h3>
-            <span className="text-xs text-slate-400 font-heading">{MOCK_TRANSACTIONS.length} records</span>
+            <span className="text-xs text-slate-400 font-heading">{allTxs.length} records</span>
           </div>
           <div className="divide-y divide-purple/5">
-            {MOCK_TRANSACTIONS.length === 0 ? (
+            {allTxs.length === 0 ? (
               <div className="px-6 py-12 text-center">
                 <Wallet className="w-10 h-10 text-slate-600 mx-auto mb-3" />
                 <p className="text-slate-400 font-heading text-sm">No transactions yet</p>
               </div>
             ) : (
-              MOCK_TRANSACTIONS.map((tx, i) => (
+              allTxs.map((tx, i) => (
                 <motion.div
                   key={tx.id}
                   initial={{ opacity: 0 }}
