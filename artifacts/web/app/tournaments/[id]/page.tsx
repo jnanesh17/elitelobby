@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { MOCK_TOURNAMENTS, MOCK_REGISTRATIONS } from "@/lib/mock-data";
+import { MOCK_TOURNAMENTS, MOCK_REGISTRATIONS, MOCK_LEADERBOARD } from "@/lib/mock-data";
 import { formatCurrency, formatTimeLeft, getGameIcon } from "@/lib/utils";
 import { useRoomIds } from "@/lib/room-id-context";
-import { ArrowLeft, Trophy, Users, Clock, Shield, Map, Swords, Eye, EyeOff, CheckCircle2, AlertCircle, Wallet, Copy, Key, Lock, Loader2, Zap, TrendingUp, ChevronDown } from "lucide-react";
+import { ArrowLeft, Trophy, Users, Clock, Shield, Map, Swords, Eye, EyeOff, CheckCircle2, AlertCircle, Wallet, Copy, Key, Lock, Loader2, Zap, TrendingUp, ChevronDown, UserPlus, Crown, X, Search, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format, parseISO } from "date-fns";
 
@@ -33,6 +33,47 @@ export default function TournamentDetailPage() {
   const profit = isClashSquad ? perPlayerPrize - stake : 0;
 
   const STAKE_PRESETS = [100, 250, 500, 750, 1000];
+
+  // ── Squad state ──
+  type SquadMember = { username: string; status: "leader" | "invited" | "confirmed" };
+  const [playMode, setPlayMode] = useState<"solo" | "squad">("solo");
+  const [squadName, setSquadName] = useState("");
+  const [squadCode] = useState(() => Math.random().toString(36).slice(2, 8).toUpperCase());
+  const [squadMembers, setSquadMembers] = useState<SquadMember[]>([
+    { username: "DemoPlayer", status: "leader" },
+  ]);
+  const [memberSearch, setMemberSearch] = useState("");
+  const [showMemberSearch, setShowMemberSearch] = useState(false);
+  const [codeCopied, setCodeCopied] = useState(false);
+
+  const squadFull = squadMembers.length === 4;
+  const squadReady = squadFull && squadMembers.every(m => m.status === "leader" || m.status === "confirmed");
+
+  const candidatePlayers = MOCK_LEADERBOARD.filter(
+    p => !squadMembers.find(m => m.username === p.username) &&
+      p.username.toLowerCase().includes(memberSearch.toLowerCase())
+  ).slice(0, 5);
+
+  function addSquadMember(username: string) {
+    if (squadMembers.length >= 4) return;
+    setSquadMembers(prev => [...prev, { username, status: "invited" }]);
+    setMemberSearch("");
+    setShowMemberSearch(false);
+  }
+
+  function removeSquadMember(username: string) {
+    setSquadMembers(prev => prev.filter(m => m.username !== username));
+  }
+
+  function acceptInvite(username: string) {
+    setSquadMembers(prev => prev.map(m => m.username === username ? { ...m, status: "confirmed" } : m));
+  }
+
+  async function copySquadCode() {
+    await navigator.clipboard.writeText(`https://elitelobby.in/join/${squadCode}`);
+    setCodeCopied(true);
+    setTimeout(() => setCodeCopied(false), 2000);
+  }
 
   const roomEntry = tournament ? getRoomId(tournament.id) : null;
   const roomReleased = roomEntry?.released ?? false;
@@ -520,6 +561,223 @@ export default function TournamentDetailPage() {
                     </div>
                   )}
 
+                  {/* ── PLAY MODE SELECTOR (Clash Squad only) ── */}
+                  {isClashSquad && (
+                    <div className="mb-4">
+                      <p className="text-xs text-slate-500 font-heading uppercase tracking-widest mb-2">Play Mode</p>
+                      <div className="flex gap-2">
+                        {(["solo", "squad"] as const).map((mode) => (
+                          <button
+                            key={mode}
+                            onClick={() => setPlayMode(mode)}
+                            className={cn(
+                              "flex-1 py-2.5 rounded-xl border font-heading font-bold text-sm flex items-center justify-center gap-2 transition-all",
+                              playMode === mode
+                                ? mode === "squad"
+                                  ? "bg-cyan-500/20 border-cyan-500/50 text-cyan-300"
+                                  : "bg-purple-600/30 border-purple-500/60 text-purple-300"
+                                : "border-white/10 text-slate-400 hover:border-white/20"
+                            )}
+                          >
+                            {mode === "solo" ? <Swords className="w-3.5 h-3.5" /> : <Users className="w-3.5 h-3.5" />}
+                            {mode === "solo" ? "Solo" : "Squad"}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ── SQUAD BUILDER ── */}
+                  {isClashSquad && playMode === "squad" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mb-4 space-y-3"
+                    >
+                      {/* Squad name */}
+                      <div>
+                        <p className="text-xs text-slate-500 font-heading uppercase tracking-widest mb-1.5">Squad Name</p>
+                        <input
+                          type="text"
+                          value={squadName}
+                          onChange={e => setSquadName(e.target.value)}
+                          placeholder="Enter squad name..."
+                          maxLength={20}
+                          className="gaming-input w-full px-3 py-2 rounded-xl text-sm"
+                        />
+                      </div>
+
+                      {/* Squad invite code */}
+                      <div className="flex items-center gap-2 p-3 bg-cyan-500/5 border border-cyan-500/20 rounded-xl">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs text-slate-500 font-heading mb-0.5">Invite Code</p>
+                          <p className="font-display font-black text-base text-cyan-400 tracking-widest">{squadCode}</p>
+                        </div>
+                        <button
+                          onClick={copySquadCode}
+                          className={cn(
+                            "flex items-center gap-1.5 text-xs font-heading font-bold px-3 py-1.5 rounded-lg border transition-all flex-shrink-0",
+                            codeCopied
+                              ? "text-green-400 border-green-500/30 bg-green-500/10"
+                              : "text-cyan-400 border-cyan-500/30 hover:bg-cyan-500/10"
+                          )}
+                        >
+                          {codeCopied ? <CheckCircle2 className="w-3.5 h-3.5" /> : <Share2 className="w-3.5 h-3.5" />}
+                          {codeCopied ? "Copied!" : "Share"}
+                        </button>
+                      </div>
+
+                      {/* Member slots */}
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <p className="text-xs text-slate-500 font-heading uppercase tracking-widest">
+                            Team Members <span className={cn("font-bold", squadFull ? "text-green-400" : "text-white")}>{squadMembers.length}/4</span>
+                          </p>
+                        </div>
+
+                        <div className="space-y-2">
+                          {squadMembers.map((member) => (
+                            <motion.div
+                              key={member.username}
+                              initial={{ opacity: 0, x: -8 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              className={cn(
+                                "flex items-center gap-2.5 p-2.5 rounded-xl border",
+                                member.status === "leader" ? "border-yellow-500/30 bg-yellow-500/5" :
+                                member.status === "confirmed" ? "border-green-500/30 bg-green-500/5" :
+                                "border-white/10 bg-white/3"
+                              )}
+                            >
+                              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-700 to-cyan-700 flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0">
+                                {member.username[0]}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="font-heading font-bold text-white text-xs truncate">{member.username}</p>
+                                <div className="flex items-center gap-1">
+                                  {member.status === "leader" && (
+                                    <span className="flex items-center gap-0.5 text-[10px] text-yellow-400 font-heading font-bold">
+                                      <Crown className="w-2.5 h-2.5" /> Leader
+                                    </span>
+                                  )}
+                                  {member.status === "invited" && (
+                                    <span className="text-[10px] text-orange-400 font-heading">Invite sent...</span>
+                                  )}
+                                  {member.status === "confirmed" && (
+                                    <span className="flex items-center gap-0.5 text-[10px] text-green-400 font-heading font-bold">
+                                      <CheckCircle2 className="w-2.5 h-2.5" /> Confirmed
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                              {member.status === "invited" && (
+                                <button
+                                  onClick={() => acceptInvite(member.username)}
+                                  className="text-[10px] font-heading font-bold text-green-400 bg-green-500/10 border border-green-500/25 rounded-lg px-2 py-1 hover:bg-green-500/20 transition-colors flex-shrink-0"
+                                >
+                                  Accept
+                                </button>
+                              )}
+                              {member.status !== "leader" && (
+                                <button
+                                  onClick={() => removeSquadMember(member.username)}
+                                  className="text-slate-600 hover:text-red-400 transition-colors flex-shrink-0 ml-auto"
+                                >
+                                  <X className="w-3.5 h-3.5" />
+                                </button>
+                              )}
+                            </motion.div>
+                          ))}
+
+                          {/* Empty slots */}
+                          {Array.from({ length: 4 - squadMembers.length }).map((_, i) => (
+                            <div key={`empty-${i}`} className="flex items-center gap-2.5 p-2.5 rounded-xl border border-dashed border-white/10">
+                              <div className="w-8 h-8 rounded-lg border border-dashed border-white/15 flex items-center justify-center flex-shrink-0">
+                                <span className="text-slate-600 text-xs">+</span>
+                              </div>
+                              <span className="text-xs text-slate-600 font-heading">Open slot</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Add member search */}
+                        {!squadFull && (
+                          <div className="mt-2 relative">
+                            <button
+                              onClick={() => setShowMemberSearch(!showMemberSearch)}
+                              className="w-full flex items-center justify-center gap-2 py-2 rounded-xl border border-dashed border-cyan-500/30 text-cyan-400 text-xs font-heading font-bold hover:bg-cyan-500/5 transition-colors"
+                            >
+                              <UserPlus className="w-3.5 h-3.5" /> Add Teammate
+                            </button>
+
+                            {showMemberSearch && (
+                              <motion.div
+                                initial={{ opacity: 0, y: -4 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="absolute bottom-full mb-1 left-0 right-0 bg-[#0d0d1a] border border-purple/30 rounded-xl overflow-hidden shadow-2xl z-20"
+                              >
+                                <div className="p-2 border-b border-white/5">
+                                  <div className="relative">
+                                    <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500" />
+                                    <input
+                                      autoFocus
+                                      type="text"
+                                      value={memberSearch}
+                                      onChange={e => setMemberSearch(e.target.value)}
+                                      placeholder="Search player..."
+                                      className="w-full pl-8 pr-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-xs font-heading text-white placeholder-slate-500 focus:outline-none focus:border-purple/40"
+                                    />
+                                  </div>
+                                </div>
+                                {candidatePlayers.length > 0 ? (
+                                  <div className="max-h-40 overflow-y-auto">
+                                    {candidatePlayers.map(p => (
+                                      <button
+                                        key={p.username}
+                                        onClick={() => addSquadMember(p.username)}
+                                        className="w-full flex items-center gap-2.5 px-3 py-2 hover:bg-white/5 transition-colors text-left"
+                                      >
+                                        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-purple-700 to-cyan-700 flex items-center justify-center font-display font-bold text-xs text-white flex-shrink-0">
+                                          {p.username[0]}
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                          <p className="text-xs font-heading font-bold text-white truncate">{p.username}</p>
+                                          <p className="text-[10px] text-slate-500 font-heading">{p.game} · #{p.rank}</p>
+                                        </div>
+                                        <span className="text-[10px] text-purple-400 font-heading flex-shrink-0">{p.wins}W</span>
+                                      </button>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <p className="text-xs text-slate-500 font-heading text-center py-4">No players found</p>
+                                )}
+                              </motion.div>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Squad ready status */}
+                        {squadFull && (
+                          <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className={cn(
+                              "mt-2 flex items-center gap-2 p-2.5 rounded-xl border text-xs font-heading font-bold",
+                              squadReady
+                                ? "border-green-500/30 bg-green-500/5 text-green-400"
+                                : "border-orange-500/30 bg-orange-500/5 text-orange-400"
+                            )}
+                          >
+                            {squadReady ? (
+                              <><CheckCircle2 className="w-4 h-4" /> Squad ready — all members confirmed!</>
+                            ) : (
+                              <><AlertCircle className="w-4 h-4" /> Waiting for members to accept invite...</>
+                            )}
+                          </motion.div>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+
                   {isFull ? (
                     <div className="text-center py-2">
                       <p className="text-red-400 font-heading font-semibold text-sm mb-3">Tournament is FULL</p>
@@ -530,13 +788,25 @@ export default function TournamentDetailPage() {
                       <p className="text-red-400 font-heading font-semibold text-sm mb-3">Insufficient wallet balance</p>
                       <Link href="/wallet/deposit" className="btn-secondary w-full py-3 rounded-xl font-heading font-bold text-sm text-center block">Add Funds to Wallet</Link>
                     </div>
+                  ) : isClashSquad && playMode === "squad" && !squadReady ? (
+                    <button
+                      disabled
+                      className="w-full py-3.5 rounded-xl font-heading font-bold tracking-wider text-sm flex items-center justify-center gap-2 opacity-40 cursor-not-allowed bg-gradient-to-r from-cyan-700 to-teal-600 text-white"
+                    >
+                      <Users className="w-4 h-4" />
+                      {!squadFull ? `Add ${4 - squadMembers.length} more member${4 - squadMembers.length !== 1 ? "s" : ""}` : "Waiting for confirmations..."}
+                    </button>
                   ) : (
                     <button
                       onClick={handleRegister}
                       disabled={registering}
                       className={cn(
                         "w-full py-3.5 rounded-xl font-heading font-bold tracking-wider text-sm relative flex items-center justify-center gap-2 disabled:opacity-60",
-                        isClashSquad ? "bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white shadow-lg shadow-orange-900/30 transition-all" : "btn-primary"
+                        isClashSquad && playMode === "squad"
+                          ? "bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 text-white shadow-lg shadow-cyan-900/30 transition-all"
+                          : isClashSquad
+                          ? "bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white shadow-lg shadow-orange-900/30 transition-all"
+                          : "btn-primary"
                       )}
                     >
                       {registering ? (
@@ -546,8 +816,12 @@ export default function TournamentDetailPage() {
                         </span>
                       ) : (
                         <span className="relative z-10 flex items-center gap-2">
-                          {isClashSquad ? <Zap className="w-4 h-4" /> : <Swords className="w-4 h-4" />}
-                          {isClashSquad ? `STAKE ₹${stake} · WIN ₹${perPlayerPrize}` : `JOIN FOR ₹${tournament.entry_fee}`}
+                          {isClashSquad && playMode === "squad" ? <Users className="w-4 h-4" /> : isClashSquad ? <Zap className="w-4 h-4" /> : <Swords className="w-4 h-4" />}
+                          {isClashSquad && playMode === "squad"
+                            ? `REGISTER SQUAD · ₹${stake} × 4`
+                            : isClashSquad
+                            ? `STAKE ₹${stake} · WIN ₹${perPlayerPrize}`
+                            : `JOIN FOR ₹${tournament.entry_fee}`}
                         </span>
                       )}
                     </button>
