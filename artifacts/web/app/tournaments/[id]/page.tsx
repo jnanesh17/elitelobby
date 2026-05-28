@@ -27,7 +27,7 @@ export default function TournamentDetailPage() {
   const [stake, setStake] = useState(100);
   const [brMode, setBrMode] = useState<"solo" | "duo" | "squad">("solo");
 
-  const isClashSquad = ["ff-cs-bermuda", "ff-cs-kalahari", "ff-cs-purgatory"].includes(tournament?.id ?? "");
+  const isClashSquad = tournament?.id === "ff-cs";
   const isBattleRoyale = tournament?.id === "ff-br";
 
   const BR_MODE_DATA = {

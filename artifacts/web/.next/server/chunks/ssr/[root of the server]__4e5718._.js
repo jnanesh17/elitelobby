@@ -1726,49 +1726,19 @@ const MOCK_TOURNAMENTS = [
         rules: "Random map each match. Choose your mode:\n• Solo — ₹50 entry, win ₹500\n• Duo (per team) — ₹70 entry, win ₹750\n• Squad (per team) — ₹100 entry, win ₹1,000\nTop placement + kill points determine winners. No hacking or cheating. Results are final."
     },
     {
-        id: "ff-cs-bermuda",
-        title: "Clash Squad — Bermuda",
+        id: "ff-cs",
+        title: "Free Fire Clash Squad",
         game: "Free Fire",
         game_mode: "Clash Squad",
         entry_fee: 100,
         prize_pool: 1800,
         max_slots: 8,
         filled_slots: 4,
-        match_time: _T(3 * 3600000),
-        map_name: "Bermuda",
+        match_time: _T(4 * 3600000),
+        map_name: "Host Pick",
         status: "upcoming",
         banner_url: null,
-        rules: "4v4 Clash Squad on Bermuda. Stake ₹100–₹1,000 per player. Winner gets 1.8× their stake. Best of 5 rounds. No revive in final round."
-    },
-    {
-        id: "ff-cs-kalahari",
-        title: "Clash Squad — Kalahari",
-        game: "Free Fire",
-        game_mode: "Clash Squad",
-        entry_fee: 100,
-        prize_pool: 1800,
-        max_slots: 8,
-        filled_slots: 2,
-        match_time: _T(5 * 3600000),
-        map_name: "Kalahari",
-        status: "upcoming",
-        banner_url: null,
-        rules: "4v4 Clash Squad on Kalahari. Stake ₹100–₹1,000 per player. Winner gets 1.8× their stake. Best of 5 rounds. No revive in final round."
-    },
-    {
-        id: "ff-cs-purgatory",
-        title: "Clash Squad — Purgatory",
-        game: "Free Fire",
-        game_mode: "Clash Squad",
-        entry_fee: 100,
-        prize_pool: 1800,
-        max_slots: 8,
-        filled_slots: 0,
-        match_time: _T(7 * 3600000),
-        map_name: "Purgatory",
-        status: "upcoming",
-        banner_url: null,
-        rules: "4v4 Clash Squad on Purgatory. Stake ₹100–₹1,000 per player. Winner gets 1.8× their stake. Best of 5 rounds. No revive in final round."
+        rules: "4v4 Clash Squad. Map is randomly selected by the host — Bermuda, Kalahari, or Purgatory. Stake ₹100–₹1,000 per player. Winner gets 1.8× their stake. Best of 5 rounds. No revive in final round."
     }
 ];
 const MOCK_BGMI_TOURNAMENTS = [
@@ -2131,7 +2101,7 @@ const MOCK_REGISTRATIONS = [
     },
     {
         id: "r7",
-        tournament_id: "ff-cs-bermuda",
+        tournament_id: "ff-cs",
         username: "GhostRider_M",
         game_uid: "FF-91004",
         email: "ghost@example.com",
@@ -2141,7 +2111,7 @@ const MOCK_REGISTRATIONS = [
     },
     {
         id: "r8",
-        tournament_id: "ff-cs-bermuda",
+        tournament_id: "ff-cs",
         username: "ThunderBolt_S",
         game_uid: "FF-77321",
         email: "thunder@example.com",
@@ -2151,7 +2121,7 @@ const MOCK_REGISTRATIONS = [
     },
     {
         id: "r9",
-        tournament_id: "ff-cs-bermuda",
+        tournament_id: "ff-cs",
         username: "NeonAssassin",
         game_uid: "FF-48871",
         email: "neon@example.com",
@@ -2161,32 +2131,12 @@ const MOCK_REGISTRATIONS = [
     },
     {
         id: "r10",
-        tournament_id: "ff-cs-bermuda",
+        tournament_id: "ff-cs",
         username: "RedViper_99",
         game_uid: "FF-30012",
         email: "red@example.com",
         fee_paid: 500,
         registered_at: new Date(Date.now() - 45 * 60000).toISOString(),
-        payment_status: "confirmed"
-    },
-    {
-        id: "r11",
-        tournament_id: "ff-cs-kalahari",
-        username: "NightShade_X",
-        game_uid: "FF-88241",
-        email: "night@example.com",
-        fee_paid: 1000,
-        registered_at: new Date(Date.now() - 2 * 3600000).toISOString(),
-        payment_status: "confirmed"
-    },
-    {
-        id: "r12",
-        tournament_id: "ff-cs-kalahari",
-        username: "CyberHawk_V2",
-        game_uid: "FF-10023",
-        email: "cyber@example.com",
-        fee_paid: 1000,
-        registered_at: new Date(Date.now() - 1 * 3600000).toISOString(),
         payment_status: "confirmed"
     }
 ];
