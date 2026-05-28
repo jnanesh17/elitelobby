@@ -8,6 +8,7 @@ import { Trophy, Zap, Wallet, Bell, Settings, Target, Swords, Crown, TrendingUp,
 import { cn, formatCurrency, getRankColor } from "@/lib/utils";
 import { format, parseISO } from "date-fns";
 import { useUser } from "@clerk/nextjs";
+import { useWallet } from "@/lib/wallet-context";
 
 function ProfileCard() {
   const { user, isLoaded } = useUser();
@@ -97,6 +98,7 @@ function ProfileCard() {
 }
 
 function WalletCard() {
+  const { balance } = useWallet();
   return (
     <div className="glass-card rounded-2xl p-6">
       <div className="flex items-center justify-between mb-5">
@@ -109,7 +111,7 @@ function WalletCard() {
 
       <div className="bg-gradient-to-r from-purple-900/40 to-cyan-900/30 rounded-xl p-4 mb-4 border border-purple/20">
         <p className="text-xs text-slate-400 font-heading mb-1">Available Balance</p>
-        <p className="font-display font-black text-3xl gradient-text-gold">₹{MOCK_USER.wallet_balance.toLocaleString()}</p>
+        <p className="font-display font-black text-3xl gradient-text-gold">₹{balance.toLocaleString()}</p>
       </div>
 
       <div className="flex gap-2 mb-5">

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
-import { MOCK_USER } from "@/lib/mock-data";
+import { useWallet } from "@/lib/wallet-context";
 
 const PRESET_WITHDRAW = [100, 250, 500, 1000];
 
@@ -24,14 +24,7 @@ function validateUPI(v: string) {
 
 export default function WithdrawPage() {
   const { user } = useUser();
-
-  const [walletBalance, setWalletBalance] = useState(MOCK_USER.wallet_balance);
-  useEffect(() => {
-    if (!user) return;
-    const key = `elitelobby_wallet_balance_${user.id}`;
-    const stored = localStorage.getItem(key);
-    if (stored) setWalletBalance(parseInt(stored));
-  }, [user]);
+  const { balance: walletBalance, deductFee } = useWallet();
 
   const [step, setStep] = useState<WStep>("amount");
   const [selectedPreset, setSelectedPreset] = useState<number | null>(null);
@@ -69,6 +62,7 @@ export default function WithdrawPage() {
     setSubmitting(true);
     await new Promise(r => setTimeout(r, 900));
     const ref = `EL-WD-${Date.now().toString().slice(-8)}`;
+    deductFee(finalAmount, `Withdrawal via ${method === "upi" ? "UPI" : "Bank Transfer"}`);
     setRefId(ref);
     if (user) {
       const req = {
