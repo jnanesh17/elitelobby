@@ -3968,6 +3968,18 @@
   }
 
   @media (hover: hover) {
+    .hover\:border-purple-500\/60:hover {
+      border-color: #ac4bff99;
+    }
+
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:border-purple-500\/60:hover {
+        border-color: color-mix(in oklab, var(--color-purple-500) 60%, transparent);
+      }
+    }
+  }
+
+  @media (hover: hover) {
     .hover\:border-purple\/20:hover {
       border-color: oklab(54.1337% .0963843 -.226968 / .2);
     }

@@ -26,6 +26,19 @@ export default function TournamentDetailPage() {
   const [activeTab, setActiveTab] = useState<"rules" | "participants">("rules");
   const [stake, setStake] = useState(100);
   const [brMode, setBrMode] = useState<"solo" | "duo" | "squad">("solo");
+  const [shareCopied, setShareCopied] = useState(false);
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    const text = `Join ${tournament?.title} on EliteLobby — Prize Pool: ${tournament ? formatCurrency(tournament.prize_pool) : ""}`;
+    if (navigator.share) {
+      try { await navigator.share({ title: tournament?.title, text, url }); } catch {}
+    } else {
+      await navigator.clipboard.writeText(url);
+      setShareCopied(true);
+      setTimeout(() => setShareCopied(false), 2000);
+    }
+  };
 
   const isClashSquad = tournament?.id === "ff-cs";
   const isBattleRoyale = tournament?.id === "ff-br";
@@ -145,10 +158,22 @@ export default function TournamentDetailPage() {
   return (
     <div className="pt-24 pb-16 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Back */}
-        <button onClick={() => router.back()} className="flex items-center gap-2 text-slate-400 hover:text-white mb-6 font-heading text-sm transition-colors group">
-          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Tournaments
-        </button>
+        {/* Back + Share row */}
+        <div className="flex items-center justify-between mb-6">
+          <button onClick={() => router.back()} className="flex items-center gap-2 text-slate-400 hover:text-white font-heading text-sm transition-colors group">
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Back to Tournaments
+          </button>
+          <button
+            onClick={handleShare}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl font-heading font-bold text-xs tracking-wider transition-all border border-purple/30 hover:border-purple-500/60 bg-purple/5 hover:bg-purple/10 text-slate-300 hover:text-white"
+          >
+            {shareCopied ? (
+              <><CheckCircle2 className="w-3.5 h-3.5 text-green-400" /> <span className="text-green-400">Link Copied!</span></>
+            ) : (
+              <><Share2 className="w-3.5 h-3.5 text-purple-400" /> Share Tournament</>
+            )}
+          </button>
+        </div>
 
         {/* Hero banner */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="glass-card rounded-2xl overflow-hidden mb-6">
