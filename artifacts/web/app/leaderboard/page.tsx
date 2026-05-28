@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { MOCK_LEADERBOARD, MOCK_RECENT_WINNERS } from "@/lib/mock-data";
 import { formatCurrency } from "@/lib/utils";
+import Link from "next/link";
 import { Trophy, Target, TrendingUp, TrendingDown, Minus, Crown, Flame, Swords } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -26,10 +27,12 @@ function PodiumCard({ player, position }: { player: (typeof MOCK_LEADERBOARD)[0]
       className={cn("flex flex-col items-center order-first", position === 1 && "order-first sm:order-none z-10")}
     >
       <div className="text-3xl mb-2">{medal}</div>
-      <div className={cn("w-16 h-16 rounded-xl bg-gradient-to-br flex items-center justify-center font-display font-black text-xl text-white mb-2 border", style.bg, style.border)}>
-        {player.username[0]}
-      </div>
-      <p className={cn("font-heading font-bold text-sm text-center", style.text)}>{player.username}</p>
+      <Link href={`/players/${player.username}`} className="group">
+        <div className={cn("w-16 h-16 rounded-xl bg-gradient-to-br flex items-center justify-center font-display font-black text-xl text-white mb-2 border group-hover:scale-105 transition-transform", style.bg, style.border)}>
+          {player.username[0]}
+        </div>
+        <p className={cn("font-heading font-bold text-sm text-center group-hover:underline", style.text)}>{player.username}</p>
+      </Link>
       <p className="text-xs text-slate-500 font-heading mb-2">{player.game}</p>
       <p className={cn("font-display font-black text-base", style.text)}>{formatCurrency(player.earnings)}</p>
       <div className={cn("mt-2 rounded-t-lg w-full flex items-end justify-center bg-gradient-to-t from-white/5 to-transparent border border-b-0", style.border, heights[position as 1 | 2 | 3] ?? heights[3])}>
@@ -160,15 +163,15 @@ export default function LeaderboardPage() {
                       </span>
                     </td>
                     <td>
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-700 to-cyan-700 flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0">
+                      <Link href={`/players/${player.username}`} className="flex items-center gap-3 group/link">
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-700 to-cyan-700 flex items-center justify-center font-display font-bold text-sm text-white flex-shrink-0 group-hover/link:scale-105 transition-transform">
                           {player.username[0]}
                         </div>
                         <div>
-                          <p className="font-heading font-bold text-white text-sm group-hover:text-purple-300 transition-colors">{player.username}</p>
+                          <p className="font-heading font-bold text-white text-sm group-hover/link:text-purple-300 transition-colors">{player.username}</p>
                           {player.displayRank === 1 && <p className="text-xs text-yellow-400 font-heading">Current Champion</p>}
                         </div>
-                      </div>
+                      </Link>
                     </td>
                     <td className="hidden sm:table-cell">
                       <span className="text-slate-400 text-sm font-heading">{player.game}</span>
