@@ -64,9 +64,14 @@ export default function TournamentLobbyPage() {
       ...p,
       ready: i === 0, // first player pre-readied for demo
       online: true,
-      ping: Math.floor(Math.random() * 60) + 20,
+      ping: 45, // deterministic initial value to avoid hydration mismatch
     }))
   );
+
+  // Randomize ping on mount (client-only) to avoid SSR hydration mismatch
+  useEffect(() => {
+    setPlayers(ps => ps.map(p => ({ ...p, ping: Math.floor(Math.random() * 60) + 20 })));
+  }, []);
   const [myReady, setMyReady] = useState(false);
 
   // Simulate other players readying up over time
