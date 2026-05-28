@@ -97,9 +97,9 @@ function TournamentDetailPage() {
     };
     const effectiveEntryFee = isClashSquad ? stake : isBattleRoyale ? BR_MODE_DATA[brMode].fee : tournament?.entry_fee ?? 0;
     const brPrize = isBattleRoyale ? BR_MODE_DATA[brMode].prize : 0;
-    const totalPot = stake * 8;
-    const winnerPerPlayer = Math.round(stake * 1.8);
-    const platformCut = Math.round(stake * 8 * 0.1);
+    const totalPot = stake * 2;
+    const winnerTeamPrize = Math.round(stake * 1.8);
+    const platformCut = Math.round(stake * 2 * 0.1);
     const profit = Math.round(stake * 0.8);
     const STAKE_PRESETS = [
         100,
@@ -380,7 +380,7 @@ function TournamentDetailPage() {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                     className: "text-xs text-slate-400 font-heading",
-                                                    children: isClashSquad ? "WIN PER PLAYER" : isBattleRoyale ? "TOP PRIZE" : "PRIZE POOL"
+                                                    children: isClashSquad ? "WINNER TEAM PRIZE" : isBattleRoyale ? "TOP PRIZE" : "PRIZE POOL"
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/tournaments/[id]/page.tsx",
                                                     lineNumber: 181,
@@ -388,7 +388,7 @@ function TournamentDetailPage() {
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                     className: "font-display font-black text-2xl gradient-text-gold",
-                                                    children: isClashSquad ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["formatCurrency"])(winnerPerPlayer) : (0, __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["formatCurrency"])(tournament.prize_pool)
+                                                    children: isClashSquad ? (0, __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["formatCurrency"])(winnerTeamPrize) : (0, __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$utils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["formatCurrency"])(tournament.prize_pool)
                                                 }, void 0, false, {
                                                     fileName: "[project]/artifacts/web/app/tournaments/[id]/page.tsx",
                                                     lineNumber: 182,
@@ -399,7 +399,7 @@ function TournamentDetailPage() {
                                                     children: [
                                                         "on ₹",
                                                         stake,
-                                                        " stake · 1.8×"
+                                                        " team stake · 1.8×"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/artifacts/web/app/tournaments/[id]/page.tsx",
@@ -443,7 +443,7 @@ function TournamentDetailPage() {
                                         lineNumber: 192,
                                         columnNumber: 23
                                     }, this),
-                                    label: isClashSquad ? "Your Stake" : isBattleRoyale ? "Entry Fee" : "Entry Fee",
+                                    label: isClashSquad ? "Team Stake" : "Entry Fee",
                                     value: `₹${effectiveEntryFee}`,
                                     color: "text-yellow-400"
                                 },
@@ -1430,12 +1430,12 @@ function TournamentDetailPage() {
                                                                 }, this),
                                                                 [
                                                                     {
-                                                                        label: "Your Stake",
+                                                                        label: "Team Stake",
                                                                         value: `₹${stake}`,
                                                                         color: "text-white"
                                                                     },
                                                                     {
-                                                                        label: "Total Pot (8 players)",
+                                                                        label: "Total Pot (2 teams)",
                                                                         value: `₹${totalPot}`,
                                                                         color: "text-slate-300"
                                                                     },
@@ -1445,8 +1445,8 @@ function TournamentDetailPage() {
                                                                         color: "text-red-400"
                                                                     },
                                                                     {
-                                                                        label: "You Win (if winner)",
-                                                                        value: `₹${winnerPerPlayer}`,
+                                                                        label: "Winner Team Gets",
+                                                                        value: `₹${winnerTeamPrize}`,
                                                                         color: "text-green-400"
                                                                     }
                                                                 ].map((row)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1492,7 +1492,7 @@ function TournamentDetailPage() {
                                                                                     className: "font-display font-black text-base text-amber-400",
                                                                                     children: [
                                                                                         "₹",
-                                                                                        winnerPerPlayer
+                                                                                        winnerTeamPrize
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/artifacts/web/app/tournaments/[id]/page.tsx",
@@ -2455,7 +2455,7 @@ function TournamentDetailPage() {
                                                                 lineNumber: 893,
                                                                 columnNumber: 231
                                                             }, this),
-                                                            isClashSquad && playMode === "squad" ? `REGISTER SQUAD · ₹${stake} × 4` : isClashSquad ? `STAKE ₹${stake} · WIN ₹${winnerPerPlayer}` : isBattleRoyale ? `JOIN ${BR_MODE_DATA[brMode].label.toUpperCase()} · ₹${BR_MODE_DATA[brMode].fee}` : `JOIN FOR ₹${tournament.entry_fee}`
+                                                            isClashSquad && playMode === "squad" ? `REGISTER SQUAD · ₹${stake} × 4` : isClashSquad ? `STAKE ₹${stake} · WIN ₹${winnerTeamPrize}` : isBattleRoyale ? `JOIN ${BR_MODE_DATA[brMode].label.toUpperCase()} · ₹${BR_MODE_DATA[brMode].fee}` : `JOIN FOR ₹${tournament.entry_fee}`
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/artifacts/web/app/tournaments/[id]/page.tsx",

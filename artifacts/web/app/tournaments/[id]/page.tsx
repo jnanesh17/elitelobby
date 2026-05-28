@@ -39,9 +39,9 @@ export default function TournamentDetailPage() {
   const effectiveEntryFee = isClashSquad ? stake : isBattleRoyale ? BR_MODE_DATA[brMode].fee : (tournament?.entry_fee ?? 0);
   const brPrize = isBattleRoyale ? BR_MODE_DATA[brMode].prize : 0;
 
-  const totalPot = stake * 8;
-  const winnerPerPlayer = Math.round(stake * 1.8);
-  const platformCut = Math.round(stake * 8 * 0.1);
+  const totalPot = stake * 2;
+  const winnerTeamPrize = Math.round(stake * 1.8);
+  const platformCut = Math.round(stake * 2 * 0.1);
   const profit = Math.round(stake * 0.8);
 
   const STAKE_PRESETS = [100, 250, 500, 750, 1000];
@@ -178,9 +178,9 @@ export default function TournamentDetailPage() {
                 <h1 className="font-display font-black text-2xl md:text-3xl text-white leading-tight">{tournament.title}</h1>
               </div>
               <div className="text-right">
-                <p className="text-xs text-slate-400 font-heading">{isClashSquad ? "WIN PER PLAYER" : isBattleRoyale ? "TOP PRIZE" : "PRIZE POOL"}</p>
-                <p className="font-display font-black text-2xl gradient-text-gold">{isClashSquad ? formatCurrency(winnerPerPlayer) : formatCurrency(tournament.prize_pool)}</p>
-                {isClashSquad && <p className="text-xs text-cyan-400 font-heading">on ₹{stake} stake · 1.8×</p>}
+                <p className="text-xs text-slate-400 font-heading">{isClashSquad ? "WINNER TEAM PRIZE" : isBattleRoyale ? "TOP PRIZE" : "PRIZE POOL"}</p>
+                <p className="font-display font-black text-2xl gradient-text-gold">{isClashSquad ? formatCurrency(winnerTeamPrize) : formatCurrency(tournament.prize_pool)}</p>
+                {isClashSquad && <p className="text-xs text-cyan-400 font-heading">on ₹{stake} team stake · 1.8×</p>}
                 {isBattleRoyale && <p className="text-xs text-cyan-400 font-heading">Solo ₹500 · Duo ₹750 · Squad ₹1K</p>}
               </div>
             </div>
@@ -189,7 +189,7 @@ export default function TournamentDetailPage() {
           {/* Stats row */}
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-purple/15">
             {[
-              { icon: <Wallet className="w-4 h-4 text-yellow-400" />, label: isClashSquad ? "Your Stake" : isBattleRoyale ? "Entry Fee" : "Entry Fee", value: `₹${effectiveEntryFee}`, color: "text-yellow-400" },
+              { icon: <Wallet className="w-4 h-4 text-yellow-400" />, label: isClashSquad ? "Team Stake" : "Entry Fee", value: `₹${effectiveEntryFee}`, color: "text-yellow-400" },
               { icon: <Users className="w-4 h-4 text-cyan-400" />, label: "Slots Left", value: isFull ? "FULL" : `${slotsLeft}/${tournament.max_slots}`, color: isFull ? "text-red-400" : "text-cyan-400" },
               { icon: <Map className="w-4 h-4 text-purple-400" />, label: "Map", value: tournament.map_name ?? "TBA", color: "text-purple-400" },
               { icon: <Clock className="w-4 h-4 text-slate-400" />, label: isLive ? "Status" : "Starts In", value: isLive ? "LIVE" : isCompleted ? "ENDED" : timeLeft, color: isLive ? "text-red-400" : "text-slate-300" },
@@ -531,10 +531,10 @@ export default function TournamentDetailPage() {
                       <div className="bg-black/30 rounded-xl p-3 border border-orange-500/20 space-y-2">
                         <p className="text-xs font-heading font-bold text-orange-400 mb-2 uppercase tracking-widest">Payout Breakdown</p>
                         {[
-                          { label: "Your Stake", value: `₹${stake}`, color: "text-white" },
-                          { label: "Total Pot (8 players)", value: `₹${totalPot}`, color: "text-slate-300" },
+                          { label: "Team Stake", value: `₹${stake}`, color: "text-white" },
+                          { label: "Total Pot (2 teams)", value: `₹${totalPot}`, color: "text-slate-300" },
                           { label: "Platform Fee (10%)", value: `-₹${platformCut}`, color: "text-red-400" },
-                          { label: "You Win (if winner)", value: `₹${winnerPerPlayer}`, color: "text-green-400" },
+                          { label: "Winner Team Gets", value: `₹${winnerTeamPrize}`, color: "text-green-400" },
                         ].map((row) => (
                           <div key={row.label} className="flex justify-between text-xs py-0.5 border-b border-white/5 last:border-0">
                             <span className="text-slate-500 font-heading">{row.label}</span>
@@ -544,7 +544,7 @@ export default function TournamentDetailPage() {
                         <div className="pt-1.5 flex items-center justify-between">
                           <span className="text-xs font-heading font-bold text-slate-300">Your prize if you win</span>
                           <div className="text-right">
-                            <span className="font-display font-black text-base text-amber-400">₹{winnerPerPlayer}</span>
+                            <span className="font-display font-black text-base text-amber-400">₹{winnerTeamPrize}</span>
                             <span className="ml-1.5 text-xs font-heading text-green-400">+₹{profit} profit</span>
                           </div>
                         </div>
@@ -894,7 +894,7 @@ export default function TournamentDetailPage() {
                           {isClashSquad && playMode === "squad"
                             ? `REGISTER SQUAD · ₹${stake} × 4`
                             : isClashSquad
-                            ? `STAKE ₹${stake} · WIN ₹${winnerPerPlayer}`
+                            ? `STAKE ₹${stake} · WIN ₹${winnerTeamPrize}`
                             : isBattleRoyale
                             ? `JOIN ${BR_MODE_DATA[brMode].label.toUpperCase()} · ₹${BR_MODE_DATA[brMode].fee}`
                             : `JOIN FOR ₹${tournament.entry_fee}`}
