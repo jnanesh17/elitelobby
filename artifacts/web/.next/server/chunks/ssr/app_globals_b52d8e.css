@@ -11,7 +11,9 @@
     --color-red-500: oklch(63.7% .237 25.331);
     --color-red-600: oklch(57.7% .245 27.325);
     --color-red-900: oklch(39.6% .141 25.723);
+    --color-orange-300: oklch(83.7% .128 66.29);
     --color-orange-400: oklch(75% .183 55.934);
+    --color-orange-500: oklch(70.5% .213 47.604);
     --color-orange-900: oklch(40.8% .123 38.172);
     --color-amber-400: oklch(82.8% .189 84.429);
     --color-amber-500: oklch(76.9% .188 70.08);
@@ -574,6 +576,10 @@
     margin-top: calc(var(--spacing) * 20);
   }
 
+  .mr-1 {
+    margin-right: calc(var(--spacing) * 1);
+  }
+
   .mr-1\.5 {
     margin-right: calc(var(--spacing) * 1.5);
   }
@@ -883,6 +889,10 @@
 
   .w-40 {
     width: calc(var(--spacing) * 40);
+  }
+
+  .w-44 {
+    width: calc(var(--spacing) * 44);
   }
 
   .w-48 {
@@ -1431,6 +1441,26 @@
   @supports (color: color-mix(in lab, red, red)) {
     .border-green-500\/50 {
       border-color: color-mix(in oklab, var(--color-green-500) 50%, transparent);
+    }
+  }
+
+  .border-orange-500\/25 {
+    border-color: #fe6e0040;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-orange-500\/25 {
+      border-color: color-mix(in oklab, var(--color-orange-500) 25%, transparent);
+    }
+  }
+
+  .border-orange-500\/50 {
+    border-color: #fe6e0080;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-orange-500\/50 {
+      border-color: color-mix(in oklab, var(--color-orange-500) 50%, transparent);
     }
   }
 
@@ -1988,6 +2018,26 @@
 
   .bg-indigo-600 {
     background-color: var(--color-indigo-600);
+  }
+
+  .bg-orange-500\/10 {
+    background-color: #fe6e001a;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-orange-500\/10 {
+      background-color: color-mix(in oklab, var(--color-orange-500) 10%, transparent);
+    }
+  }
+
+  .bg-orange-500\/20 {
+    background-color: #fe6e0033;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-orange-500\/20 {
+      background-color: color-mix(in oklab, var(--color-orange-500) 20%, transparent);
+    }
   }
 
   .bg-purple-400 {
@@ -3132,6 +3182,10 @@
     color: var(--color-indigo-400);
   }
 
+  .text-orange-300 {
+    color: var(--color-orange-300);
+  }
+
   .text-orange-400 {
     color: var(--color-orange-400);
   }
@@ -3891,6 +3945,12 @@
   @media (width >= 40rem) {
     .sm\:w-24 {
       width: calc(var(--spacing) * 24);
+    }
+  }
+
+  @media (width >= 40rem) {
+    .sm\:w-56 {
+      width: calc(var(--spacing) * 56);
     }
   }
 

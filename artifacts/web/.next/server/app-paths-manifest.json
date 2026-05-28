@@ -3,5 +3,6 @@
   "/tournaments/[id]/lobby/page": "app/tournaments/[id]/lobby/page.js",
   "/tournaments/[id]/results/page": "app/tournaments/[id]/results/page.js",
   "/admin/page": "app/admin/page.js",
-  "/players/[username]/page": "app/players/[username]/page.js"
+  "/players/[username]/page": "app/players/[username]/page.js",
+  "/tournaments/page": "app/tournaments/page.js"
 }
