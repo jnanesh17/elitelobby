@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MOCK_TOURNAMENTS, MOCK_REGISTRATIONS } from "@/lib/mock-data";
 import { formatCurrency, formatTimeLeft, getGameIcon } from "@/lib/utils";
 import { useRoomIds } from "@/lib/room-id-context";
-import { ArrowLeft, Trophy, Users, Clock, Shield, Map, Swords, Eye, EyeOff, CheckCircle2, AlertCircle, Wallet, Copy, Key, Lock, Loader2 } from "lucide-react";
+import { ArrowLeft, Trophy, Users, Clock, Shield, Map, Swords, Eye, EyeOff, CheckCircle2, AlertCircle, Wallet, Copy, Key, Lock, Loader2, Zap, TrendingUp, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format, parseISO } from "date-fns";
 
@@ -22,6 +22,17 @@ export default function TournamentDetailPage() {
   const [showRoom, setShowRoom] = useState(false);
   const [copiedField, setCopiedField] = useState<"id" | "pass" | null>(null);
   const [activeTab, setActiveTab] = useState<"info" | "rules" | "participants">("info");
+  const [stake, setStake] = useState(200);
+
+  const isClashSquad = tournament?.id === "t4";
+  const effectiveEntryFee = isClashSquad ? stake : (tournament?.entry_fee ?? 0);
+  const totalPot = isClashSquad ? stake * 8 : (tournament?.prize_pool ?? 0);
+  const winnerTeamPrize = isClashSquad ? Math.round(totalPot * 0.7) : (tournament?.prize_pool ?? 0);
+  const perPlayerPrize = isClashSquad ? Math.round(winnerTeamPrize / 4) : (tournament?.prize_pool ?? 0);
+  const platformCut = isClashSquad ? Math.round(totalPot * 0.3) : 0;
+  const profit = isClashSquad ? perPlayerPrize - stake : 0;
+
+  const STAKE_PRESETS = [100, 250, 500, 750, 1000];
 
   const roomEntry = tournament ? getRoomId(tournament.id) : null;
   const roomReleased = roomEntry?.released ?? false;
@@ -107,8 +118,9 @@ export default function TournamentDetailPage() {
                 <h1 className="font-display font-black text-2xl md:text-3xl text-white leading-tight">{tournament.title}</h1>
               </div>
               <div className="text-right">
-                <p className="text-xs text-slate-400 font-heading">PRIZE POOL</p>
-                <p className="font-display font-black text-2xl gradient-text-gold">{formatCurrency(tournament.prize_pool)}</p>
+                <p className="text-xs text-slate-400 font-heading">{isClashSquad ? "WINNING TEAM PRIZE" : "PRIZE POOL"}</p>
+                <p className="font-display font-black text-2xl gradient-text-gold">{isClashSquad ? formatCurrency(winnerTeamPrize) : formatCurrency(tournament.prize_pool)}</p>
+                {isClashSquad && <p className="text-xs text-cyan-400 font-heading">₹{perPlayerPrize} per player</p>}
               </div>
             </div>
           </div>
@@ -116,7 +128,7 @@ export default function TournamentDetailPage() {
           {/* Stats row */}
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-purple/15">
             {[
-              { icon: <Wallet className="w-4 h-4 text-yellow-400" />, label: "Entry Fee", value: `₹${tournament.entry_fee}`, color: "text-yellow-400" },
+              { icon: <Wallet className="w-4 h-4 text-yellow-400" />, label: isClashSquad ? "Your Stake" : "Entry Fee", value: `₹${effectiveEntryFee}`, color: "text-yellow-400" },
               { icon: <Users className="w-4 h-4 text-cyan-400" />, label: "Slots Left", value: isFull ? "FULL" : `${slotsLeft}/${tournament.max_slots}`, color: isFull ? "text-red-400" : "text-cyan-400" },
               { icon: <Map className="w-4 h-4 text-purple-400" />, label: "Map", value: tournament.map_name ?? "TBA", color: "text-purple-400" },
               { icon: <Clock className="w-4 h-4 text-slate-400" />, label: isLive ? "Status" : "Starts In", value: isLive ? "LIVE" : isCompleted ? "ENDED" : timeLeft, color: isLive ? "text-red-400" : "text-slate-300" },
@@ -386,7 +398,9 @@ export default function TournamentDetailPage() {
 
             {/* Registration card */}
             <div className="glass-card rounded-2xl p-5">
-              <h3 className="font-heading font-bold text-white mb-4">Join Tournament</h3>
+              <h3 className="font-heading font-bold text-white mb-4">
+                {isClashSquad ? "Choose Your Stake" : "Join Tournament"}
+              </h3>
 
               {registered ? (
                 <div className="text-center py-4">
@@ -409,29 +423,121 @@ export default function TournamentDetailPage() {
                 </div>
               ) : (
                 <>
-                  <div className="space-y-2 mb-5">
-                    {[
-                      { label: "Entry Fee", value: `₹${tournament.entry_fee}`, highlight: true },
-                      { label: "Your Balance", value: "₹1,250", highlight: false },
-                      { label: "Slots Available", value: isFull ? "FULL" : `${slotsLeft} remaining`, highlight: false },
-                    ].map((row) => (
-                      <div key={row.label} className="flex justify-between text-sm py-1 border-b border-white/5">
-                        <span className="text-slate-400 font-heading">{row.label}</span>
-                        <span className={cn("font-heading font-bold", row.highlight ? "text-yellow-400" : "text-white")}>{row.value}</span>
+                  {/* ── CLASH SQUAD STAKE SELECTOR ── */}
+                  {isClashSquad && (
+                    <div className="mb-5">
+                      {/* Preset chips */}
+                      <p className="text-xs text-slate-500 font-heading uppercase tracking-widest mb-2">Quick Select</p>
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {STAKE_PRESETS.map((p) => (
+                          <button
+                            key={p}
+                            onClick={() => setStake(p)}
+                            className={cn(
+                              "px-3 py-1.5 rounded-lg text-xs font-display font-bold border transition-all",
+                              stake === p
+                                ? "bg-orange-500/30 border-orange-500/60 text-orange-300"
+                                : "border-white/10 text-slate-400 hover:border-orange-500/30 hover:text-orange-300"
+                            )}
+                          >
+                            ₹{p}
+                          </button>
+                        ))}
                       </div>
-                    ))}
-                  </div>
+
+                      {/* Slider */}
+                      <div className="mb-3">
+                        <div className="flex items-center justify-between mb-1.5">
+                          <span className="text-xs text-slate-500 font-heading">₹100</span>
+                          <span className="font-display font-black text-lg text-orange-400">₹{stake}</span>
+                          <span className="text-xs text-slate-500 font-heading">₹1,000</span>
+                        </div>
+                        <input
+                          type="range"
+                          min={100}
+                          max={1000}
+                          step={50}
+                          value={stake}
+                          onChange={(e) => setStake(Number(e.target.value))}
+                          className="w-full h-2 rounded-full appearance-none cursor-pointer"
+                          style={{
+                            background: `linear-gradient(to right, #f97316 0%, #f97316 ${((stake - 100) / 900) * 100}%, rgba(255,255,255,0.1) ${((stake - 100) / 900) * 100}%, rgba(255,255,255,0.1) 100%)`,
+                          }}
+                        />
+                      </div>
+
+                      {/* Payout breakdown */}
+                      <div className="bg-black/30 rounded-xl p-3 border border-orange-500/20 space-y-2">
+                        <p className="text-xs font-heading font-bold text-orange-400 mb-2 uppercase tracking-widest">Payout Breakdown</p>
+                        {[
+                          { label: "Your Stake", value: `₹${stake}`, color: "text-white" },
+                          { label: "Total Pot (8 players)", value: `₹${totalPot}`, color: "text-slate-300" },
+                          { label: "Platform Fee (30%)", value: `-₹${platformCut}`, color: "text-red-400" },
+                          { label: "Winning Team Prize", value: `₹${winnerTeamPrize}`, color: "text-green-400" },
+                        ].map((row) => (
+                          <div key={row.label} className="flex justify-between text-xs py-0.5 border-b border-white/5 last:border-0">
+                            <span className="text-slate-500 font-heading">{row.label}</span>
+                            <span className={cn("font-display font-bold", row.color)}>{row.value}</span>
+                          </div>
+                        ))}
+                        <div className="pt-1.5 flex items-center justify-between">
+                          <span className="text-xs font-heading font-bold text-slate-300">Your prize if you win</span>
+                          <div className="text-right">
+                            <span className="font-display font-black text-base text-amber-400">₹{perPlayerPrize}</span>
+                            <span className="ml-1.5 text-xs font-heading text-green-400">+₹{profit} profit</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 mt-2.5 text-xs text-slate-500 font-heading">
+                        <TrendingUp className="w-3.5 h-3.5 text-green-400" />
+                        Win 70% of double the pot — your stake × {(perPlayerPrize / stake).toFixed(1)}x return
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Standard fee summary */}
+                  {!isClashSquad && (
+                    <div className="space-y-2 mb-5">
+                      {[
+                        { label: "Entry Fee", value: `₹${tournament.entry_fee}`, highlight: true },
+                        { label: "Your Balance", value: "₹1,250", highlight: false },
+                        { label: "Slots Available", value: isFull ? "FULL" : `${slotsLeft} remaining`, highlight: false },
+                      ].map((row) => (
+                        <div key={row.label} className="flex justify-between text-sm py-1 border-b border-white/5">
+                          <span className="text-slate-400 font-heading">{row.label}</span>
+                          <span className={cn("font-heading font-bold", row.highlight ? "text-yellow-400" : "text-white")}>{row.value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Balance row for clash squad */}
+                  {isClashSquad && (
+                    <div className="flex justify-between text-sm py-2 border-b border-white/5 mb-4">
+                      <span className="text-slate-400 font-heading">Your Balance</span>
+                      <span className={cn("font-heading font-bold", stake > 1250 ? "text-red-400" : "text-white")}>₹1,250</span>
+                    </div>
+                  )}
 
                   {isFull ? (
                     <div className="text-center py-2">
                       <p className="text-red-400 font-heading font-semibold text-sm mb-3">Tournament is FULL</p>
                       <Link href="/tournaments" className="btn-secondary w-full py-3 rounded-xl font-heading font-bold text-sm text-center block">Browse Other Tournaments</Link>
                     </div>
+                  ) : stake > 1250 && isClashSquad ? (
+                    <div className="text-center py-2">
+                      <p className="text-red-400 font-heading font-semibold text-sm mb-3">Insufficient wallet balance</p>
+                      <Link href="/wallet/deposit" className="btn-secondary w-full py-3 rounded-xl font-heading font-bold text-sm text-center block">Add Funds to Wallet</Link>
+                    </div>
                   ) : (
                     <button
                       onClick={handleRegister}
                       disabled={registering}
-                      className="btn-primary w-full py-3.5 rounded-xl font-heading font-bold tracking-wider text-sm relative flex items-center justify-center gap-2 disabled:opacity-60"
+                      className={cn(
+                        "w-full py-3.5 rounded-xl font-heading font-bold tracking-wider text-sm relative flex items-center justify-center gap-2 disabled:opacity-60",
+                        isClashSquad ? "bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white shadow-lg shadow-orange-900/30 transition-all" : "btn-primary"
+                      )}
                     >
                       {registering ? (
                         <span className="relative z-10 flex items-center gap-2">
@@ -440,7 +546,8 @@ export default function TournamentDetailPage() {
                         </span>
                       ) : (
                         <span className="relative z-10 flex items-center gap-2">
-                          <Swords className="w-4 h-4" /> JOIN FOR ₹{tournament.entry_fee}
+                          {isClashSquad ? <Zap className="w-4 h-4" /> : <Swords className="w-4 h-4" />}
+                          {isClashSquad ? `STAKE ₹${stake} · WIN ₹${perPlayerPrize}` : `JOIN FOR ₹${tournament.entry_fee}`}
                         </span>
                       )}
                     </button>

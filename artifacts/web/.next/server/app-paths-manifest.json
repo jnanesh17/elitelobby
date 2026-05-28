@@ -4,5 +4,6 @@
   "/tournaments/[id]/results/page": "app/tournaments/[id]/results/page.js",
   "/admin/page": "app/admin/page.js",
   "/players/[username]/page": "app/players/[username]/page.js",
-  "/tournaments/page": "app/tournaments/page.js"
+  "/tournaments/page": "app/tournaments/page.js",
+  "/tournaments/[id]/page": "app/tournaments/[id]/page.js"
 }
