@@ -153,6 +153,7 @@ body {
   transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .btn-primary::before {
@@ -178,6 +179,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.05em;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .btn-secondary:hover {
@@ -193,6 +195,7 @@ body {
   font-family: "Rajdhani", sans-serif;
   font-weight: 700;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .btn-danger:hover {
@@ -207,6 +210,7 @@ body {
   font-family: "Rajdhani", sans-serif;
   font-weight: 700;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .btn-gold:hover {
@@ -246,6 +250,7 @@ body {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   animation: rgb-shift 3s linear infinite;
+  pointer-events: none;
 }
 
 /* ─── Animations ─────────────────────────────────── */
