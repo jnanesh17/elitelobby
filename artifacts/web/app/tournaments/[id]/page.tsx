@@ -290,6 +290,26 @@ export default function TournamentDetailPage() {
 
           {/* Right: action panel */}
           <div className="space-y-4">
+            {/* ── PRIZE DISTRIBUTION ── */}
+            <div className="glass-card rounded-2xl p-5 border border-yellow-500/20">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-lg">🏆</span>
+                <h3 className="font-heading font-bold text-yellow-400 tracking-wide text-sm uppercase">Prize Pool</h3>
+                <span className="ml-auto font-display font-black text-yellow-400 text-base">{formatCurrency(tournament.prize_pool)}</span>
+              </div>
+              <div className="space-y-2">
+                {prizeDist.map((p) => (
+                  <div key={p.pos} className="flex items-center justify-between p-2.5 bg-black/20 rounded-xl border border-white/5">
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-base">{p.icon}</span>
+                      <span className="font-heading font-semibold text-slate-300 text-xs">{p.pos}</span>
+                    </div>
+                    <span className={cn("font-display font-black text-sm", p.color)}>{formatCurrency(p.prize)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* ── ROOM ID PANEL ── */}
             {canSeeRoom && (
               <motion.div
