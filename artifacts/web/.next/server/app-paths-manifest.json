@@ -1,5 +1,8 @@
 {
   "/page": "app/page.js",
   "/tournaments/page": "app/tournaments/page.js",
-  "/auth/login/[[...login]]/page": "app/auth/login/[[...login]]/page.js"
+  "/auth/login/[[...login]]/page": "app/auth/login/[[...login]]/page.js",
+  "/wallet/page": "app/wallet/page.js",
+  "/wallet/deposit/page": "app/wallet/deposit/page.js",
+  "/wallet/withdraw/page": "app/wallet/withdraw/page.js"
 }
