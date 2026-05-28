@@ -157,6 +157,7 @@ const GAMES = [
     bgColor: "bg-orange-500/10",
     bg: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1920&q=80&fit=crop",
     desc: "48-player battle royale on a remote island",
+    comingSoon: false,
   },
   {
     id: "bgmi",
@@ -172,6 +173,7 @@ const GAMES = [
     bgColor: "bg-yellow-500/10",
     bg: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1920&q=80&fit=crop",
     desc: "100-player survival showdown, last squad wins",
+    comingSoon: true,
   },
   {
     id: "cod",
@@ -187,21 +189,7 @@ const GAMES = [
     bgColor: "bg-cyan-500/10",
     bg: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=1920&q=80&fit=crop",
     desc: "High-octane multiplayer FPS on mobile",
-  },
-  {
-    id: "valorant",
-    name: "Valorant",
-    tag: "TACTICAL FPS",
-    emoji: "⚡",
-    players: "18K+",
-    prize: "₹30K Daily",
-    color: "#ef4444",
-    glow: "rgba(239,68,68,0.6)",
-    border: "border-red-500/40",
-    textColor: "text-red-400",
-    bgColor: "bg-red-500/10",
-    bg: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1920&q=80&fit=crop",
-    desc: "5v5 agent-based tactical shooter",
+    comingSoon: true,
   },
 ];
 
@@ -270,9 +258,9 @@ function GamesSection() {
           <p className="text-slate-400 text-sm font-heading mt-3">Hover to preview · Click to compete</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto lg:max-w-none lg:grid-cols-3">
           {GAMES.map((game, i) => {
-            const isHovered = hoveredId === game.id;
+            const isHovered = hoveredId === game.id && !game.comingSoon;
             return (
               <motion.div
                 key={game.id}
@@ -280,11 +268,12 @@ function GamesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                onMouseEnter={() => setHoveredId(game.id)}
+                onMouseEnter={() => !game.comingSoon && setHoveredId(game.id)}
                 onMouseLeave={() => setHoveredId(null)}
                 className={cn(
-                  "relative rounded-2xl border p-6 cursor-pointer overflow-hidden transition-all duration-300",
+                  "relative rounded-2xl border p-6 overflow-hidden transition-all duration-300",
                   game.border,
+                  game.comingSoon ? "cursor-default opacity-60 grayscale-[40%]" : "cursor-pointer",
                   isHovered ? "scale-[1.04] shadow-2xl" : "scale-100",
                 )}
                 style={{
@@ -303,6 +292,13 @@ function GamesSection() {
                   style={{ background: `linear-gradient(90deg, transparent, ${game.color}, transparent)` }}
                 />
 
+                {/* Coming Soon badge */}
+                {game.comingSoon && (
+                  <div className="absolute top-3 right-3 bg-slate-700/80 border border-slate-600/50 text-slate-300 font-heading font-bold text-[10px] tracking-widest px-2.5 py-1 rounded-full uppercase">
+                    Coming Soon
+                  </div>
+                )}
+
                 {/* Emoji icon */}
                 <div
                   className={cn("w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 transition-all duration-300", game.bgColor)}
@@ -312,7 +308,7 @@ function GamesSection() {
                 </div>
 
                 {/* Tag */}
-                <p className={cn("font-heading text-xs tracking-widest font-bold mb-1", game.textColor)}>
+                <p className={cn("font-heading text-xs tracking-widest font-bold mb-1", game.comingSoon ? "text-slate-500" : game.textColor)}>
                   {game.tag}
                 </p>
 
@@ -326,33 +322,39 @@ function GamesSection() {
                 <div className="flex items-center justify-between text-xs font-heading">
                   <div>
                     <p className="text-slate-500 mb-0.5">Players</p>
-                    <p className={cn("font-bold font-display", game.textColor)}>{game.players}</p>
+                    <p className={cn("font-bold font-display", game.comingSoon ? "text-slate-500" : game.textColor)}>
+                      {game.comingSoon ? "—" : game.players}
+                    </p>
                   </div>
                   <div className="text-right">
                     <p className="text-slate-500 mb-0.5">Prize</p>
-                    <p className="font-bold font-display text-yellow-400">{game.prize}</p>
+                    <p className={cn("font-bold font-display", game.comingSoon ? "text-slate-500" : "text-yellow-400")}>
+                      {game.comingSoon ? "—" : game.prize}
+                    </p>
                   </div>
                 </div>
 
-                {/* CTA — appears on hover */}
-                <motion.div
-                  initial={false}
-                  animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 8 }}
-                  transition={{ duration: 0.25 }}
-                  className="mt-4"
-                >
-                  <Link
-                    href="/tournaments"
-                    className="w-full py-2.5 rounded-xl font-heading font-bold text-xs tracking-wider flex items-center justify-center gap-2 transition-all"
-                    style={{
-                      background: `linear-gradient(135deg, ${game.color}cc, ${game.color}88)`,
-                      color: "#fff",
-                    }}
-                    onClick={(e) => e.stopPropagation()}
+                {/* CTA — appears on hover (live games only) */}
+                {!game.comingSoon && (
+                  <motion.div
+                    initial={false}
+                    animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 8 }}
+                    transition={{ duration: 0.25 }}
+                    className="mt-4"
                   >
-                    VIEW TOURNAMENTS <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                </motion.div>
+                    <Link
+                      href="/tournaments"
+                      className="w-full py-2.5 rounded-xl font-heading font-bold text-xs tracking-wider flex items-center justify-center gap-2 transition-all"
+                      style={{
+                        background: `linear-gradient(135deg, ${game.color}cc, ${game.color}88)`,
+                        color: "#fff",
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      VIEW TOURNAMENTS <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </motion.div>
+                )}
               </motion.div>
             );
           })}
