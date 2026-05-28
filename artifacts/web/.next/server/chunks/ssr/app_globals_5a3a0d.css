@@ -505,6 +505,14 @@
     left: calc(var(--spacing) * 4);
   }
 
+  .z-0 {
+    z-index: 0;
+  }
+
+  .z-1 {
+    z-index: 1;
+  }
+
   .z-10 {
     z-index: 10;
   }
@@ -1030,8 +1038,19 @@
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
 
+  .scale-100 {
+    --tw-scale-x: 100%;
+    --tw-scale-y: 100%;
+    --tw-scale-z: 100%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+
   .scale-\[1\.01\] {
     scale: 1.01;
+  }
+
+  .scale-\[1\.04\] {
+    scale: 1.04;
   }
 
   .animate-pulse {
@@ -1277,6 +1296,11 @@
 
   .rounded-xl {
     border-radius: 16px;
+  }
+
+  .rounded-t-2xl {
+    border-top-left-radius: var(--radius-2xl);
+    border-top-right-radius: var(--radius-2xl);
   }
 
   .rounded-t-lg {
@@ -1528,6 +1552,16 @@
   @supports (color: color-mix(in lab, red, red)) {
     .border-orange-500\/30 {
       border-color: color-mix(in oklab, var(--color-orange-500) 30%, transparent);
+    }
+  }
+
+  .border-orange-500\/40 {
+    border-color: #fe6e0066;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-orange-500\/40 {
+      border-color: color-mix(in oklab, var(--color-orange-500) 40%, transparent);
     }
   }
 
@@ -1885,6 +1919,10 @@
     background-color: #0d0d1a;
   }
 
+  .bg-\[\#050508\] {
+    background-color: #050508;
+  }
+
   .bg-\[\#050508\]\/70 {
     background-color: oklab(11.703% .00228549 -.00855978 / .7);
   }
@@ -2142,6 +2180,16 @@
   @supports (color: color-mix(in lab, red, red)) {
     .bg-orange-500\/5 {
       background-color: color-mix(in oklab, var(--color-orange-500) 5%, transparent);
+    }
+  }
+
+  .bg-orange-500\/10 {
+    background-color: #fe6e001a;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-orange-500\/10 {
+      background-color: color-mix(in oklab, var(--color-orange-500) 10%, transparent);
     }
   }
 
@@ -3142,6 +3190,10 @@
 
   .py-16 {
     padding-block: calc(var(--spacing) * 16);
+  }
+
+  .py-20 {
+    padding-block: calc(var(--spacing) * 20);
   }
 
   .py-24 {
@@ -4627,6 +4679,12 @@
   }
 
   @media (width >= 64rem) {
+    .lg\:grid-cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media (width >= 64rem) {
     .lg\:text-9xl {
       font-size: var(--text-9xl);
       line-height: var(--tw-leading, var(--text-9xl--line-height));
@@ -5204,6 +5262,24 @@ body {
   initial-value: 0;
 }
 
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --tw-scale-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+
 @property --tw-space-y-reverse {
   syntax: "*";
   inherits: false;
@@ -5489,24 +5565,6 @@ body {
   inherits: false
 }
 
-@property --tw-scale-x {
-  syntax: "*";
-  inherits: false;
-  initial-value: 1;
-}
-
-@property --tw-scale-y {
-  syntax: "*";
-  inherits: false;
-  initial-value: 1;
-}
-
-@property --tw-scale-z {
-  syntax: "*";
-  inherits: false;
-  initial-value: 1;
-}
-
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -5525,6 +5583,9 @@ body {
       --tw-translate-x: 0;
       --tw-translate-y: 0;
       --tw-translate-z: 0;
+      --tw-scale-x: 1;
+      --tw-scale-y: 1;
+      --tw-scale-z: 1;
       --tw-space-y-reverse: 0;
       --tw-divide-x-reverse: 0;
       --tw-border-style: solid;
@@ -5578,9 +5639,6 @@ body {
       --tw-backdrop-saturate: initial;
       --tw-backdrop-sepia: initial;
       --tw-duration: initial;
-      --tw-scale-x: 1;
-      --tw-scale-y: 1;
-      --tw-scale-z: 1;
     }
   }
 }

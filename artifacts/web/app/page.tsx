@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { TournamentCard } from "@/components/ui/tournament-card";
 import { StatCard } from "@/components/ui/stats-counter";
 import { MOCK_TOURNAMENTS, MOCK_LEADERBOARD, MOCK_RECENT_WINNERS, MOCK_STATS } from "@/lib/mock-data";
@@ -137,6 +137,226 @@ function HeroSection() {
           <span className="text-xs text-slate-500 font-heading tracking-widest">SCROLL</span>
           <div className="w-px h-8 bg-gradient-to-b from-purple-500/50 to-transparent" />
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+const GAMES = [
+  {
+    id: "freefire",
+    name: "Free Fire",
+    tag: "BATTLE ROYALE",
+    emoji: "🔥",
+    players: "42K+",
+    prize: "₹50K Daily",
+    color: "#ff6b35",
+    glow: "rgba(255,107,53,0.6)",
+    border: "border-orange-500/40",
+    textColor: "text-orange-400",
+    bgColor: "bg-orange-500/10",
+    bg: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1920&q=80&fit=crop",
+    desc: "48-player battle royale on a remote island",
+  },
+  {
+    id: "bgmi",
+    name: "BGMI / PUBG",
+    tag: "BATTLE ROYALE",
+    emoji: "🎯",
+    players: "38K+",
+    prize: "₹75K Daily",
+    color: "#f59e0b",
+    glow: "rgba(245,158,11,0.6)",
+    border: "border-yellow-500/40",
+    textColor: "text-yellow-400",
+    bgColor: "bg-yellow-500/10",
+    bg: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1920&q=80&fit=crop",
+    desc: "100-player survival showdown, last squad wins",
+  },
+  {
+    id: "cod",
+    name: "COD Mobile",
+    tag: "FPS / BR",
+    emoji: "💣",
+    players: "25K+",
+    prize: "₹40K Daily",
+    color: "#06b6d4",
+    glow: "rgba(6,182,212,0.6)",
+    border: "border-cyan-500/40",
+    textColor: "text-cyan-400",
+    bgColor: "bg-cyan-500/10",
+    bg: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=1920&q=80&fit=crop",
+    desc: "High-octane multiplayer FPS on mobile",
+  },
+  {
+    id: "valorant",
+    name: "Valorant",
+    tag: "TACTICAL FPS",
+    emoji: "⚡",
+    players: "18K+",
+    prize: "₹30K Daily",
+    color: "#ef4444",
+    glow: "rgba(239,68,68,0.6)",
+    border: "border-red-500/40",
+    textColor: "text-red-400",
+    bgColor: "bg-red-500/10",
+    bg: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1920&q=80&fit=crop",
+    desc: "5v5 agent-based tactical shooter",
+  },
+];
+
+function GamesSection() {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const hoveredGame = GAMES.find((g) => g.id === hoveredId) ?? null;
+
+  return (
+    <section className="relative py-20 px-4 overflow-hidden">
+      {/* Base dark overlay always present */}
+      <div className="absolute inset-0 bg-[#050508]" />
+
+      {/* Game background images — fade in/out on hover */}
+      <AnimatePresence>
+        {hoveredGame && (
+          <motion.div
+            key={hoveredGame.id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundImage: `url(${hoveredGame.bg})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Dark gradient overlay so text stays readable */}
+      <div
+        className="absolute inset-0 z-1 transition-all duration-500"
+        style={{
+          background: hoveredGame
+            ? `linear-gradient(135deg, rgba(5,5,8,0.88) 0%, rgba(5,5,8,0.6) 50%, rgba(5,5,8,0.88) 100%)`
+            : "rgba(5,5,8,0.0)",
+        }}
+      />
+
+      {/* Colored glow from hovered game */}
+      <AnimatePresence>
+        {hoveredGame && (
+          <motion.div
+            key={`glow-${hoveredGame.id}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="absolute inset-0 z-1 pointer-events-none"
+            style={{
+              background: `radial-gradient(ellipse 70% 60% at 50% 50%, ${hoveredGame.glow.replace("0.6", "0.15")} 0%, transparent 70%)`,
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <p className="font-heading text-sm text-purple-400 tracking-widest uppercase mb-1">Choose Your Arena</p>
+          <h2 className="font-display font-bold text-2xl md:text-3xl text-white">
+            SUPPORTED <span className="gradient-text">GAMES</span>
+          </h2>
+          <p className="text-slate-400 text-sm font-heading mt-3">Hover to preview · Click to compete</p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {GAMES.map((game, i) => {
+            const isHovered = hoveredId === game.id;
+            return (
+              <motion.div
+                key={game.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                onMouseEnter={() => setHoveredId(game.id)}
+                onMouseLeave={() => setHoveredId(null)}
+                className={cn(
+                  "relative rounded-2xl border p-6 cursor-pointer overflow-hidden transition-all duration-300",
+                  game.border,
+                  isHovered ? "scale-[1.04] shadow-2xl" : "scale-100",
+                )}
+                style={{
+                  background: isHovered
+                    ? `linear-gradient(135deg, rgba(5,5,8,0.9) 0%, ${game.color}22 100%)`
+                    : "linear-gradient(135deg, rgba(15,15,30,0.9) 0%, rgba(10,10,20,0.95) 100%)",
+                  boxShadow: isHovered ? `0 0 40px ${game.glow.replace("0.6", "0.3")}, 0 20px 40px rgba(0,0,0,0.5)` : undefined,
+                  backdropFilter: "blur(20px)",
+                }}
+              >
+                {/* Top accent line */}
+                <motion.div
+                  className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl"
+                  animate={{ opacity: isHovered ? 1 : 0.3 }}
+                  transition={{ duration: 0.3 }}
+                  style={{ background: `linear-gradient(90deg, transparent, ${game.color}, transparent)` }}
+                />
+
+                {/* Emoji icon */}
+                <div
+                  className={cn("w-14 h-14 rounded-xl flex items-center justify-center text-2xl mb-4 transition-all duration-300", game.bgColor)}
+                  style={{ boxShadow: isHovered ? `0 0 20px ${game.glow.replace("0.6", "0.4")}` : undefined }}
+                >
+                  {game.emoji}
+                </div>
+
+                {/* Tag */}
+                <p className={cn("font-heading text-xs tracking-widest font-bold mb-1", game.textColor)}>
+                  {game.tag}
+                </p>
+
+                {/* Name */}
+                <h3 className="font-display font-black text-xl text-white mb-2">{game.name}</h3>
+
+                {/* Desc */}
+                <p className="text-slate-400 text-xs font-heading leading-relaxed mb-5">{game.desc}</p>
+
+                {/* Stats row */}
+                <div className="flex items-center justify-between text-xs font-heading">
+                  <div>
+                    <p className="text-slate-500 mb-0.5">Players</p>
+                    <p className={cn("font-bold font-display", game.textColor)}>{game.players}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-slate-500 mb-0.5">Prize</p>
+                    <p className="font-bold font-display text-yellow-400">{game.prize}</p>
+                  </div>
+                </div>
+
+                {/* CTA — appears on hover */}
+                <motion.div
+                  initial={false}
+                  animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 8 }}
+                  transition={{ duration: 0.25 }}
+                  className="mt-4"
+                >
+                  <Link
+                    href="/tournaments"
+                    className="w-full py-2.5 rounded-xl font-heading font-bold text-xs tracking-wider flex items-center justify-center gap-2 transition-all"
+                    style={{
+                      background: `linear-gradient(135deg, ${game.color}cc, ${game.color}88)`,
+                      color: "#fff",
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    VIEW TOURNAMENTS <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
@@ -437,6 +657,7 @@ export default function HomePage() {
     <>
       <HeroSection />
       <StatsSection />
+      <GamesSection />
       <FeaturedTournaments />
       <HowItWorks />
       <TopPlayers />

@@ -6,7 +6,7 @@
   "path": "static/chunks/app_page_tsx_185357._.js",
   "chunks": [
     "static/chunks/[project]_artifacts_web_61cb66._.js",
-    "static/chunks/27d31_lucide-react_dist_esm_icons_da5f8b._.js"
+    "static/chunks/27d31_lucide-react_dist_esm_icons_3fa601._.js"
   ],
   "source": "dynamic"
 });
