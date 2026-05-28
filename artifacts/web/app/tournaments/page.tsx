@@ -6,7 +6,7 @@ import { MOCK_TOURNAMENTS, MOCK_BGMI_TOURNAMENTS, MOCK_COD_TOURNAMENTS } from "@
 import { Search, Lock, Bell, ChevronDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const MODES = ["All", "Solo", "Duo", "Squad"];
+const MODES = ["All", "Battle Royale", "Clash Squad"];
 const STATUSES = ["All", "Live", "Upcoming", "Completed"];
 
 const GAMES = [
@@ -223,12 +223,11 @@ export default function TournamentsPage() {
                         : "border-white/10 text-slate-400 hover:border-white/20 hover:text-slate-300"
                     )}
                   >
-                    {mode === "Squad" ? "⚔️ Squad" : mode === "Duo" ? "🤝 Duo" : mode === "Solo" ? "🎯 Solo" : "All"}
+                    {mode === "Battle Royale" ? "🔥 Battle Royale" : mode === "Clash Squad" ? "⚔️ Clash Squad" : "All"}
                   </button>
                 ))}
 
                 <div className="h-4 w-px bg-white/10 mx-1" />
-
                 <span className="text-xs text-slate-500 font-heading uppercase tracking-widest mr-1">Status:</span>
                 {STATUSES.map((status) => (
                   <button

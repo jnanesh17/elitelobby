@@ -24,15 +24,25 @@ export default function TournamentDetailPage() {
   const [showRoom, setShowRoom] = useState(false);
   const [copiedField, setCopiedField] = useState<"id" | "pass" | null>(null);
   const [activeTab, setActiveTab] = useState<"info" | "rules" | "participants">("info");
-  const [stake, setStake] = useState(200);
+  const [stake, setStake] = useState(100);
+  const [brMode, setBrMode] = useState<"solo" | "duo" | "squad">("solo");
 
-  const isClashSquad = tournament?.id === "t4";
-  const effectiveEntryFee = isClashSquad ? stake : (tournament?.entry_fee ?? 0);
-  const totalPot = isClashSquad ? stake * 8 : (tournament?.prize_pool ?? 0);
-  const winnerTeamPrize = isClashSquad ? Math.round(totalPot * 0.7) : (tournament?.prize_pool ?? 0);
-  const perPlayerPrize = isClashSquad ? Math.round(winnerTeamPrize / 4) : (tournament?.prize_pool ?? 0);
-  const platformCut = isClashSquad ? Math.round(totalPot * 0.3) : 0;
-  const profit = isClashSquad ? perPlayerPrize - stake : 0;
+  const isClashSquad = ["ff-cs-bermuda", "ff-cs-kalahari", "ff-cs-purgatory"].includes(tournament?.id ?? "");
+  const isBattleRoyale = tournament?.id === "ff-br";
+
+  const BR_MODE_DATA = {
+    solo:  { fee: 50,  prize: 500,  label: "Solo",  emoji: "🎯", players: "1 player" },
+    duo:   { fee: 70,  prize: 750,  label: "Duo",   emoji: "🤝", players: "Per team · 2 players" },
+    squad: { fee: 100, prize: 1000, label: "Squad", emoji: "⚔️", players: "Per team · 4 players" },
+  } as const;
+
+  const effectiveEntryFee = isClashSquad ? stake : isBattleRoyale ? BR_MODE_DATA[brMode].fee : (tournament?.entry_fee ?? 0);
+  const brPrize = isBattleRoyale ? BR_MODE_DATA[brMode].prize : 0;
+
+  const totalPot = stake * 8;
+  const winnerPerPlayer = Math.round(stake * 1.8);
+  const platformCut = Math.round(stake * 8 * 0.1);
+  const profit = Math.round(stake * 0.8);
 
   const STAKE_PRESETS = [100, 250, 500, 750, 1000];
 
@@ -168,9 +178,10 @@ export default function TournamentDetailPage() {
                 <h1 className="font-display font-black text-2xl md:text-3xl text-white leading-tight">{tournament.title}</h1>
               </div>
               <div className="text-right">
-                <p className="text-xs text-slate-400 font-heading">{isClashSquad ? "WINNING TEAM PRIZE" : "PRIZE POOL"}</p>
-                <p className="font-display font-black text-2xl gradient-text-gold">{isClashSquad ? formatCurrency(winnerTeamPrize) : formatCurrency(tournament.prize_pool)}</p>
-                {isClashSquad && <p className="text-xs text-cyan-400 font-heading">₹{perPlayerPrize} per player</p>}
+                <p className="text-xs text-slate-400 font-heading">{isClashSquad ? "WIN PER PLAYER" : isBattleRoyale ? "TOP PRIZE" : "PRIZE POOL"}</p>
+                <p className="font-display font-black text-2xl gradient-text-gold">{isClashSquad ? formatCurrency(winnerPerPlayer) : formatCurrency(tournament.prize_pool)}</p>
+                {isClashSquad && <p className="text-xs text-cyan-400 font-heading">on ₹{stake} stake · 1.8×</p>}
+                {isBattleRoyale && <p className="text-xs text-cyan-400 font-heading">Solo ₹500 · Duo ₹750 · Squad ₹1K</p>}
               </div>
             </div>
           </div>
@@ -178,7 +189,7 @@ export default function TournamentDetailPage() {
           {/* Stats row */}
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-purple/15">
             {[
-              { icon: <Wallet className="w-4 h-4 text-yellow-400" />, label: isClashSquad ? "Your Stake" : "Entry Fee", value: `₹${effectiveEntryFee}`, color: "text-yellow-400" },
+              { icon: <Wallet className="w-4 h-4 text-yellow-400" />, label: isClashSquad ? "Your Stake" : isBattleRoyale ? "Entry Fee" : "Entry Fee", value: `₹${effectiveEntryFee}`, color: "text-yellow-400" },
               { icon: <Users className="w-4 h-4 text-cyan-400" />, label: "Slots Left", value: isFull ? "FULL" : `${slotsLeft}/${tournament.max_slots}`, color: isFull ? "text-red-400" : "text-cyan-400" },
               { icon: <Map className="w-4 h-4 text-purple-400" />, label: "Map", value: tournament.map_name ?? "TBA", color: "text-purple-400" },
               { icon: <Clock className="w-4 h-4 text-slate-400" />, label: isLive ? "Status" : "Starts In", value: isLive ? "LIVE" : isCompleted ? "ENDED" : timeLeft, color: isLive ? "text-red-400" : "text-slate-300" },
@@ -522,8 +533,8 @@ export default function TournamentDetailPage() {
                         {[
                           { label: "Your Stake", value: `₹${stake}`, color: "text-white" },
                           { label: "Total Pot (8 players)", value: `₹${totalPot}`, color: "text-slate-300" },
-                          { label: "Platform Fee (30%)", value: `-₹${platformCut}`, color: "text-red-400" },
-                          { label: "Winning Team Prize", value: `₹${winnerTeamPrize}`, color: "text-green-400" },
+                          { label: "Platform Fee (10%)", value: `-₹${platformCut}`, color: "text-red-400" },
+                          { label: "You Win (if winner)", value: `₹${winnerPerPlayer}`, color: "text-green-400" },
                         ].map((row) => (
                           <div key={row.label} className="flex justify-between text-xs py-0.5 border-b border-white/5 last:border-0">
                             <span className="text-slate-500 font-heading">{row.label}</span>
@@ -533,7 +544,7 @@ export default function TournamentDetailPage() {
                         <div className="pt-1.5 flex items-center justify-between">
                           <span className="text-xs font-heading font-bold text-slate-300">Your prize if you win</span>
                           <div className="text-right">
-                            <span className="font-display font-black text-base text-amber-400">₹{perPlayerPrize}</span>
+                            <span className="font-display font-black text-base text-amber-400">₹{winnerPerPlayer}</span>
                             <span className="ml-1.5 text-xs font-heading text-green-400">+₹{profit} profit</span>
                           </div>
                         </div>
@@ -541,13 +552,64 @@ export default function TournamentDetailPage() {
 
                       <div className="flex items-center gap-1.5 mt-2.5 text-xs text-slate-500 font-heading">
                         <TrendingUp className="w-3.5 h-3.5 text-green-400" />
-                        Win 70% of double the pot — your stake × {(perPlayerPrize / stake).toFixed(1)}x return
+                        Win 1.8× your stake — guaranteed if your team wins
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Battle Royale mode selector */}
+                  {isBattleRoyale && (
+                    <div className="mb-5">
+                      <p className="text-xs text-slate-500 font-heading uppercase tracking-widest mb-3">Choose Your Mode</p>
+                      <div className="grid grid-cols-3 gap-2 mb-4">
+                        {(["solo", "duo", "squad"] as const).map((mode) => {
+                          const m = BR_MODE_DATA[mode];
+                          const isActive = brMode === mode;
+                          return (
+                            <button
+                              key={mode}
+                              onClick={() => setBrMode(mode)}
+                              className={cn(
+                                "flex flex-col items-center gap-1 py-3 px-2 rounded-xl border transition-all",
+                                isActive
+                                  ? "bg-orange-500/20 border-orange-500/60 text-orange-300"
+                                  : "border-white/10 text-slate-400 hover:border-orange-500/30 hover:text-slate-200"
+                              )}
+                            >
+                              <span className="text-lg">{m.emoji}</span>
+                              <span className="font-display font-black text-sm">{m.label}</span>
+                              <span className="text-[10px] font-heading text-slate-500 leading-tight text-center">{m.players}</span>
+                              <span className={cn("font-display font-bold text-xs mt-0.5", isActive ? "text-yellow-400" : "text-slate-500")}>₹{m.fee}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                      {/* BR fee/prize summary */}
+                      <div className="bg-black/30 rounded-xl p-3 border border-orange-500/20 space-y-2 mb-2">
+                        <p className="text-xs font-heading font-bold text-orange-400 mb-2 uppercase tracking-widest">
+                          {BR_MODE_DATA[brMode].label} Mode Summary
+                        </p>
+                        {[
+                          { label: "Entry Fee", value: `₹${BR_MODE_DATA[brMode].fee}`, color: "text-yellow-400" },
+                          { label: "Prize if you win", value: `₹${BR_MODE_DATA[brMode].prize}`, color: "text-green-400" },
+                          { label: "Your Balance", value: `₹${balance.toLocaleString()}`, color: BR_MODE_DATA[brMode].fee > balance ? "text-red-400" : "text-white" },
+                          { label: "Slots Left", value: isFull ? "FULL" : `${slotsLeft} left`, color: isFull ? "text-red-400" : "text-cyan-400" },
+                        ].map((row) => (
+                          <div key={row.label} className="flex justify-between text-xs py-0.5 border-b border-white/5 last:border-0">
+                            <span className="text-slate-500 font-heading">{row.label}</span>
+                            <span className={cn("font-display font-bold", row.color)}>{row.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="flex items-center gap-1.5 text-xs text-slate-500 font-heading">
+                        <TrendingUp className="w-3.5 h-3.5 text-green-400" />
+                        Random map selected before each match
                       </div>
                     </div>
                   )}
 
                   {/* Standard fee summary */}
-                  {!isClashSquad && (
+                  {!isClashSquad && !isBattleRoyale && (
                     <div className="space-y-2 mb-5">
                       {[
                         { label: "Entry Fee", value: `₹${tournament.entry_fee}`, highlight: true },
@@ -816,6 +878,8 @@ export default function TournamentDetailPage() {
                           ? "bg-gradient-to-r from-cyan-600 to-teal-500 hover:from-cyan-500 hover:to-teal-400 text-white shadow-lg shadow-cyan-900/30 transition-all"
                           : isClashSquad
                           ? "bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white shadow-lg shadow-orange-900/30 transition-all"
+                          : isBattleRoyale
+                          ? "bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-500 hover:to-orange-400 text-white shadow-lg shadow-red-900/30 transition-all"
                           : "btn-primary"
                       )}
                     >
@@ -826,11 +890,13 @@ export default function TournamentDetailPage() {
                         </span>
                       ) : (
                         <span className="relative z-10 flex items-center gap-2">
-                          {isClashSquad && playMode === "squad" ? <Users className="w-4 h-4" /> : isClashSquad ? <Zap className="w-4 h-4" /> : <Swords className="w-4 h-4" />}
+                              {isClashSquad && playMode === "squad" ? <Users className="w-4 h-4" /> : isClashSquad ? <Zap className="w-4 h-4" /> : isBattleRoyale ? <span className="text-base">{BR_MODE_DATA[brMode].emoji}</span> : <Swords className="w-4 h-4" />}
                           {isClashSquad && playMode === "squad"
                             ? `REGISTER SQUAD · ₹${stake} × 4`
                             : isClashSquad
-                            ? `STAKE ₹${stake} · WIN ₹${perPlayerPrize}`
+                            ? `STAKE ₹${stake} · WIN ₹${winnerPerPlayer}`
+                            : isBattleRoyale
+                            ? `JOIN ${BR_MODE_DATA[brMode].label.toUpperCase()} · ₹${BR_MODE_DATA[brMode].fee}`
                             : `JOIN FOR ₹${tournament.entry_fee}`}
                         </span>
                       )}
