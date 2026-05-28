@@ -2241,6 +2241,16 @@
     background-color: var(--color-purple-400);
   }
 
+  .bg-purple-500\/10 {
+    background-color: #ac4bff1a;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-purple-500\/10 {
+      background-color: color-mix(in oklab, var(--color-purple-500) 10%, transparent);
+    }
+  }
+
   .bg-purple-500\/20 {
     background-color: #ac4bff33;
   }
@@ -2282,6 +2292,16 @@
   @supports (color: color-mix(in lab, red, red)) {
     .bg-purple-600\/80 {
       background-color: color-mix(in oklab, var(--color-purple-600) 80%, transparent);
+    }
+  }
+
+  .bg-purple-900\/10 {
+    background-color: #59168b1a;
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-purple-900\/10 {
+      background-color: color-mix(in oklab, var(--color-purple-900) 10%, transparent);
     }
   }
 
@@ -3084,6 +3104,10 @@
     object-fit: cover;
   }
 
+  .p-0 {
+    padding: calc(var(--spacing) * 0);
+  }
+
   .p-1 {
     padding: calc(var(--spacing) * 1);
   }
@@ -3230,6 +3254,10 @@
 
   .pt-1\.5 {
     padding-top: calc(var(--spacing) * 1.5);
+  }
+
+  .pt-2 {
+    padding-top: calc(var(--spacing) * 2);
   }
 
   .pt-3 {
@@ -4473,6 +4501,12 @@
   @media (width >= 40rem) {
     .sm\:block {
       display: block;
+    }
+  }
+
+  @media (width >= 40rem) {
+    .sm\:inline {
+      display: inline;
     }
   }
 

@@ -203,6 +203,8 @@ function OverviewTab() {
 }
 
 function TournamentsTab() {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -225,32 +227,97 @@ function TournamentsTab() {
             </tr>
           </thead>
           <tbody>
-            {MOCK_TOURNAMENTS.map((t) => (
-              <tr key={t.id} className="group">
-                <td className="font-heading font-semibold text-white text-sm">{t.title}</td>
-                <td className="hidden sm:table-cell text-slate-400 text-sm font-heading">{t.game}</td>
-                <td className="hidden md:table-cell text-right font-display font-bold text-yellow-400 text-xs">{formatCurrency(t.prize_pool)}</td>
-                <td className="hidden md:table-cell text-right text-xs font-heading text-slate-300">{t.filled_slots}/{t.max_slots}</td>
-                <td className="text-center">
-                  <span className={cn("text-xs font-heading font-bold border rounded-full px-2 py-0.5", `status-${t.status}`)}>
-                    {t.status.toUpperCase()}
-                  </span>
-                </td>
-                <td className="text-center">
-                  <div className="flex items-center justify-center gap-1">
-                    <button className="w-7 h-7 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-cyan-400 hover:border-cyan-500/30 transition-colors">
-                      <Eye className="w-3.5 h-3.5" />
-                    </button>
-                    <button className="w-7 h-7 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-purple-400 hover:border-purple/30 transition-colors">
-                      <Edit className="w-3.5 h-3.5" />
-                    </button>
-                    <button className="w-7 h-7 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-red-400 hover:border-red-500/30 transition-colors">
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {MOCK_TOURNAMENTS.map((t) => {
+              const tRegs = MOCK_REGISTRATIONS.filter((r) => r.tournament_id === t.id);
+              const isExpanded = expandedId === t.id;
+              return (
+                <>
+                  <tr key={t.id} className={cn("group transition-colors", isExpanded && "bg-purple-900/10")}>
+                    <td className="font-heading font-semibold text-white text-sm">{t.title}</td>
+                    <td className="hidden sm:table-cell text-slate-400 text-sm font-heading">{t.game}</td>
+                    <td className="hidden md:table-cell text-right font-display font-bold text-yellow-400 text-xs">{formatCurrency(t.prize_pool)}</td>
+                    <td className="hidden md:table-cell text-right text-xs font-heading text-slate-300">{t.filled_slots}/{t.max_slots}</td>
+                    <td className="text-center">
+                      <span className={cn("text-xs font-heading font-bold border rounded-full px-2 py-0.5", `status-${t.status}`)}>
+                        {t.status.toUpperCase()}
+                      </span>
+                    </td>
+                    <td className="text-center">
+                      <div className="flex items-center justify-center gap-1">
+                        <button
+                          onClick={() => setExpandedId(isExpanded ? null : t.id)}
+                          className={cn(
+                            "flex items-center gap-1 px-2.5 py-1 rounded-lg border text-xs font-heading font-bold transition-all",
+                            isExpanded
+                              ? "border-purple-500/50 text-purple-400 bg-purple-500/10"
+                              : "border-white/10 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/30"
+                          )}
+                        >
+                          <Users className="w-3 h-3" />
+                          <span className="hidden sm:inline">{tRegs.length}</span>
+                          {isExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                        </button>
+                        <button className="w-7 h-7 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-purple-400 hover:border-purple/30 transition-colors">
+                          <Edit className="w-3.5 h-3.5" />
+                        </button>
+                        <button className="w-7 h-7 rounded-lg border border-white/10 flex items-center justify-center text-slate-400 hover:text-red-400 hover:border-red-500/30 transition-colors">
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  {isExpanded && (
+                    <tr key={`${t.id}-regs`}>
+                      <td colSpan={6} className="p-0">
+                        <AnimatePresence>
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="overflow-hidden"
+                          >
+                            <div className="px-4 pb-4 pt-2 bg-black/20 border-t border-purple/10">
+                              <div className="flex items-center justify-between mb-3">
+                                <p className="font-heading font-bold text-xs text-purple-400 uppercase tracking-widest flex items-center gap-2">
+                                  <Users className="w-3.5 h-3.5" /> Registered Players ({tRegs.length})
+                                </p>
+                                {tRegs.length > 0 && (
+                                  <span className="text-xs font-heading text-slate-500">
+                                    Fees collected: <span className="text-yellow-400 font-bold">{formatCurrency(tRegs.reduce((s, r) => s + r.fee_paid, 0))}</span>
+                                  </span>
+                                )}
+                              </div>
+                              {tRegs.length === 0 ? (
+                                <p className="text-slate-500 font-heading text-xs text-center py-4">No registrations yet</p>
+                              ) : (
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                                  {tRegs.map((r, i) => (
+                                    <div key={r.id} className="flex items-center gap-2.5 p-2.5 rounded-xl bg-black/30 border border-white/5">
+                                      <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-purple-700 to-cyan-700 flex items-center justify-center font-display font-bold text-xs text-white flex-shrink-0">
+                                        {i + 1}
+                                      </div>
+                                      <div className="min-w-0 flex-1">
+                                        <p className="text-xs text-white font-heading font-semibold truncate">{r.username}</p>
+                                        <p className="text-[10px] text-slate-500 font-mono truncate">{r.game_uid}</p>
+                                      </div>
+                                      <div className="text-right flex-shrink-0">
+                                        <p className="text-xs font-display font-bold text-yellow-400">{formatCurrency(r.fee_paid)}</p>
+                                        <p className="text-[10px] text-green-400 font-heading">{r.payment_status}</p>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </motion.div>
+                        </AnimatePresence>
+                      </td>
+                    </tr>
+                  )}
+                </>
+              );
+            })}
           </tbody>
         </table>
       </div>
