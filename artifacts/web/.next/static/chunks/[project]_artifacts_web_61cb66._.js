@@ -1118,7 +1118,7 @@ function GamesSection() {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto lg:max-w-none lg:grid-cols-3",
                         children: GAMES.map((game, i)=>{
-                            const isHovered = hoveredId === game.id && !game.comingSoon;
+                            const isHovered = hoveredId === game.id;
                             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$next$40$15$2e$1$2e$8_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f$framer$2d$motion$40$12$2e$38$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
                                 initial: {
                                     opacity: 0,
@@ -1135,9 +1135,9 @@ function GamesSection() {
                                     duration: 0.5,
                                     delay: i * 0.1
                                 },
-                                onMouseEnter: ()=>!game.comingSoon && setHoveredId(game.id),
+                                onMouseEnter: ()=>setHoveredId(game.id),
                                 onMouseLeave: ()=>setHoveredId(null),
-                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("relative rounded-2xl border p-6 overflow-hidden transition-all duration-300", game.border, game.comingSoon ? "cursor-default opacity-60 grayscale-[40%]" : "cursor-pointer", isHovered ? "scale-[1.04] shadow-2xl" : "scale-100"),
+                                className: (0, __TURBOPACK__imported__module__$5b$project$5d2f$artifacts$2f$web$2f$lib$2f$utils$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["cn"])("relative rounded-2xl border p-6 overflow-hidden transition-all duration-300", game.border, game.comingSoon ? "cursor-default" : "cursor-pointer", isHovered ? "scale-[1.04] shadow-2xl" : "scale-100"),
                                 style: {
                                     background: isHovered ? `linear-gradient(135deg, rgba(5,5,8,0.9) 0%, ${game.color}22 100%)` : "linear-gradient(135deg, rgba(15,15,30,0.9) 0%, rgba(10,10,20,0.95) 100%)",
                                     boxShadow: isHovered ? `0 0 40px ${game.glow.replace("0.6", "0.3")}, 0 20px 40px rgba(0,0,0,0.5)` : undefined,

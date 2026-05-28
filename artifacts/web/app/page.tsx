@@ -260,7 +260,7 @@ function GamesSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto lg:max-w-none lg:grid-cols-3">
           {GAMES.map((game, i) => {
-            const isHovered = hoveredId === game.id && !game.comingSoon;
+            const isHovered = hoveredId === game.id;
             return (
               <motion.div
                 key={game.id}
@@ -268,12 +268,12 @@ function GamesSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                onMouseEnter={() => !game.comingSoon && setHoveredId(game.id)}
+                onMouseEnter={() => setHoveredId(game.id)}
                 onMouseLeave={() => setHoveredId(null)}
                 className={cn(
                   "relative rounded-2xl border p-6 overflow-hidden transition-all duration-300",
                   game.border,
-                  game.comingSoon ? "cursor-default opacity-60 grayscale-[40%]" : "cursor-pointer",
+                  game.comingSoon ? "cursor-default" : "cursor-pointer",
                   isHovered ? "scale-[1.04] shadow-2xl" : "scale-100",
                 )}
                 style={{
