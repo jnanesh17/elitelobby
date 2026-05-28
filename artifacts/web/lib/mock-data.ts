@@ -1,3 +1,8 @@
+// Fixed base time — using a stable reference so SSR and client hydration produce
+// identical date strings and avoid React hydration mismatches.
+const _BASE = new Date("2026-05-28T20:00:00.000Z").getTime();
+const _T = (offsetMs: number) => new Date(_BASE + offsetMs).toISOString();
+
 export const MOCK_TOURNAMENTS = [
   {
     id: "t1",
@@ -8,7 +13,7 @@ export const MOCK_TOURNAMENTS = [
     prize_pool: 5000,
     max_slots: 25,
     filled_slots: 18,
-    match_time: new Date(Date.now() + 2 * 3600000).toISOString(),
+    match_time: _T(2 * 3600000),
     map_name: "Bermuda",
     status: "upcoming",
     banner_url: null,
@@ -23,7 +28,7 @@ export const MOCK_TOURNAMENTS = [
     prize_pool: 8000,
     max_slots: 48,
     filled_slots: 48,
-    match_time: new Date(Date.now() + 30 * 60000).toISOString(),
+    match_time: _T(30 * 60000),
     map_name: "Bermuda",
     status: "live",
     banner_url: null,
@@ -38,7 +43,7 @@ export const MOCK_TOURNAMENTS = [
     prize_pool: 6000,
     max_slots: 24,
     filled_slots: 16,
-    match_time: new Date(Date.now() + 6 * 3600000).toISOString(),
+    match_time: _T(6 * 3600000),
     map_name: "Kalahari",
     status: "upcoming",
     banner_url: null,
@@ -53,7 +58,7 @@ export const MOCK_TOURNAMENTS = [
     prize_pool: 10000,
     max_slots: 16,
     filled_slots: 6,
-    match_time: new Date(Date.now() + 4 * 3600000).toISOString(),
+    match_time: _T(4 * 3600000),
     map_name: "Bermuda",
     status: "upcoming",
     banner_url: null,
@@ -68,7 +73,7 @@ export const MOCK_TOURNAMENTS = [
     prize_pool: 12000,
     max_slots: 25,
     filled_slots: 25,
-    match_time: new Date(Date.now() - 3600000).toISOString(),
+    match_time: _T(-3600000),
     map_name: "Purgatory",
     status: "completed",
     banner_url: null,
@@ -83,7 +88,7 @@ export const MOCK_TOURNAMENTS = [
     prize_pool: 3000,
     max_slots: 48,
     filled_slots: 22,
-    match_time: new Date(Date.now() + 12 * 3600000).toISOString(),
+    match_time: _T(12 * 3600000),
     map_name: "Purgatory",
     status: "upcoming",
     banner_url: null,
