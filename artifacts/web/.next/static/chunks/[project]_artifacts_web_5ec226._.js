@@ -1841,6 +1841,8 @@ var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_
 // Fixed base time — using a stable reference so SSR and client hydration produce
 // identical date strings and avoid React hydration mismatches.
 __turbopack_esm__({
+    "MOCK_BGMI_TOURNAMENTS": (()=>MOCK_BGMI_TOURNAMENTS),
+    "MOCK_COD_TOURNAMENTS": (()=>MOCK_COD_TOURNAMENTS),
     "MOCK_LEADERBOARD": (()=>MOCK_LEADERBOARD),
     "MOCK_NOTIFICATIONS": (()=>MOCK_NOTIFICATIONS),
     "MOCK_RECENT_WINNERS": (()=>MOCK_RECENT_WINNERS),
@@ -1942,6 +1944,100 @@ const MOCK_TOURNAMENTS = [
         status: "upcoming",
         banner_url: null,
         rules: "Solo survival. Most kills win."
+    }
+];
+const MOCK_BGMI_TOURNAMENTS = [
+    {
+        id: "bgmi-t1",
+        title: "BGMI Pro League Season 1",
+        game: "BGMI",
+        game_mode: "Squad",
+        entry_fee: 100,
+        prize_pool: 15000,
+        max_slots: 25,
+        filled_slots: 0,
+        match_time: new Date(Date.now() + 7 * 24 * 3600000).toISOString(),
+        map_name: "Erangel",
+        status: "upcoming",
+        banner_url: null,
+        rules: "Standard BGMI tournament rules."
+    },
+    {
+        id: "bgmi-t2",
+        title: "BGMI Solo Ranked Cup",
+        game: "BGMI",
+        game_mode: "Solo",
+        entry_fee: 50,
+        prize_pool: 8000,
+        max_slots: 48,
+        filled_slots: 0,
+        match_time: new Date(Date.now() + 10 * 24 * 3600000).toISOString(),
+        map_name: "Miramar",
+        status: "upcoming",
+        banner_url: null,
+        rules: "Solo survival. Top 5 win prizes."
+    },
+    {
+        id: "bgmi-t3",
+        title: "BGMI Duo Clash",
+        game: "BGMI",
+        game_mode: "Duo",
+        entry_fee: 80,
+        prize_pool: 10000,
+        max_slots: 24,
+        filled_slots: 0,
+        match_time: new Date(Date.now() + 14 * 24 * 3600000).toISOString(),
+        map_name: "Vikendi",
+        status: "upcoming",
+        banner_url: null,
+        rules: "Duo format. Most placement + kills wins."
+    }
+];
+const MOCK_COD_TOURNAMENTS = [
+    {
+        id: "cod-t1",
+        title: "COD Mobile Battle Royale",
+        game: "COD Mobile",
+        game_mode: "Squad",
+        entry_fee: 120,
+        prize_pool: 20000,
+        max_slots: 25,
+        filled_slots: 0,
+        match_time: new Date(Date.now() + 7 * 24 * 3600000).toISOString(),
+        map_name: "Isolated",
+        status: "upcoming",
+        banner_url: null,
+        rules: "Standard COD Mobile BR rules."
+    },
+    {
+        id: "cod-t2",
+        title: "COD Mobile Multiplayer Cup",
+        game: "COD Mobile",
+        game_mode: "Squad",
+        entry_fee: 75,
+        prize_pool: 12000,
+        max_slots: 16,
+        filled_slots: 0,
+        match_time: new Date(Date.now() + 12 * 24 * 3600000).toISOString(),
+        map_name: "Nuketown",
+        status: "upcoming",
+        banner_url: null,
+        rules: "5v5 multiplayer format. Best of 3."
+    },
+    {
+        id: "cod-t3",
+        title: "COD Mobile Solo Ranked",
+        game: "COD Mobile",
+        game_mode: "Solo",
+        entry_fee: 50,
+        prize_pool: 6000,
+        max_slots: 32,
+        filled_slots: 0,
+        match_time: new Date(Date.now() + 9 * 24 * 3600000).toISOString(),
+        map_name: "Crash",
+        status: "upcoming",
+        banner_url: null,
+        rules: "Solo ranked format. Top 3 win prizes."
     }
 ];
 const MOCK_LEADERBOARD = [
