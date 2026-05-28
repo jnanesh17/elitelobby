@@ -23,7 +23,7 @@ export default function TournamentDetailPage() {
   const [registering, setRegistering] = useState(false);
   const [showRoom, setShowRoom] = useState(false);
   const [copiedField, setCopiedField] = useState<"id" | "pass" | null>(null);
-  const [activeTab, setActiveTab] = useState<"info" | "rules" | "participants">("info");
+  const [activeTab, setActiveTab] = useState<"rules" | "participants">("rules");
   const [stake, setStake] = useState(100);
   const [brMode, setBrMode] = useState<"solo" | "duo" | "squad">("solo");
 
@@ -209,13 +209,12 @@ export default function TournamentDetailPage() {
             <div className="glass-card rounded-2xl overflow-hidden">
               <div className="flex border-b border-purple/15">
                 {[
-                  { key: "info", label: "Match Info" },
                   { key: "rules", label: "Rules" },
                   { key: "participants", label: `Participants (${participants.length})` },
                 ].map((tab) => (
                   <button
                     key={tab.key}
-                    onClick={() => setActiveTab(tab.key as "info" | "rules" | "participants")}
+                    onClick={() => setActiveTab(tab.key as "rules" | "participants")}
                     className={cn(
                       "flex-1 py-3.5 font-heading font-bold text-sm tracking-wide transition-all border-b-2",
                       activeTab === tab.key
@@ -229,33 +228,6 @@ export default function TournamentDetailPage() {
               </div>
 
               <div className="p-6">
-                {activeTab === "info" && (
-                  <div className="space-y-5">
-                    <div>
-                      <h4 className="font-heading font-bold text-white mb-3 text-sm uppercase tracking-wider">Prize Distribution</h4>
-                      <div className="space-y-2">
-                        {prizeDist.map((p) => (
-                          <div key={p.pos} className="flex items-center justify-between p-3 bg-black/20 rounded-xl border border-white/5">
-                            <div className="flex items-center gap-3">
-                              <span className="text-xl">{p.icon}</span>
-                              <span className="font-heading font-semibold text-slate-300 text-sm">{p.pos}</span>
-                            </div>
-                            <span className={cn("font-display font-black text-base", p.color)}>{formatCurrency(p.prize)}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <h4 className="font-heading font-bold text-white mb-2 text-sm uppercase tracking-wider">Schedule</h4>
-                      <div className="p-3 bg-black/20 rounded-xl border border-white/5">
-                        <p className="text-slate-300 text-sm font-heading">
-                          {format(parseISO(tournament.match_time), "EEEE, MMMM d, yyyy • h:mm a")}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
                 {activeTab === "rules" && (
                   <div className="prose prose-invert prose-sm max-w-none">
                     <p className="text-slate-300 leading-relaxed text-sm mb-4">{tournament.rules}</p>
