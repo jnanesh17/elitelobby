@@ -71,7 +71,9 @@ export function Footer() {
                 Join 50,000+ players on our Discord server
               </p>
               <a
-                href="#"
+                href="https://discord.gg/aH2mEAj5"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary w-full py-2 rounded-lg text-sm text-center block relative"
               >
                 <span className="relative z-10">Join Discord</span>

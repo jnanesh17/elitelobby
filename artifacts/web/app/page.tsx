@@ -630,7 +630,7 @@ function DiscordCTA() {
             Get match announcements, room IDs, tips from pro players, and real-time tournament updates. 50,000+ members and growing.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#" className="btn-primary relative px-8 py-3.5 rounded-xl text-sm font-heading font-bold tracking-wider inline-flex items-center gap-2 justify-center">
+            <a href="https://discord.gg/aH2mEAj5" target="_blank" rel="noopener noreferrer" className="btn-primary relative px-8 py-3.5 rounded-xl text-sm font-heading font-bold tracking-wider inline-flex items-center gap-2 justify-center">
               <MessageCircle className="w-4 h-4 relative z-10" />
               <span className="relative z-10">JOIN DISCORD — FREE</span>
             </a>

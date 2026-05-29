@@ -67,7 +67,7 @@ export default function SupportPage() {
         {/* Quick links */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           {[
-            { icon: <MessageCircle className="w-6 h-6" />, label: "Discord Support", sub: "Fastest response", color: "text-indigo-400", onClick: undefined, href: "#" },
+            { icon: <MessageCircle className="w-6 h-6" />, label: "Discord Support", sub: "Fastest response", color: "text-indigo-400", onClick: () => window.open("https://discord.gg/aH2mEAj5", "_blank"), href: undefined },
             { icon: <Mail className="w-6 h-6" />, label: "Email Us", sub: "elitelobbycare@gmail.com", color: "text-cyan-400", onClick: () => window.open("mailto:elitelobbycare@gmail.com", "_blank"), href: undefined },
             { icon: <Shield className="w-6 h-6" />, label: "Submit Ticket", sub: "Within 2 hours", color: "text-purple-400", onClick: () => setActiveTab("ticket"), href: undefined },
             { icon: <AlertTriangle className="w-6 h-6" />, label: "Report Player", sub: "Anti-cheat team", color: "text-red-400", onClick: () => setActiveTab("report"), href: undefined },
