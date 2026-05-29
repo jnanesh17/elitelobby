@@ -1,11 +1,3 @@
 {
-  "/page": "app/page.js",
-  "/tournaments/page": "app/tournaments/page.js",
-  "/auth/login/[[...login]]/page": "app/auth/login/[[...login]]/page.js",
-  "/wallet/page": "app/wallet/page.js",
-  "/wallet/deposit/page": "app/wallet/deposit/page.js",
-  "/wallet/withdraw/page": "app/wallet/withdraw/page.js",
-  "/tournaments/[id]/page": "app/tournaments/[id]/page.js",
-  "/auth/signup/[[...signup]]/page": "app/auth/signup/[[...signup]]/page.js",
-  "/dashboard/page": "app/dashboard/page.js"
+  "/page": "app/page.js"
 }

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MessageCircle, HelpCircle, ChevronDown, ChevronUp, Send, AlertTriangle, Shield, Zap } from "lucide-react";
+import { MessageCircle, HelpCircle, ChevronDown, ChevronUp, Send, AlertTriangle, Shield, Zap, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const FAQS = [
@@ -65,19 +65,35 @@ export default function SupportPage() {
         </motion.div>
 
         {/* Quick links */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           {[
-            { icon: <MessageCircle className="w-6 h-6" />, label: "Discord Support", sub: "Fastest response", color: "text-indigo-400", href: "#" },
-            { icon: <Shield className="w-6 h-6" />, label: "Submit Ticket", sub: "Within 2 hours", color: "text-purple-400", onClick: () => setActiveTab("ticket") },
-            { icon: <AlertTriangle className="w-6 h-6" />, label: "Report Player", sub: "Anti-cheat team", color: "text-red-400", onClick: () => setActiveTab("report") },
+            { icon: <MessageCircle className="w-6 h-6" />, label: "Discord Support", sub: "Fastest response", color: "text-indigo-400", onClick: undefined, href: "#" },
+            { icon: <Mail className="w-6 h-6" />, label: "Email Us", sub: "elitelobbycare@gmail.com", color: "text-cyan-400", onClick: () => window.open("mailto:elitelobbycare@gmail.com", "_blank"), href: undefined },
+            { icon: <Shield className="w-6 h-6" />, label: "Submit Ticket", sub: "Within 2 hours", color: "text-purple-400", onClick: () => setActiveTab("ticket"), href: undefined },
+            { icon: <AlertTriangle className="w-6 h-6" />, label: "Report Player", sub: "Anti-cheat team", color: "text-red-400", onClick: () => setActiveTab("report"), href: undefined },
           ].map((item, i) => (
             <button key={i} onClick={item.onClick} className="glass-card rounded-xl p-5 text-left hover:border-purple/40 transition-all group">
               <div className={cn("mb-3", item.color)}>{item.icon}</div>
               <p className="font-heading font-bold text-white text-sm group-hover:text-purple-300 transition-colors">{item.label}</p>
-              <p className="text-xs text-slate-500 font-heading">{item.sub}</p>
+              <p className="text-xs text-slate-500 font-heading truncate">{item.sub}</p>
             </button>
           ))}
         </div>
+
+        {/* Email contact banner */}
+        <a
+          href="mailto:elitelobbycare@gmail.com"
+          className="flex items-center gap-4 glass-card rounded-xl px-5 py-4 mb-8 border border-cyan-500/20 hover:border-cyan-500/40 transition-all group"
+        >
+          <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-cyan-500/20 transition-colors">
+            <Mail className="w-5 h-5 text-cyan-400" />
+          </div>
+          <div className="min-w-0">
+            <p className="font-heading font-bold text-white text-sm">Player Care Email</p>
+            <p className="text-cyan-400 font-heading text-sm font-semibold truncate">elitelobbycare@gmail.com</p>
+          </div>
+          <p className="ml-auto text-xs text-slate-500 font-heading hidden sm:block flex-shrink-0">Tap to email →</p>
+        </a>
 
         {/* Tabs */}
         <div className="flex gap-1 bg-black/30 rounded-xl p-1 mb-6">
