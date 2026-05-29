@@ -1,11 +1,5 @@
 {
   "version": 2,
   "installCommand": "corepack pnpm install",
-  "buildCommand": "corepack pnpm --dir artifacts/web run build",
-  "builds": [
-    {
-      "src": "artifacts/web/package.json",
-      "use": "@vercel/next"
-    }
-  ]
+  "buildCommand": "corepack pnpm --dir artifacts/web run build"
 }
