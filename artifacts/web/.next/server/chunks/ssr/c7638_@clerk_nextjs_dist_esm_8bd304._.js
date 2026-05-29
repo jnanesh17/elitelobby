@@ -248,7 +248,7 @@ const CLERK_UI_VERSION = process.env.NEXT_PUBLIC_CLERK_UI_VERSION || "";
 const API_VERSION = process.env.CLERK_API_VERSION || "v1";
 const SECRET_KEY = process.env.CLERK_SECRET_KEY || "";
 const MACHINE_SECRET_KEY = process.env.CLERK_MACHINE_SECRET_KEY || "";
-const PUBLISHABLE_KEY = ("TURBOPACK compile-time value", "pk_test_Ym9zcy1oZXJtaXQtNjAuY2xlcmsuYWNjb3VudHMuZGV2JA") || "";
+const PUBLISHABLE_KEY = ("TURBOPACK compile-time value", "") || "";
 const ENCRYPTION_KEY = process.env.CLERK_ENCRYPTION_KEY || "";
 const API_URL = process.env.CLERK_API_URL || (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f2e$pnpm$2f40$clerk$2b$shared$40$4$2e$13$2e$0_react$2d$dom$40$19$2e$1$2e$0_react$40$19$2e$1$2e$0_$5f$react$40$19$2e$1$2e$0$2f$node_modules$2f40$clerk$2f$shared$2f$dist$2f$runtime$2f$apiUrlFromPublishableKey$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["apiUrlFromPublishableKey"])(PUBLISHABLE_KEY);
 const DOMAIN = process.env.NEXT_PUBLIC_CLERK_DOMAIN || "";
@@ -1358,7 +1358,7 @@ function getPrefetchUIFromEnvAndProps(propsPrefetchUI) {
 }
 const mergeNextClerkPropsWithEnv = (props)=>{
     var _a;
-    const publishableKey = props.publishableKey || ("TURBOPACK compile-time value", "pk_test_Ym9zcy1oZXJtaXQtNjAuY2xlcmsuYWNjb3VudHMuZGV2JA") || "";
+    const publishableKey = props.publishableKey || ("TURBOPACK compile-time value", "") || "";
     const proxyUrl = props.proxyUrl || process.env.NEXT_PUBLIC_CLERK_PROXY_URL || "";
     const domain = props.domain || process.env.NEXT_PUBLIC_CLERK_DOMAIN || "";
     return {

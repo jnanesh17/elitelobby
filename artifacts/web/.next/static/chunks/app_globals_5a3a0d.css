@@ -1258,11 +1258,11 @@
   }
 
   :where(.divide-purple\/5 > :not(:last-child)) {
-    border-color: oklab(54.1337% .0963843 -.226968 / .05);
+    border-color: oklab(54.1337% .0963843 -.226969 / .05);
   }
 
   :where(.divide-purple\/15 > :not(:last-child)) {
-    border-color: oklab(54.1337% .0963843 -.226968 / .15);
+    border-color: oklab(54.1337% .0963843 -.226969 / .15);
   }
 
   :where(.divide-white\/5 > :not(:last-child)) {
@@ -1483,7 +1483,7 @@
   }
 
   .border-cyan\/30 {
-    border-color: oklab(71.4837% -.102719 -.0725165 / .3);
+    border-color: oklab(71.4837% -.102719 -.0725164 / .3);
   }
 
   .border-green-500 {
@@ -1689,35 +1689,35 @@
   }
 
   .border-purple\/10 {
-    border-color: oklab(54.1337% .0963843 -.226968 / .1);
+    border-color: oklab(54.1337% .0963843 -.226969 / .1);
   }
 
   .border-purple\/15 {
-    border-color: oklab(54.1337% .0963843 -.226968 / .15);
+    border-color: oklab(54.1337% .0963843 -.226969 / .15);
   }
 
   .border-purple\/20 {
-    border-color: oklab(54.1337% .0963843 -.226968 / .2);
+    border-color: oklab(54.1337% .0963843 -.226969 / .2);
   }
 
   .border-purple\/25 {
-    border-color: oklab(54.1337% .0963843 -.226968 / .25);
+    border-color: oklab(54.1337% .0963843 -.226969 / .25);
   }
 
   .border-purple\/30 {
-    border-color: oklab(54.1337% .0963843 -.226968 / .3);
+    border-color: oklab(54.1337% .0963843 -.226969 / .3);
   }
 
   .border-purple\/40 {
-    border-color: oklab(54.1337% .0963843 -.226968 / .4);
+    border-color: oklab(54.1337% .0963843 -.226969 / .4);
   }
 
   .border-purple\/50 {
-    border-color: oklab(54.1337% .0963843 -.226968 / .5);
+    border-color: oklab(54.1337% .0963843 -.226969 / .5);
   }
 
   .border-purple\/60 {
-    border-color: oklab(54.1337% .0963843 -.226968 / .6);
+    border-color: oklab(54.1337% .0963843 -.226969 / .6);
   }
 
   .border-red-500\/15 {
@@ -2371,31 +2371,31 @@
   }
 
   .bg-purple\/3 {
-    background-color: oklab(54.1337% .0963843 -.226968 / .03);
+    background-color: oklab(54.1337% .0963843 -.226969 / .03);
   }
 
   .bg-purple\/5 {
-    background-color: oklab(54.1337% .0963843 -.226968 / .05);
+    background-color: oklab(54.1337% .0963843 -.226969 / .05);
   }
 
   .bg-purple\/8 {
-    background-color: oklab(54.1337% .0963843 -.226968 / .08);
+    background-color: oklab(54.1337% .0963843 -.226969 / .08);
   }
 
   .bg-purple\/10 {
-    background-color: oklab(54.1337% .0963843 -.226968 / .1);
+    background-color: oklab(54.1337% .0963843 -.226969 / .1);
   }
 
   .bg-purple\/15 {
-    background-color: oklab(54.1337% .0963843 -.226968 / .15);
+    background-color: oklab(54.1337% .0963843 -.226969 / .15);
   }
 
   .bg-purple\/20 {
-    background-color: oklab(54.1337% .0963843 -.226968 / .2);
+    background-color: oklab(54.1337% .0963843 -.226969 / .2);
   }
 
   .bg-purple\/30 {
-    background-color: oklab(54.1337% .0963843 -.226968 / .3);
+    background-color: oklab(54.1337% .0963843 -.226969 / .3);
   }
 
   .bg-red-500 {
@@ -4137,31 +4137,31 @@
 
   @media (hover: hover) {
     .hover\:border-purple\/20:hover {
-      border-color: oklab(54.1337% .0963843 -.226968 / .2);
+      border-color: oklab(54.1337% .0963843 -.226969 / .2);
     }
   }
 
   @media (hover: hover) {
     .hover\:border-purple\/30:hover {
-      border-color: oklab(54.1337% .0963843 -.226968 / .3);
+      border-color: oklab(54.1337% .0963843 -.226969 / .3);
     }
   }
 
   @media (hover: hover) {
     .hover\:border-purple\/40:hover {
-      border-color: oklab(54.1337% .0963843 -.226968 / .4);
+      border-color: oklab(54.1337% .0963843 -.226969 / .4);
     }
   }
 
   @media (hover: hover) {
     .hover\:border-purple\/50:hover {
-      border-color: oklab(54.1337% .0963843 -.226968 / .5);
+      border-color: oklab(54.1337% .0963843 -.226969 / .5);
     }
   }
 
   @media (hover: hover) {
     .hover\:border-purple\/60:hover {
-      border-color: oklab(54.1337% .0963843 -.226968 / .6);
+      border-color: oklab(54.1337% .0963843 -.226969 / .6);
     }
   }
 
@@ -4329,19 +4329,19 @@
 
   @media (hover: hover) {
     .hover\:bg-purple\/4:hover {
-      background-color: oklab(54.1337% .0963843 -.226968 / .04);
+      background-color: oklab(54.1337% .0963843 -.226969 / .04);
     }
   }
 
   @media (hover: hover) {
     .hover\:bg-purple\/5:hover {
-      background-color: oklab(54.1337% .0963843 -.226968 / .05);
+      background-color: oklab(54.1337% .0963843 -.226969 / .05);
     }
   }
 
   @media (hover: hover) {
     .hover\:bg-purple\/10:hover {
-      background-color: oklab(54.1337% .0963843 -.226968 / .1);
+      background-color: oklab(54.1337% .0963843 -.226969 / .1);
     }
   }
 
@@ -4580,7 +4580,7 @@
   }
 
   .focus\:border-purple\/40:focus {
-    border-color: oklab(54.1337% .0963843 -.226968 / .4);
+    border-color: oklab(54.1337% .0963843 -.226969 / .4);
   }
 
   .focus\:outline-none:focus {
