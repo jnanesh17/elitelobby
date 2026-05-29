@@ -7,6 +7,7 @@ import { NotificationToastContainer } from "@/components/ui/notification-toast";
 import { RoomIdProvider } from "@/lib/room-id-context";
 import { WalletProvider } from "@/lib/wallet-context";
 import { ClerkProvider } from "@clerk/nextjs";
+import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 
 export const metadata: Metadata = {
   title: "EliteLobby — Esports Tournament Platform",
@@ -43,6 +44,7 @@ export default function RootLayout({
                 </main>
                 <Footer />
                 <NotificationToastContainer />
+                <WhatsAppButton />
               </RoomIdProvider>
             </WalletProvider>
           </NotificationsProvider>
